@@ -19,3 +19,19 @@ On top of accessing their session history, the tutor can also view their upcomin
 ### Additional features (both or neither the tutor’s side or lecturer’s side):
 A tutor and/or a lecturer can see the payment history
 
+# Project struture
+[Link to the flask documentation file](https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/)
+## flaskr:
+  * __init__.py 
+    * Is the main file from which will be starting the app from
+  * auth.py 
+    * Is the file from which our login and register backend functionalities will be implented in for both lecturer and student.
+  * lecturer.py
+    * Is the file from which the backend functionality of the lecturer will be implemented.
+  * student.py
+    * Is the file from which the backend functionality of the student will be implemented.
+  ### static:
+    * style.css
+      * The styling for the frontend
+  ### templates: Contains the  html pages and folders with html pages for each use case in the project
+  
