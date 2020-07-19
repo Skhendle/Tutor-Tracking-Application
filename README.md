@@ -30,8 +30,17 @@ A tutor and/or a lecturer can see the payment history
     * Is the file from which the backend functionality of the lecturer will be implemented.
   * student.py
     * Is the file from which the backend functionality of the student will be implemented.
-  ### static:
+  ### static: Front-end
     * style.css
       * The styling for the frontend
-  ### templates: Contains the  html pages and folders with html pages for each use case in the project
-  
+  ### templates: Front-end 
+   Contains the  html pages and folders with html pages for each use case in the project
+   * auth
+    * login.html
+    * register.html
+   * lecturer
+    * main.html
+   * student
+    * main.html
+   * base.html
+   
