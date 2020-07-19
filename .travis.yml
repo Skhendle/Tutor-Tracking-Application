@@ -1,17 +1,12 @@
+dist: xenial
 language: python
 python:
- - "3.5"
+  - "3.7"
 cache: pip
 before_install:
  - pip install coveralls
 install:
  - pip install -r requirements.txt
-script:
- - python3 -m venv venv
- - . venv/bin/activate
- - ls
- - coverage run tests/test_auth.py
- - coverage run tests/test_lecturer.py
- - coverage run tests/test_students.py
+script: pytest
 after_success:
  - codecov
