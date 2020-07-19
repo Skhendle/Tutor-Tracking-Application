@@ -1,14 +1,14 @@
 language: python
 python:
-  - "3.5"
+ - "3.5"
 cache: pip
 before_install:
-  - pip install coveralls
+ - pip install coveralls
 install:
-  - pip install -r requirements.txt
-  script:
-    - coverage run tests/test_auth.py
-    - coverage run tests/test_lecturer.py
-    - coverage run tests/test_students.py
- after_success:
-  - codecov
+ - pip install -r requirements.txt
+script:
+ - coverage run tests/test_auth.py
+ - coverage run tests/test_lecturer.py
+ - coverage run tests/test_students.py
+after_success:
+ - codecov
