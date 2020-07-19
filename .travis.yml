@@ -8,6 +8,8 @@ install:
  - pip install -r requirements.txt
 script:
  - python3 -m venv venv
+ - . venv/bin/activate
+ - coverage run tests/test_auth.py
  - coverage run tests/test_lecturer.py
  - coverage run tests/test_students.py
 after_success:
