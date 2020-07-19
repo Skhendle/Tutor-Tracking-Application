@@ -1,5 +1,5 @@
 import pytest
-from flaskr import create_app
+from flaskr import __init__
 
 def test_max():
     val = 6
