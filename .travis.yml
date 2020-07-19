@@ -9,6 +9,7 @@ install:
 script:
  - python3 -m venv venv
  - . venv/bin/activate
+ - ls
  - coverage run tests/test_auth.py
  - coverage run tests/test_lecturer.py
  - coverage run tests/test_students.py
