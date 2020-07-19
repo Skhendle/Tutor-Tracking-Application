@@ -7,7 +7,7 @@ before_install:
 install:
  - pip install -r requirements.txt
 script:
- - coverage run tests/test_auth.py
+ - python3 -m venv venv
  - coverage run tests/test_lecturer.py
  - coverage run tests/test_students.py
 after_success:
