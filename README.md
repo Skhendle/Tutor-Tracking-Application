@@ -37,11 +37,11 @@ A tutor and/or a lecturer can see the payment history
   ### templates: Front-end 
    Contains the  html pages and folders with html pages for each use case in the project
    * auth
-    * login.html
-    * register.html
+     - login.html
+     - register.html
    * lecturer
-    * main.html
+     - main.html
    * student
-    * main.html
+     - main.html
    * base.html
    
