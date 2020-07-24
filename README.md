@@ -4,6 +4,17 @@
 # Tutor Tracking Application
 
 The tutor tracking website is an application to monitor tutor-related activity by lecturers mostly during tutorial sessions. The purpose of the application is to check tutor productivity.
+
+## Problem Statement
+A problem faced by many institutions of leaning is keeping track of their tutors. As a software development team we have realized that a tutor management system is needed to centralize the process of _**acquiring**_, _**tracking**_ and _**paying**_ tutors.
+
+## Scope of the problem
+
+Institutions need a website where a tutor can generate a unique QR code that a lecturer can scan. This automatically marks the tutor present for the tut session. The tutor should be able to view their attendance history. The system should be able to calculate the tutors pay for the current payment cycle.
+Only a lecturer should be able to create courses, and select tutors that are suitable to tutor a specific course. 
+If a student wants to tutor a course they must be able to apply using the website. 
+
+
 ## Features associated with the application:
 ### Lecturer’s side:
 The lecturer can login as an administrator, and create a tutorial session that tutors can join
