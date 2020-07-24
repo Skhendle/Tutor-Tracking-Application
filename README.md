@@ -3,7 +3,7 @@
 
 # Tutor Tracking Application
 
-The tutor tracking website is an application to monitor tutor-related activity by lecturers mostly during Wits labs. The purpose of the application is to check tutor productivity. The website will have a lecture side and a tutor side.
+The tutor tracking website is an application to monitor tutor-related activity by lecturers mostly during tutorial sessions. The purpose of the application is to check tutor productivity.
 ## Features associated with the application:
 ### Lecturer’s side:
 The lecturer can login as an administrator, and create a tutorial session that tutors can join
