@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <title>Tutor Tracker - Create Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+    <div class="w3-bar w3-black w3-padding">
+    <p class= "w3-text-yellow">Tutor Traker</p>
+    </div>
+
+      <!-- configuration for  pc  and tablets -->
+      <div class= "w3-center w3-row w3-hide-small" style="margin-top: 1%;">
+        <h2>Create your Lecturer Account</h2>
+          <br><br>
+
+        <form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;">
+          <p><label class= "w3-left">Username</label>
+            <input class="w3-input w3-border" name="Username" type="text"></p>
+
+          <p><label class= "w3-left">Email</label>
+            <input class="w3-input w3-border" name="Email" type="email"></p>
+
+          <p><label class= "w3-left">Employee Number</label>
+            <input class="w3-input w3-border" name="StudentNumber" type="text"></p>
+
+          <p><label class= "w3-left">Password</label>
+            <input class="w3-input w3-border" name="Password" type="password"></p>
+
+            <!--29 July 2020. THIS LINE WAS IN THE ORIGINAL CODE BY KENNETH. BUT HAS NOW BEEN COMMENTED OUT TO ACCOMODATE THE HOMEPAGE/LANDING PAGE -->
+            <!-- <p><input class="w3-input w3-button w3-hover-red  w3-green w3-border" name="Lecturersubmit" type="submit" value= "Create Account"></p> -->
+
+            <!--29 July 2020. This line is the new line of code. It adds a reference to the homepage after registration, and index page after cancellation.-->
+            <p><a class="w3-button w3-green w3-margin" href= "HomePage.html" style="width: 30%;">Create Account</a>
+                <a class="w3-button w3-red w3-margin" href= "index.html" style="width: 30%;">Cancel</a>
+            </p>
+            <!-- You need to make additions that link to the homepage here. After some button action-->
+            <!-- Missing: Check if the user details correspond with those in the database-->
+        </form>
+
+
+        <p>Already have an account ? <a href= "index.html" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
+          <br>
+      </div>
+
+
+      <!--configuration for phones-->
+      <div class= "w3-center w3-row w3-hide-large w3-hide-medium" style="margin-top: 1%;">
+          <h2>Create your Lecturer Account</h2>
+            <br><br>
+
+        <form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 90%;">
+
+          <p><label class= "w3-left">Username</label>
+            <input class="w3-input w3-border" name="Username" type="text"></p>
+
+          <p><label class= "w3-left">Email</label>
+            <input class="w3-input w3-border" name="Email" type="email"></p>
+
+          <p ><label class= "w3-left">Student Number</label>
+            <input class="w3-input w3-border" name="StudentNumber" type="text"  required></p>
+
+            <p ><label class= "w3-left">Year of Study</label>
+               <input class="w3-input w3-border" name="YearOfStudy" type="number"  required></p>
+
+          <p><label class= "w3-left">Password</label>
+            <input class="w3-input w3-border" name="Password" type="password"  required></p>
+
+          <p>
+            <!-- 29 July 2020. THIS LINE WAS IN THE ORIGINAL CODE BY KENNETH. BUT HAS NOW BEEN COMMENTED OUT TO ACCOMODATE THE HOMEPAGE/LANDING PAGE -->
+            <!-- <input class="w3-input w3-button w3-hover-red  w3-green w3-border" name="Lecturersubmit" type="submit1" value= "Create Account"> -->
+
+            <!--29 July 2020. This line is the new line of code. It adds a reference to the homepage after registration, and index page after cancellation.-->
+            <a class="w3-button w3-green w3-margin" href= "HomePage.html" style="width: 30%;">Create Account</a>
+            <a class="w3-button w3-red w3-margin" href= "index.html" style="width: 30%;">Cancel</a>
+          </p>
+        </form>
+
+        <p>Already have an account ? <a href= "index.html" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
+        <br>
+      </div>
+        <br>
+
+      <footer class="w3-container w3-display-bottom w3-padding w3-center  w3-white ">
+        <p>
+          <a href= "" class= "w3-text-blue" style="text-decoration:none">Terms</a>
+          <a href= "" class= "w3-text-blue" style="text-decoration:none">Privacy</a>
+          <a href= "" class= "w3-text-blue" style="text-decoration:none">Security,</a>
+          Contact Tutor Tracker<a href= "" class= "w3-text-black" style="text-decoration:none"> here</a>
+        </p>
+      </footer>
+
+    </body>
+</html>
