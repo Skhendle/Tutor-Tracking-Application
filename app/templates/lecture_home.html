@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{endblock}
+
+      <!-- configuration for  pc  and tablets -->
+{%block desktop%}
+      <div class="w3-bar w3-black w3-padding">
+      <p class= "w3-text-yellow">Tutor Traker</p>
+      </div>
+      <a class="w3-button w3-brown w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">My Courses</a>
+      <a class="w3-button w3-blue w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Capture Student</a>
+      <a class="w3-button w3-light-grey w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Create a course</a>
+
+{%endblock%}     
+
+
+      <!--configuration for phones-->
+   
+{%block desktop%}
+      <div class="w3-bar w3-black w3-padding">
+      <p class= "w3-text-yellow">Tutor Traker</p>
+      </div>
+      <a class="w3-button w3-brown w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">My Courses</a>
+      <a class="w3-button w3-blue w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Capture Student</a>
+      <a class="w3-button w3-light-grey w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Create a course</a>
+
+
+{%endblock%}

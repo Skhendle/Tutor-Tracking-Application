@@ -8,6 +8,14 @@
 </head>
 <body>
       <!--configuration for  pc  and tablet -->
+      <div class="w3-bar w3-black w3-padding">
+        <a href="{{ url_for('index') }}" class= "w3-text-blue" style="text-decoration:none">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}" class= "w3-text-blue" style="text-decoration:none">Login</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}" class= "w3-text-blue" style="text-decoration:none">Logout</a>
+        {% endif %}
+    </div>
       <div class= " w3-container w3-center w3-row w3-hide-small" >
           {%block desktop%}{%endblock%}
       </div>

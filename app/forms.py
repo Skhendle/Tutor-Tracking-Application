@@ -17,8 +17,7 @@ class LectureRegForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     employee_number = StringField('Employee Number',validators=[DataRequired()])
     password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password1',message='Passwords must match')])
     submit = SubmitField('Create account')
 
     def validate_username(self, username):
@@ -39,7 +38,7 @@ class TutorRegForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     student_number = StringField('Student Number',validators=[DataRequired()])
     password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password1',message='Passwords must match')])
     submit = SubmitField('Create account')
 
     def validate_username(self, username):

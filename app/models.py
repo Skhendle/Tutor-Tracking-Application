@@ -1,8 +1,15 @@
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from app import login
 
-class User(db.Model):
+
+#User mixin extends the user model to add three fields required to manage a user
+#is_authenticated, is_active ,is-anonymous and get_id() method
+
+
+class User(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
     firstname = db.Column(db.String(60), nullable=False)
     lastname = db.Column(db.String(60), nullable=False)
@@ -11,8 +18,8 @@ class User(db.Model):
     password_hash = db.Column(db.String(120),nullable=False, unique=True)
     create_date = db.Column(db.DateTime , index=True,default=datetime.utcnow)
     group = db.Column(db.String(20),index=True)
-    lecture = db.relationship('Lecture', backref='user', uselist=False, lazy='dynamic')
-    tutor = db.relationship('Tutor', backref='user', uselist=False, lazy='dynamic')
+    lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
+    tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
 
     def __repr__(self):
         return f'User {self.username}'
@@ -22,6 +29,19 @@ class User(db.Model):
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
+    
+    @login.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
+"""
+Because Flask-Login knows nothing about databases,it needs the application's help in loading a user
+For that reason, the extension expects that the application will configure a user loader function
+that can be called to load a user given the ID.
+"""
+
+
+
 
 class Lecture(db.Model):
     employee_number = db.Column(db.String(10),primary_key=True)
