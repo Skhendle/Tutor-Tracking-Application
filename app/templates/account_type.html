@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+
+{%block title%}{{title}}{%endblock%}     
+
+{%block desktop%}
+<div class= "w3-container w3-center" style="margin-top: 5%;">
+      <br>
+    <p class="w3-text-grey w3-center">Please specify the account type you are interested in</p>
+
+    <p>
+      <a class="w3-button w3-green w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 30%;">Tutor</a>
+      <a class="w3-button w3-indigo" href= "{{url_for('lectureRegistration')}}" style="width: 30%;">Lecturer</a>
+    </p>
+  </div>
+{%endblock%}
+
+{%block phones%}
+      <div class= "w3-container w3-center" style="margin-top: 5%;">
+          <br>
+        <p class="w3-text-grey w3-center">Please specify the account type you are interested in</p>
+
+        <p>
+          <a class="w3-button w3-green w3-margin" href= "TutorAccount.html" style="width: 30%;">Tutor</a>
+          <a class="w3-button w3-indigo" href= "LectureAccount.html" style="width: 30%;">Lecturer</a>
+        </p>
+      </div>
+{%endblock%}
