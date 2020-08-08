@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+{%block title%}{{title}}{%endblock%}
+
+{%block desktop%}
+<form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST">
+    {{form.csrf_token}}
+    <p><label class= "w3-left">{{form.account_type.label}}</label>{{form.account_type(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.account_number.label}}</label>{{form.account_number(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.bank_name.label}}</label>{{form.bank_name(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.branch_code.label}}</label>{{form.branch_code(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.phone_number.label}}</label>{{form.phone_number(class="w3-input w3-border")}}</p>
+    <p>{{form.submit(class="w3-button w3-blue")}}</p>
+</form>
+{%endblock%}
+
+{%block phones%}
+<form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST">
+    {{form.csrf_token}}
+    <p><label class= "w3-left">{{form.account_type.label}}</label>{{form.account_type(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.account_number.label}}</label>{{form.account_number(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.bank_name.label}}</label>{{form.bank_name(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.branch_code.label}}</label>{{form.branch_code(class="w3-input w3-border")}}</p>
+    <p><label class= "w3-left">{{form.phone_number.label}}</label>{{form.phone_number(class="w3-input w3-border")}}</p>
+    <p>{{form.submit(class="w3-button w3-blue")}}</p>
+</form>
+
+{%endblock%}

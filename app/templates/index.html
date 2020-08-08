@@ -3,12 +3,24 @@
 {%block title%} {{title}} {%endblock%}
 {%block desktop%}
 <h1>Welcome To Tutor Tracker</h1>
-<h2>Hi, {{ current_user.username }}!</h2>
-<h3>
+{%if not current_user.is_anonymous %}
+<h2>Hi, {{ current_user.firstname }} {{current_user.lastname}}! </h2>
+{%endif%}
+<h3 class="w3-container w3-auto w3-card" style="width: 50%;">
       <p>Tutor Tracker is a website dedicated to helping tutors and lecturers work together in harmony.
       Through our platform, we aim to provide you with analysis tools that will help you as a tutor get ahead in extending a helping hand.
       As a lecturer, we aim to provide you with the best tool to get the most productivity out of tutorial sessions you host. </p>
 </h3>
+
+<footer class="w3-container w3-display-bottom w3-padding w3-center  w3-white " >
+      <p>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Terms</a>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Privacy</a>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Security,</a>
+        Contact Tutor Tracker<a href= "" class= "w3-text-blue" style="text-decoration:none"> here</a>
+      </p>
+    </footer>
+  </body>
 {%endblock%}
 
 {%block phones%}
@@ -19,4 +31,15 @@
       Through our platform, we aim to provide you with analysis tools that will help you as a tutor get ahead in extending a helping hand.
       As a lecturer, we aim to provide you with the best tool to get the most productivity out of tutorial sessions you host. </p>
 </h3>
+
+
+<footer class="w3-container w3-display-bottom w3-padding w3-center  w3-white " >
+      <p>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Terms</a>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Privacy</a>
+        <a href= "" class= "w3-text-blue" style="text-decoration:none">Security,</a>
+        Contact Tutor Tracker<a href= "" class= "w3-text-blue" style="text-decoration:none"> here</a>
+      </p>
+    </footer>
+  </body>
 {%endblock%}

@@ -1,0 +1,38 @@
+{%extends "base.html"%}
+
+{%block title%}{{title}}{%endblock%}
+
+{%block desktop%}
+<div class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" >
+    <p>{{current_user.firstname}}</p>
+    <p>{{current_user.lastname}}</p>
+    <p>{{current_user.email}}</p>
+    <p>{{current_user.username}}</p>
+    <p>{{current_user.tutor.student_number}}</p>
+    <p>{{current_user.tutor.account_type}}</p>
+    <p>{{current_user.tutor.account_number}}</p>
+    <p>{{current_user.tutor.bank_name}}</p>
+    <p>{{current_user.tutor.branch_code}}</p>
+    <p>{{current_user.tutor.phone_number}}</p>
+    <p>{{current_user.tutor.year_of_study}}</p>
+<a class="w3-button w3-green w3-margin" href="{{url_for('edit_tutor')}}" style="width: 30%;">Update profile</a>
+
+</div>
+{%endblock%}
+{%block phones%}
+<div class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" >
+    <p>{{current_user.firstname}}</p>
+    <p>{{current_user.lastname}}</p>
+    <p>{{current_user.email}}</p>
+    <p>{{current_user.username}}</p>
+    <p>{{current_user.tutor.student_number}}</p>
+    <p>{{current_user.tutor.account_type}}</p>
+    <p>{{current_user.tutor.account_number}}</p>
+    <p>{{current_user.tutor.bank_name}}</p>
+    <p>{{current_user.tutor.branch_code}}</p>
+    <p>{{current_user.tutor.phone_number}}</p>
+    <p>{{current_user.tutor.year_of_study}}</p>
+    <a class="w3-button w3-green w3-margin" href="{{url_for('edit_tutor')}}" style="width: 30%;">Update profile</a>
+
+</div>
+{%endblock%}

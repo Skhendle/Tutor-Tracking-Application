@@ -13,7 +13,14 @@
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}" class= "w3-text-blue" style="text-decoration:none">Login</a>
         {% else %}
-        <a href="{{ url_for('logout') }}" class= "w3-text-blue" style="text-decoration:none">Logout</a>
+          {%if current_user.tutor %}
+          <a href="{{ url_for('tutor_home') }}" class= "w3-text-blue" style="text-decoration:none">Dashboard</a>
+          <a href="{{ url_for('tutor_profile') }}" class= "w3-text-blue" style="text-decoration:none">profile</a>
+          {%else%}
+          <a href="{{ url_for('lecture_home') }}" class= "w3-text-blue" style="text-decoration:none">Dashboard</a>
+          <a href="{{ url_for('lecture_profile') }}" class= "w3-text-blue" style="text-decoration:none">profile</a>
+          {%endif%}
+          <a href="{{ url_for('logout') }}" class= "w3-text-blue" style="text-decoration:none">Logout</a>
         {% endif %}
     </div>
       <div class= " w3-container w3-center w3-row w3-hide-small" >
@@ -25,15 +32,5 @@
         {%block phone%}{%endblock%}
       </div>
           <br>
-
-      <footer class="w3-container w3-display-bottom w3-padding w3-center  w3-white " >
-        <p>
-          <a href= "" class= "w3-text-blue" style="text-decoration:none">Terms</a>
-          <a href= "" class= "w3-text-blue" style="text-decoration:none">Privacy</a>
-          <a href= "" class= "w3-text-blue" style="text-decoration:none">Security,</a>
-          Contact Tutor Tracker<a href= "" class= "w3-text-blue" style="text-decoration:none"> here</a>
-        </p>
-      </footer>
-    </body>
 
 </html>

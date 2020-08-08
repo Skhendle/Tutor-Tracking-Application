@@ -7,7 +7,9 @@ from app import login
 
 #User mixin extends the user model to add three fields required to manage a user
 #is_authenticated, is_active ,is-anonymous and get_id() method
-
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 class User(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
@@ -30,9 +32,7 @@ class User(db.Model,UserMixin):
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
     
-    @login.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+
 
 """
 Because Flask-Login knows nothing about databases,it needs the application's help in loading a user
@@ -45,23 +45,25 @@ that can be called to load a user given the ID.
 
 class Lecture(db.Model):
     employee_number = db.Column(db.String(10),primary_key=True)
-    office_number = db.Column(db.String(10),nullable=False,unique=True)
-    telephone_number = db.Column(db.String(12),nullable=False,unique=True)
+    office_number = db.Column(db.String(10),unique=True)
+    telephone_number = db.Column(db.String(12),unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
     def __repr__(self):
-        return f'User {self.employee_number}'
+        return f'Lecture {self.employee_number}'
+
+
 
 class Tutor(db.Model):
     student_number = db.Column(db.String(10), primary_key=True)
-    account_type = db.Column(db.String(60), nullable=False)
-    account_number = db.Column(db.String(60), nullable=False, unique=True)
-    bank_name = db.Column(db.String(60), nullable=False)
-    branch_code = db.Column(db.String(20), nullable=False)
+    account_type = db.Column(db.String(60), )
+    account_number = db.Column(db.String(60), unique=True)
+    bank_name = db.Column(db.String(60))
+    branch_code = db.Column(db.String(20))
     year_of_study = db.Column(db.String(2), nullable=False)
-    phone_number = db.Column(db.String(10), nullable=False, unique=True)
+    phone_number = db.Column(db.String(10))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
     def __repr__(self):
-        return f'User {self.student_number}'
+        return f'Tutor {self.student_number}'
 

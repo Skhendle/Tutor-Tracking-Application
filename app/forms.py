@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField
 from wtforms.validators import DataRequired, Email, EqualTo
 from app.models import User
 
@@ -37,6 +37,7 @@ class TutorRegForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     student_number = StringField('Student Number',validators=[DataRequired()])
+    year_of_study = SelectField('Year of study', choices=[('2', '2'), ('3', '3'), ('4', '4'),('4+','4+')])
     password1 = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password1',message='Passwords must match')])
     submit = SubmitField('Create account')
@@ -50,3 +51,20 @@ class TutorRegForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class EditTutorProfileForm(FlaskForm):
+    account_type = SelectField('Year of study', choices=[('Tr', 'Transactional'), ('Db', 'Debit'), ('Sv', 'Savings')])
+    account_number = StringField('Account number')
+    bank_name = StringField('Bank name')
+    branch_code = StringField('Branch code')
+    phone_number = StringField('My phone number')
+    submit = SubmitField('Update')
+
+
+
+
+
+class EditLectureProfileForm(FlaskForm):
+    office_number = StringField('Office number')
+    telephone_number = StringField('Telephone number')
+    submit = SubmitField('Update')
