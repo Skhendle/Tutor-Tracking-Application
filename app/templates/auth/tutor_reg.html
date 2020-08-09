@@ -1,19 +1,10 @@
 {%extends "base.html"%}
 
 {%block title %}{{title}}{%endblock%}
-{%block desktop%}
+{%block content%}
 <h1 class= "w3-center">Create your student account</h1>
-    <hr>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %} 
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
 
-    <form method="POST" class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" novalidate>
+    <form method="POST" class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" novalidate>
         {{form.csrf_token}}
         <p><label class= "w3-left">{{form.firstname.label}}</label>{{form.firstname(class="w3-input w3-border")}}</p>
         {% for error in form.firstname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
@@ -41,24 +32,6 @@
 
         <p>{{form.submit(class="w3-button w3-blue")}}</p>
     </form>
-    <p>Already have an account ? <a href= "{{url_for('login')}}" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
+    <p class="w3-center">Already have an account ? <a href= "{{url_for('login')}}" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
     <br>
 {%endblock%}
-
-{%block phones%}
-<h1 class= "w3-center">Create your student account</h1>
-    <p class= "w3-xxlarge w3-center"><i class="fa fa-user "></i></p>
-
-    <form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST" novalidate>
-        {{form.csrf_token}}
-        <p><label class= "w3-left">{{form.firstname.label}}</label>{{form.firstname(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.lastname(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.student_number.label}}</label>{{form.student_number(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.email.label}}</label>{{form.email(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.password1.label}}</label>{{form.password1(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.password2.label}}</label>{{form.password2(class="w3-input w3-border")}}</p>
-        <p>{{form.submit(class="w3-button w3-blue")}}</p>
-    </form>
-    <p>Already have an account ? <a href= "{{url_for('login')}}" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
-    <br>{%endblock%}

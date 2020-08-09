@@ -2,26 +2,37 @@
 {%block title%}{{title}}{%endblock%}
 
       <!-- configuration for  pc  and tablets -->
-{%block desktop%}
-      <div class="w3-bar w3-black w3-padding">
-      <p class= "w3-text-yellow">Tutor Traker</p>
+{%block content%}
+
+<div class="w3-card-4">
+      <header class="w3-container w3-light-grey">
+            <h3>My Courses</h3>
+      </header>
+      <div class="w3-container">
+                  <p>A list of all the courses that you are lecturing.</p>
       </div>
-      <a class="w3-button w3-brown w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">My Courses</a>
-      <a class="w3-button w3-blue w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Capture Student</a>
-      <a class="w3-button w3-light-grey w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Create a course</a>
+      <button class="w3-button w3-block w3-flat-carrot">View courses</button>
+</div><br>
 
-{%endblock%}     
-
-
-      <!--configuration for phones-->
-   
-{%block phones%}
-      <div class="w3-bar w3-black w3-padding">
-      <p class= "w3-text-yellow">Tutor Traker</p>
+<div class="w3-card-4">
+      <header class="w3-container w3-light-grey">
+            <h3>Capture Tutor</h3>
+      </header>
+      <div class="w3-container">
+            <p>The Tutor needs to generate a unique code that you can capture by clicking the capture button</p>
       </div>
-      <a class="w3-button w3-brown w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">My Courses</a>
-      <a class="w3-button w3-blue w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Capture Student</a>
-      <a class="w3-button w3-light-grey w3-margin" href="{{url_for('tutorRegistration')}}" style="width: 50%;">Create a course</a>
+      <button class="w3-button w3-block w3-flat-carrot">capture</button>
+</div><br>
+
+<div class="w3-card-4">
+      <header class="w3-container w3-light-grey">
+            <h3>Create A Course</h3>
+      </header>
+      <div class="w3-container">
+            <p>If you are new here, click create course to and get started</p>
+      </div>
+      <button class="w3-button w3-block w3-flat-carrot">create course</button>
+</div>
 
 
-{%endblock%}
+{%endblock%}  
