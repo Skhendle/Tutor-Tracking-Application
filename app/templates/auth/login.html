@@ -2,32 +2,17 @@
 
 {%block title %}{{title}}{%endblock%}
 
-{%block desktop%}
-    <h2 class= "w3-center">Welcome to Tutor Tracker</h2>
+{%block content%}
+    <h2 class= "w3-center">Welcome to TUTOR TRACKER</h2>
     <p class= "w3-xxlarge w3-center"><i class="fa fa-user "></i></p>
 
-    <form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST">
+    <form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST">
         {{form.csrf_token}}
         <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border")}}</p>
         <p><label class= "w3-left">{{form.password.label}}</label>{{form.password(class="w3-input w3-border")}}</p>
-        <p>{{form.submit(class="w3-button w3-blue")}}</p>
+        <p>{{form.submit(class="w3-button w3-green")}}</p>
     </form>
 
-    <p class="w3-center">New at tutor tracker ? <a href= "{{url_for('account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
-    <br>
-{%endblock%}
-
-{%block phones%}
-<h2 class= "w3-center">Welcome to Tutor Tracker</h2>
-    <p class= "w3-xxlarge w3-center"><i class="fa fa-user "></i></p>
-
-    <form class="w3-container w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST">
-        {{form.csrf_token}}
-        <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border")}}</p>
-        <p><label class= "w3-left">{{form.password.label}}</label>{{form.password(class="w3-input w3-border")}}</p>
-        <p>{{form.submit(class="w3-button w3-blue")}}</p>
-    </form>
-
-    <p class="w3-center">New at tutor tracker ? <a href= "{{url_for('account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
+    <p class="w3-center">New at TUTOR TRACKER? <a href= "{{url_for('account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
     <br>
 {%endblock%}
