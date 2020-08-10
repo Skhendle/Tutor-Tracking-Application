@@ -5,6 +5,18 @@
 {%block content%}
 <br>
 <br>
+<div class="w3-center w3-text-green">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</div>
 <form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" style="width: 50%;" method="POST">
     {{form.csrf_token}}
     <p><label class= "w3-left">{{form.office_number.label}}</label>{{form.office_number(class="w3-input w3-border")}}</p>
