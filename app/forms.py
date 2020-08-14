@@ -29,6 +29,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+    
 class LectureRegForm(FlaskForm):
     firstname = StringField('Your Name', validators=[DataRequired()])
     lastname = StringField('Your Surname', validators=[DataRequired()])
@@ -48,7 +49,6 @@ class LectureRegForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
-    
     
 
 
@@ -73,6 +73,7 @@ class TutorRegForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
+            
 class EditTutorProfileForm(FlaskForm):
     account_type = SelectField('Year of study', choices=[('Tr', 'Transactional'), ('Db', 'Debit'), ('Sv', 'Savings')])
     account_number = StringField('Account number')
@@ -81,10 +82,7 @@ class EditTutorProfileForm(FlaskForm):
     phone_number = StringField('My phone number',validators=[validate_phone_number])
     submit = SubmitField('Update')
 
-
-
-
-
+    
 class EditLectureProfileForm(FlaskForm):
     office_number = StringField('Office number',validators=[validate_employee_student_number])
     telephone_number = StringField('Telephone number',validators=[validate_phone_number])
