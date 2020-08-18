@@ -17,6 +17,6 @@ script:
  - . venv/bin/activate
  - pip install -r requirements.txt
  - cd app
- - coverage run --source=mypkg -m pytest tests/
+ - coverage run --source=mypkg -m pytest 
 after_success:
  - codecov
