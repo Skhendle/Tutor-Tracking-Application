@@ -10,7 +10,7 @@ before_install:
 install:
  - pip install -r requirements.txt
 script: 
- - ls
+ - pip install --egg http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.1.4.zip
  - python3 -m venv venv
  - . venv/bin/activate
  - ls
