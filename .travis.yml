@@ -14,6 +14,6 @@ script:
  - python3 -m venv venv
  - . venv/bin/activate
  - pip install -r requirements.txt
- - coverage run pytest
+ - coverage run test_*.py
 after_success:
  - codecov
