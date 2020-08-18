@@ -13,10 +13,8 @@ script:
  - pip install mysql-connector-python-rf
  - python3 -m venv venv
  - . venv/bin/activate
- - ls
  - pip install -r requirements.txt
- - cd app
- - ls
+ - coverage run test_*.py
  - pytest
 after_success:
  - codecov
