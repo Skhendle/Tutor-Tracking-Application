@@ -6,6 +6,8 @@ cache: pip
 services:
  - mysql
 before_install:
+ - pip install pytest
+ - pip install pytest-cov
  - pip install coveralls
 install:
  - pip install -r requirements.txt
@@ -14,6 +16,6 @@ script:
  - python3 -m venv venv
  - . venv/bin/activate
  - pip install -r requirements.txt
- - coverage run test_app.py
+ - pytest --cov
 after_success:
  - codecov
