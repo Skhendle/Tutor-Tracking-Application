@@ -3,7 +3,10 @@ language: python
 python:
   - "3.7"
 cache: pip
+services:
+ - mysql
 before_install:
+ - sudo apt install default-libmysqlclient-dev
  - pip install coveralls
 install:
  - pip install -r requirements.txt
