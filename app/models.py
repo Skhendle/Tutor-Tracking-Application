@@ -22,6 +22,8 @@ class User(db.Model,UserMixin):
     group = db.Column(db.String(20),index=True)
     lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
     tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
+    student = db.relationship('Student', backref='user', uselist=False, lazy=True)
+
 
     def __repr__(self):
         return f'User {self.username}'
@@ -55,15 +57,26 @@ class Lecture(db.Model):
 
 
 class Tutor(db.Model):
-    student_number = db.Column(db.String(10), primary_key=True)
-    account_type = db.Column(db.String(60), )
+    id_number = db.Column(db.String(10), primary_key=True)
+    account_type = db.Column(db.String(60))
     account_number = db.Column(db.String(60), unique=True)
     bank_name = db.Column(db.String(60))
     branch_code = db.Column(db.String(20))
+    phone_number = db.Column(db.String(10))
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+
+    def __repr__(self):
+        return f'Tutor {self.id_number}'
+
+
+
+class Student(db.Model):
+    student_number = db.Column(db.String(10), primary_key=True)
     year_of_study = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(10))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
     def __repr__(self):
-        return f'Tutor {self.student_number}'
+        return f'Student {self.student_number}'
+
 

@@ -117,7 +117,7 @@
 
 <div class="w3-flat-wet-asphalt w3-bar w3-large">
   {%if current_user.is_anonymous %}
-  <a href="{{url_for('login')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-in"></i> login</a>
+  <a href="{{url_for('login')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-in"></i>login</a>
   {% else %}
   <a href="{{url_for('logout')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-out"></i> logout</a>
   <div class="w3-dropdown-hover w3-mobile w3-right">
@@ -125,6 +125,8 @@
     <div id="demo" class="w3-dropdown-content w3-bar-block w3-card-4">
       {%if current_user.lecture %}
       <a href="{{url_for('lecture_profile')}}" class="w3-bar-item w3-button">My profile</a>
+      {% elif current_user.student %}
+      <a href="{{url_for('student_profile')}}" class="w3-bar-item w3-button">My profile</a>
       {% else %}
       <a href="{{url_for('tutor_profile')}}" class="w3-bar-item w3-button">My profile</a>
       {%endif%}
@@ -134,6 +136,8 @@
   <a href="{{url_for('index')}}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
   {%if current_user.lecture %}
   <a href="{{url_for('lecture_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  {% elif current_user.student %}
+  <a href="{{url_for('student_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   {% else %}
   <a href="{{url_for('tutor_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   {% endif %}

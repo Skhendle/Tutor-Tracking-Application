@@ -2,18 +2,21 @@
 
 {%block title %}{{title}}{%endblock%}
 {%block content%}
-<h1 class= "w3-center">Create your tutor account</h1>
+<h1 class= "w3-center">Create your student account</h1>
 
     <form method="POST" class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" novalidate>
         {{form.csrf_token}}
         <p><label class= "w3-left">{{form.firstname.label}}</label>{{form.firstname(class="w3-input w3-border",maxlength=60)}}</p>
         {% for error in form.firstname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
-        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.lastname(class="w3-input w3-border",maxlength=60)}}</p>
+        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.las0tname(class="w3-input w3-border",maxlength=60)}}</p>
         {% for error in form.lastname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
-        <p><label class= "w3-left">{{form.id_number.label}}</label>{{form.id_number(class="w3-input w3-border")}}</p>
-        {% for error in form.id_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+        <p><label class= "w3-left">{{form.student_number.label}}</label>{{form.student_number(class="w3-input w3-border")}}</p>
+        {% for error in form.student_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+
+        <p><label class= "w3-left">{{form.year_of_study.label}}</label>{{form.year_of_study(class="w3-input w3-border")}}</p>
+        {% for error in form.year_of_study.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
         <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border",maxlength=60)}}</p>
         {% for error in form.username.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
@@ -32,3 +35,5 @@
     <p class="w3-center">Already have an account ? <a href= "{{url_for('login')}}" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
     <br>
 {%endblock%}
+
+

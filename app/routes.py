@@ -1,9 +1,10 @@
 from app import app, db
 from flask import render_template, url_for, flash, redirect, request
-from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm
+from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm, StudentRegForm
 from flask_login import current_user, login_user, logout_user , login_required
-from app.models import User, Lecture ,Tutor
+from app.models import User, Lecture ,Tutor, Student
 from werkzeug.urls import url_parse
+
 
 @app.route('/')
 def index():
@@ -40,11 +41,34 @@ def account_type():
 def tutor_profile():
     return render_template('tutor_profile.html',title='profile')
 
+@app.route('/student/profile')
+@login_required
+def student_profile():
+    return render_template('student_profile.html',title='profile')
 
 @app.route('/lecture/profile')
 @login_required
 def lecture_profile():
     return render_template('lecture_profile.html',title='profile')
+
+
+@app.route('/student/registration', methods=['GET','POST'])
+def studentRegistration():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = StudentRegForm()
+    if form.validate_on_submit():
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
+        user.set_password(form.password1.data)
+        student = Student(student_number=form.student_number.data,year_of_study=form.year_of_study.data,user=user)
+        db.session.add(user)
+        db.session.add(student)
+        db.session.commit()
+        flash('Congratulations, you are now a registered Student!')
+        return redirect(url_for('student_home'))
+    return render_template('auth/student_reg.html',title='student registation',form=form)
+
+
 
 @app.route('/tutor/registration', methods=['GET','POST'])
 def tutorRegistration():
@@ -52,10 +76,9 @@ def tutorRegistration():
         return redirect(url_for('index'))
     form = TutorRegForm()
     if form.validate_on_submit():
-        print('true')
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
         user.set_password(form.password1.data)
-        tutor = Tutor(student_number=form.student_number.data,year_of_study=form.year_of_study.data, user=user)
+        tutor = Tutor(id_number=form.id_number.data,user=user)
         db.session.add(user)
         db.session.add(tutor)
         db.session.commit()
@@ -78,6 +101,11 @@ def lectureRegistration():
         flash('Congratulations, you are now a registered Lecture!')
         return redirect(url_for('lecture_home'))
     return render_template('auth/lecture_reg.html',title='lecture registation',form=form)
+
+@app.route('/student_home')
+@login_required
+def student_home():
+    return render_template('student_home.html')
 
 @app.route('/lecture_home')
 @login_required
