@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo , Length
 from app.models import User , Tutor , Lecture , Student
+from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 import re
 
 
@@ -126,3 +127,13 @@ class EditLectureProfileForm(FlaskForm):
     office_number = StringField('Office number',validators=[validate_employee_student_number])
     telephone_number = StringField('Telephone number',validators=[validate_phone_number])
     submit = SubmitField('Update')
+
+class CourseCreationForm(FlaskForm):
+    course_code = StringField('Course code',validators=[DataRequired()]) 
+    name = StringField('Course name',validators=[DataRequired()])
+    venue = StringField('Venue',validators=[DataRequired()])
+    start_time = TimeField('Start at',validators=[DataRequired()])
+    end_time = TimeField('End at', validators=[DataRequired()])
+    day = DateField('Day',validators=[DataRequired()])
+    number_of_tutors = IntegerField('Number of tutors',default=0, validators=[DataRequired()])
+    submit = SubmitField('Add course')

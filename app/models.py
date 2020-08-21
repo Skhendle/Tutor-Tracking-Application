@@ -50,7 +50,7 @@ class Lecture(db.Model):
     office_number = db.Column(db.String(10),unique=True)
     telephone_number = db.Column(db.String(12),unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-
+    course = db.relationship('Course', backref='lecturer',lazy=True)
     def __repr__(self):
         return f'Lecture {self.employee_number}'
 
@@ -80,3 +80,15 @@ class Student(db.Model):
         return f'Student {self.student_number}'
 
 
+class Course(db.Model):
+    course_code = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(120), nullable = False)
+    venue = db.Column(db.String(120), nullable = False)
+    start_time = db.Column(db.String(120), nullable = False)
+    end_time = db.Column(db.String(120), nullable = False)
+    day = db.Column(db.String(120),nullable = False)
+    number_of_tutors = db.Column(db.Integer, nullable = False)
+    lecture_employee_number = db.Column(db.String(20), db.ForeignKey('lecture.employee_number'), nullable = False)
+
+    def __repr__(self):
+        return f'Course {self.course_code}'

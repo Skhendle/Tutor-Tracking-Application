@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, url_for, flash, redirect, request
-from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm, StudentRegForm
+from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm ,StudentRegForm , CourseCreationForm
 from flask_login import current_user, login_user, logout_user , login_required
-from app.models import User, Lecture ,Tutor, Student
+from app.models import User, Lecture ,Tutor, Student, Course
 from werkzeug.urls import url_parse
 
 
@@ -25,12 +25,10 @@ def login():
         return redirect(next_page)
     return render_template('auth/login.html', title='Sign In', form=form)
 
-
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
 
 @app.route('/account_type')
 def account_type():
@@ -51,7 +49,6 @@ def student_profile():
 def lecture_profile():
     return render_template('lecture_profile.html',title='profile')
 
-
 @app.route('/student/registration', methods=['GET','POST'])
 def studentRegistration():
     if current_user.is_authenticated:
@@ -67,8 +64,6 @@ def studentRegistration():
         flash('Congratulations, you are now a registered Student!')
         return redirect(url_for('student_home'))
     return render_template('auth/student_reg.html',title='student registation',form=form)
-
-
 
 @app.route('/tutor/registration', methods=['GET','POST'])
 def tutorRegistration():
@@ -102,22 +97,22 @@ def lectureRegistration():
         return redirect(url_for('lecture_home'))
     return render_template('auth/lecture_reg.html',title='lecture registation',form=form)
 
-@app.route('/student_home')
+@app.route('/student-home')
 @login_required
 def student_home():
     return render_template('student_home.html')
 
-@app.route('/lecture_home')
+@app.route('/lecture-home')
 @login_required
 def lecture_home():
     return render_template('lecture_home.html')
 
-@app.route('/tutor_home')
+@app.route('/tutor-home')
 @login_required
 def tutor_home():
     return render_template('tutor_home.html')
 
-@app.route('/tutor/edit_profile', methods=['GET','POST'])
+@app.route('/tutor/edit-profile', methods=['GET','POST'])
 @login_required
 def edit_tutor():
     form=EditTutorProfileForm()
@@ -138,7 +133,7 @@ def edit_tutor():
         form.phone_number.data = current_user.tutor.phone_number
     return render_template('edit_tutor.html',title='edit profile', form=form)
 
-@app.route('/lecture/edit_profile', methods=['GET','POST'])
+@app.route('/lecture/edit-profile', methods=['GET','POST'])
 @login_required
 def edit_lecture():
     form = EditLectureProfileForm()
@@ -152,3 +147,18 @@ def edit_lecture():
         form.office_number.data = current_user.lecture.office_number
         form.telephone_number.data = current_user.lecture.telephone_number
     return render_template('edit_lecture.html',title='edit profile', form=form)
+
+@app.route('/courses/create-course' ,methods = ['GET','POST'])
+def create_course():
+    form = CourseCreationForm()
+    if form.validate_on_submit():
+        course = Course(course_code=form.course_code.data,name=form.name.data,venue=form.venue.data,start_time=form.start_time.data,end_time=form.end_time.data,\
+            day=form.day.data, number_of_tutors=form.number_of_tutors.data,lecturer=current_user.lecture)
+        db.session.add(course)
+        db.session.commit()
+        return redirect(url_for('my_courses'))
+    return render_template('create_course.html',title='Create a course',form=form)
+
+@app.route('/courses/my-courses')
+def my_courses():
+    return render_template('my_courses.html',title='My courses')

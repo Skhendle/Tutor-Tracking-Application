@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+{%if not current_user.lecture.course%}
+<br>
+<a href="{{url_for('create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
+{%else%}
+{%for course in current_user.lecture.course %}
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>{{course.course_code}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>{{course.name}}</p>
+    </div>
+    <button class="w3-button w3-block w3-grey">Course details</button>
+</div>
+<br>
+{%endfor%}
+{%endif%}
+{%endblock%}
