@@ -20,6 +20,8 @@ On top of accessing their session history, the tutor can also view their upcomin
 ### Additional features (both or neither the tutor’s side or lecturer’s side):
 A tutor and/or a lecturer can see the payment history
 
+# Flow
+
 ![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/AD.png)
 
 
