@@ -68,6 +68,7 @@ def test_tutor_registration(client):
 	rv = client.get('/tutor/registration')
 	assert b'Create your student account' in rv.data
 
+	
 """Checking if the tutor registraation form exists page works"""
 def test_lecture_registration(client):
 	rv = client.get('/lecture/registration')
