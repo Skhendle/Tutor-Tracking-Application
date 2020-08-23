@@ -1,3 +1,4 @@
+"""
 import pytest
 
 def test_max():
@@ -7,3 +8,4 @@ def test_max():
 def test_min():
     val = 1
     assert val == 1
+"""
