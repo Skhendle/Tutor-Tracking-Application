@@ -22,7 +22,7 @@ A tutor and/or a lecturer can see the payment history
 
 # Flow
 
-![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/AD3.png)
+![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/architecture flow diagram.png)
 
 
 
@@ -52,3 +52,58 @@ A tutor and/or a lecturer can see the payment history
      - main.html
    * base.html
    
+ # Run Application Locally:
+ 
+ 
+Clone the `Tutor Tracking` project locally. In a terminal, run:
+
+```
+$ git clone https://github.com/Skhendle/Tutor-Tracking-Application
+```
+
+Navigate into the cloned folder:
+```
+$ cd Tutor-Tracking-Application
+```
+
+Create a virtual environment inside the folder:
+```
+$ python3 -m venv venv
+```
+
+Activate the environment:
+#### Windows:
+```
+$ venv\Scripts\activate
+```
+#### Unix:
+```
+$ . venv/bin/activate
+```
+
+Install Flask:
+```
+$ pip install Flask
+```
+
+You might need to install a few more dependencies before running the application, use:
+```
+$ pip install dependency-name  
+```
+
+Some of the few dependencies you will need:
+```
+$ pip install flask_sqlalchemy
+$ pip install flask_migrate
+$ pip install flask_login
+$ pip install flask_wtf
+$ pip install email_validator
+```
+
+Run the Application:
+```
+$ flask run
+```
+
+
+
