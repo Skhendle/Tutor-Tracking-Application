@@ -100,7 +100,7 @@ def lectureRegistration():
 @app.route('/student-home')
 @login_required
 def student_home():
-    return render_template('student_home.html')
+    return render_template('student_home.html', title = 'Student home')
 
 @app.route('/lecture-home')
 @login_required
@@ -122,6 +122,7 @@ def edit_tutor():
         current_user.tutor.bank_name = form.bank_name.data
         current_user.tutor.branch_code = form.branch_code.data
         current_user.tutor.phone_number = form.phone_number.data
+        current_user.tutor.status = int(form.status.data)
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('tutor_profile'))
@@ -131,6 +132,7 @@ def edit_tutor():
         form.bank_name.data = current_user.tutor.bank_name
         form.branch_code.data = current_user.tutor.branch_code
         form.phone_number.data = current_user.tutor.phone_number
+        form.status.data = current_user.tutor.status
     return render_template('edit_tutor.html',title='edit profile', form=form)
 
 @app.route('/lecture/edit-profile', methods=['GET','POST'])
@@ -181,9 +183,14 @@ def enroll_in_a_course(course_code) :
     if request.method == 'POST':
         entered_key = request.form['enrollment_key']
         if entered_key == key:
-            current_user.student.enrolled_courses.append(course)
-            db.session.commit()
-            return redirect(url_for('student_home'))
+            if current_user.student:
+                current_user.student.enrolled_courses.append(course)
+                db.session.commit()
+                return redirect(url_for('student_home'))
+            elif current_user.tutor:
+                current_user.tutor.enrolled_courses.append(course)
+                db.session.commit()
+                return redirect(url_for('tutor_courses'))
         else:
             return redirect(url_for('enroll_in_a_course', course_code=course_code))
     return render_template('enroll.html',title=f'enroll in {course_code}')
@@ -211,3 +218,18 @@ def edit_course_details(course_code):
     return render_template('create_course.html', title = 'Edit course details', form = form)
 
     
+@app.route('/tutor/view-courses/my-courses')
+def tutor_courses():
+    return render_template('tutor_courses.html', title = 'My courses')
+
+@app.route('/tutors/access-a-tutor')
+def access_tutor():
+    tutors = Tutor.query.all()
+    return render_template('access_tutors.html', title='Access a tutors', tutors=tutors)
+
+@app.route('/tutors/tutor-details/<id_number>')
+def tutor_details(id_number):
+    tutor = Tutor.query.filter_by(id_number=id_number).first_or_404()
+    print(tutor)
+    return render_template('tutor_details.html',title='Tutor details', tutor=tutor)
+

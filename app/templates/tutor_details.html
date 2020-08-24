@@ -1,0 +1,29 @@
+{%extends "base.html"%}
+
+
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+<br>
+<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+    <ul class="w3-ul">
+    <li><h1>Tutor information</h1></li>
+    <li><h2>{{tutor.user.firstname}} {{tutor.user.lastname}}</h2><istyle = "text-transform:capitalize;"></i></li>
+    <li><b>Tutor Status</b> <i class="w3-right" style = "text-transform:capitalize;">
+        {%if tutor.status ==  True %} 
+        Available 
+        {%else%} 
+        Busy 
+        {%endif%}</i></li>
+    <li><b>Tutor location</b> <i class="w3-right" style = "text-transform:capitalize;">to be implemented</i></li>
+    <li><h2>Courses tutored</h2> <i class="w3-right" style = "text-transform:capitalize;"></i></li>
+    <li><ul class="w3-ul">
+            {%for course in tutor.enrolled_courses%}
+            <li><b>Course</b> <i class="w3-right">{{course.course_code}}</i></li>
+            {%endfor%}
+        </ul>
+    </li>
+    </ul>
+</div>
+
+{%endblock%}

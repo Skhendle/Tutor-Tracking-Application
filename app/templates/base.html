@@ -136,9 +136,11 @@
   <a href="{{url_for('index')}}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
   {%if current_user.lecture %}
   <a href="{{url_for('lecture_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
   {% elif current_user.student %}
   <a href="{{url_for('student_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   <a href="{{url_for('explore')}}" class="w3-bar-item w3-button">Explore</a>
+  <a href="{{url_for('access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
   {% else %}
   <a href="{{url_for('tutor_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   {% endif %}

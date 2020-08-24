@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField , RadioField
 from wtforms.validators import DataRequired, Email, EqualTo , Length
 from app.models import User , Tutor , Lecture , Student
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
@@ -116,7 +116,8 @@ class EditTutorProfileForm(FlaskForm):
     account_number = StringField('Account number')
     bank_name = StringField('Bank name')
     branch_code = StringField('Branch code')
-    phone_number = StringField('My phone number',validators=[validate_phone_number])
+    phone_number = StringField('My phone number')
+    status = RadioField('Status', choices=[('1','Available'),('0','Busy')])
     submit = SubmitField('Update')
 
 
