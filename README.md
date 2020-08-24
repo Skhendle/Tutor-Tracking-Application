@@ -22,7 +22,7 @@ A tutor and/or a lecturer can see the payment history
 
 # Flow
 
-![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/architecture flow diagram.png)
+![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/flow.png)
 
 
 
