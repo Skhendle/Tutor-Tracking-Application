@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+{%for course in courses%}
+{%if current_user.student not in course.enrolled_students%}
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>{{course.course_code}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>{{course.name}}</p>
+    </div>
+    <a href="{{url_for('enroll_in_a_course' , course_code = course.course_code)}}"><button class="w3-button w3-block w3-grey">Enroll</button></a>
+</div>
+<br>
+{%endif%}
+{%endfor%}
+{%endblock%}

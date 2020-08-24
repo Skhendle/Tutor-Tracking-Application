@@ -3,13 +3,22 @@
 
       <!-- configuration for  pc  and tablets -->
 {%block content%}
+{%if not current_user.student.enrolled_courses%}
+<h3>You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('explore')}}">here</a></h3>
+{%else%}
+{%for course in current_user.student.enrolled_courses%}
 <div class="w3-card-4">
       <header class="w3-container w3-light-grey">
-            <h3>My Courses</h3>
+            <h3>{{course.course_code}}</h3>
       </header>
       <div class="w3-container">
-                  <p>A list of all the courses that you are lecturing.</p>
+                  <p>{{course.name}}</p>
       </div>
-      <button class="w3-button w3-block w3-flat-carrot">View courses</button>
-</div>
+      <a href="{{url_for('show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">course details</button></a>
+  </div>
+  <br>
+{%endfor%}
+{%endif%}
 {%endblock%}     
+
+

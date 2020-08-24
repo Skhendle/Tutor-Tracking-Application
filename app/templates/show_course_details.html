@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+    <ul class="w3-ul">
+    <li><h2>Course information</h2></li>
+    <li><b>Course code</b> <i class="w3-right" style = "text-transform:capitalize;">{{course.course_code}}</i></li>
+    <li><b>Course name</b> <i class="w3-right" style = "text-transform:capitalize;">{{course.name}}</i></li>
+    <li><b>Venue</b> <i class="w3-right">{{course.venue}}</i></li>
+    <li><b>Start time</b> <i class="w3-right">{{course.start_time}}</i></li>
+    <li><b>End time</b> <i class="w3-right">{{course.end_time}}</i></li>
+    <li><b>Day</b> <i class="w3-right">{{course.day}}</i></li>
+    <li><b>Number of Tutors</b> <i class="w3-right">{{course.number_of_tutors}}</i></li>
+    </ul>
+    {% if current_user.lecture%}
+    <a class="w3-button w3-green w3-margin w3-round" href="{{url_for('edit_course_details' , course_code=course.course_code)}}" style="width: 30%;">Update Course</a>
+    {% endif %}
+</div>
+
+{%endblock%}

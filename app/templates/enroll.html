@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+<br>
+<form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST" action="">
+    <input class="w3-input w3-border",maxlength=60 type="text" name="enrollment_key">
+    <input class="w3-button w3-blue" type="submit" name="submit" value="enroll">
+</form>
+{%endblock%}

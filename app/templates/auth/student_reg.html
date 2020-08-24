@@ -9,7 +9,7 @@
         <p><label class= "w3-left">{{form.firstname.label}}</label>{{form.firstname(class="w3-input w3-border",maxlength=60)}}</p>
         {% for error in form.firstname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
-        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.las0tname(class="w3-input w3-border",maxlength=60)}}</p>
+        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.lastname(class="w3-input w3-border",maxlength=60)}}</p>
         {% for error in form.lastname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
         <p><label class= "w3-left">{{form.student_number.label}}</label>{{form.student_number(class="w3-input w3-border")}}</p>

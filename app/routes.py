@@ -162,3 +162,52 @@ def create_course():
 @app.route('/courses/my-courses')
 def my_courses():
     return render_template('my_courses.html',title='My courses')
+
+@app.route('/courses/explore')
+def explore():
+    courses = Course.query.all()
+    return render_template('explore.html', title='explore courses', courses=courses)
+
+
+@app.route('/courses/<course_code>')
+def show_course_details(course_code):
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
+    return render_template('show_course_details.html',title='course details', course=course)
+
+@app.route('/enroll/<course_code>' , methods=['GET','POST'])
+def enroll_in_a_course(course_code) :
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
+    key = 'testing'
+    if request.method == 'POST':
+        entered_key = request.form['enrollment_key']
+        if entered_key == key:
+            current_user.student.enrolled_courses.append(course)
+            db.session.commit()
+            return redirect(url_for('student_home'))
+        else:
+            return redirect(url_for('enroll_in_a_course', course_code=course_code))
+    return render_template('enroll.html',title=f'enroll in {course_code}')
+    
+@app.route('/course/<course_code>' , methods=['POST', 'GET'])
+def edit_course_details(course_code):
+    form = CourseCreationForm()
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
+    if form.validate_on_submit():
+        course.course_code = form.course_code.data
+        course.name = form.name.data
+        course.venue = form.venue.data
+        course.start_time = form.start_time.data
+        course.end_time = form.end_time.data
+        course.day = form.day.data
+        course.number_of_tutors = form.number_of_tutors.data
+        db.session.commit()
+        return redirect(url_for('show_course_details', course_code=course_code))
+    elif request.method == "GET":
+        form.course_code.data = course.course_code 
+        form.name.data = course.name
+        form.venue.data = course.venue
+        form.number_of_tutors.data = course.number_of_tutors 
+
+    return render_template('create_course.html', title = 'Edit course details', form = form)
+
+    

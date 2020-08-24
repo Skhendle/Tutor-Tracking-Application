@@ -3,10 +3,6 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-{%if not current_user.lecture.course%}
-<br>
-<a href="{{url_for('create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
-{%else%}
 {%for course in current_user.lecture.course %}
 <div class="w3-card-4">
     <header class="w3-container w3-light-grey">
@@ -15,9 +11,9 @@
     <div class="w3-container">
                 <p>{{course.name}}</p>
     </div>
-    <button class="w3-button w3-block w3-grey">Course details</button>
+    <a href="{{url_for('show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">Course details</button></a>
 </div>
 <br>
 {%endfor%}
-{%endif%}
+<a href="{{url_for('create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
 {%endblock%}
