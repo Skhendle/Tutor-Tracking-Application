@@ -93,6 +93,7 @@ $ pip install dependency-name
 
 Some of the few dependencies you will need:
 ```
+$ pip install python-dotenv
 $ pip install flask_sqlalchemy
 $ pip install flask_migrate
 $ pip install flask_login
