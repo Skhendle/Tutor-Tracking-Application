@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField , RadioField
 from wtforms.validators import DataRequired, Email, EqualTo , Length
-from app.models import User , Tutor , Lecture , Student
+from app.models import User , Tutor , Lecture , Student, Course
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 import re
 
@@ -117,7 +117,7 @@ class EditTutorProfileForm(FlaskForm):
     bank_name = StringField('Bank name')
     branch_code = StringField('Branch code')
     phone_number = StringField('My phone number')
-    status = RadioField('Status', choices=[('1','Available'),('0','Busy')])
+    status = BooleanField('Status')
     submit = SubmitField('Update')
 
 
@@ -137,8 +137,17 @@ class CourseCreationForm(FlaskForm):
     end_time = TimeField('End at')
     day = DateField('Day')
     number_of_tutors = IntegerField('Number of tutors',default=0, validators=[DataRequired()])
+    key = StringField('Enrollment key for the course',validators=[DataRequired()])
     submit = SubmitField('Create/Update course')
 
 class EnrollmentKeyForm(FlaskForm):
     key = StringField('Enrollment key',validators=[DataRequired()])
+    course_code = StringField('course code',validators=[DataRequired()])
     submit = SubmitField('Enroll')
+
+
+    def validate_key(self,key):
+        course =  Course.query.filter_by(course_code=self.course_code.data).first()
+        if key.data != course.key:
+            raise ValidationError('Incorrect key entered')
+

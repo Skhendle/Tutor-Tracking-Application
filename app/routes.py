@@ -180,20 +180,18 @@ def show_course_details(course_code):
 def enroll_in_a_course(course_code):
     form = EnrollmentKeyForm()
     course = Course.query.filter_by(course_code=course_code).first_or_404()
-    key = 'testing'
     if form.validate_on_submit():
-        if form.key.data == key:
-            if current_user.student:
-                current_user.student.enrolled_courses.append(course)
-                db.session.commit()
-                return redirect(url_for('student_home'))
-            elif current_user.tutor:
-                current_user.tutor.enrolled_courses.append(course)
-                db.session.commit()
-                return redirect(url_for('tutor_courses'))
-        else:
-            return redirect(url_for('enroll_in_a_course', course_code=course_code))
-    return render_template('enroll.html',title=f'enroll in {course_code}' , form=form)
+        if current_user.student:
+            current_user.student.enrolled_courses.append(course)
+            db.session.commit()
+            return redirect(url_for('student_home'))
+        elif current_user.tutor:
+            current_user.tutor.enrolled_courses.append(course)
+            db.session.commit()
+            return redirect(url_for('tutor_courses'))
+    if request.method == "GET":
+        form.course_code.data = course_code
+    return render_template('enroll.html',title=f'enroll in {course_code}' , form=form , course_code=course_code)
     
 @app.route('/course/<course_code>' , methods=['POST', 'GET'])
 def edit_course_details(course_code):
@@ -207,6 +205,7 @@ def edit_course_details(course_code):
         course.end_time = form.end_time.data
         course.day = form.day.data
         course.number_of_tutors = form.number_of_tutors.data
+        course.key = form.key.data
         db.session.commit()
         return redirect(url_for('show_course_details', course_code=course_code))
     elif request.method == "GET":
@@ -214,7 +213,7 @@ def edit_course_details(course_code):
         form.name.data = course.name
         form.venue.data = course.venue
         form.number_of_tutors.data = course.number_of_tutors 
-
+        form.key.data = course.key
     return render_template('create_course.html', title = 'Edit course details', form = form)
 
     

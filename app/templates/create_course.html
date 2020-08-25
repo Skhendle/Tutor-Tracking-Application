@@ -28,7 +28,14 @@
         <p><label class="w3-left">{{form.number_of_tutors.label}}</label>{{form.number_of_tutors(class="w3-input w3-border")}}</p>
         {% for error in form.number_of_tutors.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
+        <p><label class="w3-left">{{form.key.label}}</label>{{form.key(class="w3-input w3-border")}}</p>
+        {% for error in form.key.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+
         <p>{{form.submit(class="w3-button w3-green w3-round")}}</p>
     </form>
 </div>
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
 {%endblock%}
