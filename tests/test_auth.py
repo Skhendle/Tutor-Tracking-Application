@@ -31,9 +31,8 @@ def test_if_pytest_is_working_valid():
     	assert 1 == 1
 
 # counter test
-# This test should fail
 def test_if_pytest_is_working_invalid():
-    assert 1 == 2
+    assert 1 != 2
     
     
 def test_LectureRegForm_valid_username( ):
