@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/Skhendle/Tutor-Tracking-Application.svg?branch=master)](https://travis-ci.org/Skhendle/Tutor-Tracking-Application)
-[![codecov](https://codecov.io/gh/Skhendle/Tutor-Tracking-Application/branch/master/graph/badge.svg)](https://codecov.io/gh/Skhendle/Tutor-Tracking-Application)
+#[![Build Status](https://travis-ci.org/Skhendle/Tutor-Tracking-Application.svg?branch=master)](https://travis-ci.org/Skhendle/Tutor-Tracking-Application)
+#[![codecov](https://codecov.io/gh/Skhendle/Tutor-Tracking-Application/branch/master/graph/badge.svg)](https://codecov.io/gh/Skhendle/Tutor-Tracking-Application)
 
 # Tutor Tracking Application
 
