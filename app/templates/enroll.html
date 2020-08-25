@@ -2,9 +2,13 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
+<h2 class="w3-center">Enter your enrollement key for the course</h2>
 <br>
-<form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST" action="">
-    <input class="w3-input w3-border",maxlength=60 type="text" name="enrollment_key">
-    <input class="w3-button w3-blue" type="submit" name="submit" value="enroll">
+<form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST">
+    {{form.csrf_token}}
+    <p><label class= "w3-left">{{form.key.label}}</label>{{form.key(class="w3-input w3-border",maxlength=60)}}</p>
+    {% for error in form.key.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+
+    <p>{{form.submit(class="w3-button w3-green")}}</p>
 </form>
 {%endblock%}

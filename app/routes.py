@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, url_for, flash, redirect, request
-from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm ,StudentRegForm , CourseCreationForm
+from app.forms import LoginForm, LectureRegForm, TutorRegForm , EditTutorProfileForm, EditLectureProfileForm ,StudentRegForm , CourseCreationForm, EnrollmentKeyForm
 from flask_login import current_user, login_user, logout_user , login_required
 from app.models import User, Lecture ,Tutor, Student, Course
 from werkzeug.urls import url_parse
@@ -177,12 +177,12 @@ def show_course_details(course_code):
     return render_template('show_course_details.html',title='course details', course=course)
 
 @app.route('/enroll/<course_code>' , methods=['GET','POST'])
-def enroll_in_a_course(course_code) :
+def enroll_in_a_course(course_code):
+    form = EnrollmentKeyForm()
     course = Course.query.filter_by(course_code=course_code).first_or_404()
     key = 'testing'
-    if request.method == 'POST':
-        entered_key = request.form['enrollment_key']
-        if entered_key == key:
+    if form.validate_on_submit():
+        if form.key.data == key:
             if current_user.student:
                 current_user.student.enrolled_courses.append(course)
                 db.session.commit()
@@ -193,7 +193,7 @@ def enroll_in_a_course(course_code) :
                 return redirect(url_for('tutor_courses'))
         else:
             return redirect(url_for('enroll_in_a_course', course_code=course_code))
-    return render_template('enroll.html',title=f'enroll in {course_code}')
+    return render_template('enroll.html',title=f'enroll in {course_code}' , form=form)
     
 @app.route('/course/<course_code>' , methods=['POST', 'GET'])
 def edit_course_details(course_code):

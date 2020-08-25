@@ -138,3 +138,7 @@ class CourseCreationForm(FlaskForm):
     day = DateField('Day')
     number_of_tutors = IntegerField('Number of tutors',default=0, validators=[DataRequired()])
     submit = SubmitField('Create/Update course')
+
+class EnrollmentKeyForm(FlaskForm):
+    key = StringField('Enrollment key',validators=[DataRequired()])
+    submit = SubmitField('Enroll')

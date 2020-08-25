@@ -13,7 +13,7 @@ def start_ngrok():
     url = ngrok.connect(5000)
     print('Tunnel URL:',url)
 
-start_ngrok()
+#start_ngrok()
 
 '''
 if app.config['START_NGROK']:
