@@ -20,6 +20,12 @@ On top of accessing their session history, the tutor can also view their upcomin
 ### Additional features (both or neither the tutor’s side or lecturer’s side):
 A tutor and/or a lecturer can see the payment history
 
+# Flow
+
+![Image of architecture flow diagram](https://github.com/Skhendle/Tutor-Tracking-Application/blob/master/Documentation/flow.png)
+
+
+
 # Project struture
 [Link to the flask documentation file](https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/)
 ## flaskr:
@@ -46,3 +52,59 @@ A tutor and/or a lecturer can see the payment history
      - main.html
    * base.html
    
+ # Run Application Locally:
+ 
+ 
+Clone the `Tutor Tracking` project locally. In a terminal, run:
+
+```
+$ git clone https://github.com/Skhendle/Tutor-Tracking-Application
+```
+
+Navigate into the cloned folder:
+```
+$ cd Tutor-Tracking-Application
+```
+
+Create a virtual environment inside the folder:
+```
+$ python3 -m venv venv
+```
+
+Activate the environment:
+#### Windows:
+```
+$ venv\Scripts\activate
+```
+#### Unix:
+```
+$ . venv/bin/activate
+```
+
+Install Flask:
+```
+$ pip install Flask
+```
+
+You might need to install a few more dependencies before running the application, use:
+```
+$ pip install dependency-name  
+```
+
+Some of the few dependencies you will need:
+```
+$ pip install python-dotenv
+$ pip install flask_sqlalchemy
+$ pip install flask_migrate
+$ pip install flask_login
+$ pip install flask_wtf
+$ pip install email_validator
+```
+
+Run the Application:
+```
+$ flask run
+```
+
+
+

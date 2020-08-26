@@ -25,7 +25,7 @@ class User(db.Model,UserMixin):
 
 
     def __repr__(self):
-        return f'User {self.username}'
+        return 'User {}'.format(self.username)
 
     def set_password(self,password):
         self.password_hash = generate_password_hash(password)
@@ -51,7 +51,7 @@ class Lecture(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     course = db.relationship('Course', backref='lecturer',lazy=True)
     def __repr__(self):
-        return f'Lecture {self.employee_number}'
+        return 'Lecture {}'.format(self.employee_number)
 
 
 
