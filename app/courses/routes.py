@@ -1,10 +1,10 @@
 from app import db
 from flask import render_template, url_for, flash, redirect, request
-from app.courses.forms import CourseCreationForm
+from app.courses.forms import CourseCreationForm , EnrollmentKeyForm
 from flask_login import current_user, login_required
 from app.models import User, Lecture ,Tutor, Student, Course
 from werkzeug.urls import url_parse
-from app.courses import courses
+from app.courses import courses 
 
 
 
@@ -41,27 +41,25 @@ def show_course_details(course_code):
 
 @courses.route('/enroll/<course_code>' , methods=['GET','POST'])
 @login_required
-def enroll_in_a_course(course_code) :
+def enroll_in_a_course(course_code):
+    form = EnrollmentKeyForm()
     course = Course.query.filter_by(course_code=course_code).first_or_404()
-    key = 'testing'
-    if request.method == 'POST':
-        entered_key = request.form['enrollment_key']
-        if entered_key == key:
-            if current_user.student:
-                current_user.student.enrolled_courses.append(course)
-                db.session.commit()
-                return redirect(url_for('student.student_home'))
-            elif current_user.tutor:
-                current_user.tutor.enrolled_courses.append(course)
-                db.session.commit()
-                return redirect(url_for('tutor.tutor_courses'))
-        else:
-            return redirect(url_for('courss.enroll_in_a_course', course_code=course_code))
-    return render_template('courses/enroll.html',title=f'enroll in {course_code}')
+    if form.validate_on_submit():
+        if current_user.student:
+            current_user.student.enrolled_courses.append(course)
+            db.session.commit()
+            return redirect(url_for('student.student_home'))
+        elif current_user.tutor:
+            current_user.tutor.enrolled_courses.append(course)
+            db.session.commit()
+            return redirect(url_for('tutor.tutor_courses'))
+    if request.method == "GET":
+        form.course_code.data = course_code
+    return render_template('courses/enroll.html',title=f'enroll in {course_code}' , form=form , course_code=course_code)
     
 
 
-@courses.route('/<course_code>' , methods=['POST', 'GET'])
+@courses.route('/course/<course_code>' , methods=['POST', 'GET'])
 @login_required
 def edit_course_details(course_code):
     form = CourseCreationForm()
@@ -74,6 +72,7 @@ def edit_course_details(course_code):
         course.end_time = form.end_time.data
         course.day = form.day.data
         course.number_of_tutors = form.number_of_tutors.data
+        course.key = form.key.data
         db.session.commit()
         return redirect(url_for('courses.show_course_details', course_code=course_code))
     elif request.method == "GET":
@@ -81,5 +80,5 @@ def edit_course_details(course_code):
         form.name.data = course.name
         form.venue.data = course.venue
         form.number_of_tutors.data = course.number_of_tutors 
-
+        form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)

@@ -38,7 +38,7 @@ def tutorRegistration():
     return render_template('tutor/tutor_reg.html',title='tutor registation',form=form)
 
 
-@tutor.route('/edit-profile', methods=['GET','POST'])
+@tutor.route('/tutor/edit-profile', methods=['GET','POST'])
 @login_required
 def edit_tutor():
     form=EditTutorProfileForm()
