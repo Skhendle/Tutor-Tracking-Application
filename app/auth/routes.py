@@ -20,21 +20,21 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
         login_user(user)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            next_page = url_for('auth.index')
         return redirect(next_page)
     return render_template('auth/login.html', title='Sign In', form=form)
 
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.index'))
 
 @auth.route('/account_type')
 def account_type():
-    return render_template('account_type.html',title='account type')
+    return render_template('auth/account_type.html',title='account type')
 
 

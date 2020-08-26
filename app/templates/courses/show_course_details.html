@@ -16,7 +16,7 @@
     <li><b>Number of Tutors</b> <i class="w3-right">{{course.number_of_tutors}}</i></li>
     </ul>
     {% if current_user.lecture%}
-    <a class="w3-button w3-green w3-margin w3-round" href="{{url_for('edit_course_details' , course_code=course.course_code)}}" style="width: 30%;">Update Course</a>
+    <a class="w3-button w3-green w3-margin w3-round" href="{{url_for('courses.edit_course_details' , course_code=course.course_code)}}" style="width: 30%;">Update Course</a>
     {% endif %}
 </div>
 

@@ -18,7 +18,7 @@ def create_course():
             day=form.day.data, number_of_tutors=form.number_of_tutors.data,lecturer=current_user.lecture)
         db.session.add(course)
         db.session.commit()
-        return redirect(url_for('my_courses'))
+        return redirect(url_for('courses.my_courses'))
     return render_template('courses/create_course.html',title='Create a course',form=form)
 
 @courses.route('/my-courses')
@@ -50,13 +50,13 @@ def enroll_in_a_course(course_code) :
             if current_user.student:
                 current_user.student.enrolled_courses.append(course)
                 db.session.commit()
-                return redirect(url_for('student_home'))
+                return redirect(url_for('student.student_home'))
             elif current_user.tutor:
                 current_user.tutor.enrolled_courses.append(course)
                 db.session.commit()
-                return redirect(url_for('tutor_courses'))
+                return redirect(url_for('tutor.tutor_courses'))
         else:
-            return redirect(url_for('enroll_in_a_course', course_code=course_code))
+            return redirect(url_for('courss.enroll_in_a_course', course_code=course_code))
     return render_template('courses/enroll.html',title=f'enroll in {course_code}')
     
 
@@ -75,7 +75,7 @@ def edit_course_details(course_code):
         course.day = form.day.data
         course.number_of_tutors = form.number_of_tutors.data
         db.session.commit()
-        return redirect(url_for('show_course_details', course_code=course_code))
+        return redirect(url_for('courses.show_course_details', course_code=course_code))
     elif request.method == "GET":
         form.course_code.data = course.course_code 
         form.name.data = course.name

@@ -13,19 +13,19 @@ from app.student import student
 @student.route('/home')
 @login_required
 def student_home():
-    return render_template('student_home.html', title = 'Student home')
+    return render_template('student/student_home.html', title = 'Student home')
 
 
 @student.route('/profile')
 @login_required
 def student_profile():
-    return render_template('student_profile.html',title='profile')
+    return render_template('student/student_profile.html',title='profile')
 
 
 @student.route('/registration', methods=['GET','POST'])
 def studentRegistration():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth.index'))
     form = StudentRegForm()
     if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
@@ -35,5 +35,5 @@ def studentRegistration():
         db.session.add(student)
         db.session.commit()
         flash('Congratulations, you are now a registered Student!')
-        return redirect(url_for('student_home'))
-    return render_template('auth/student_reg.html',title='student registation',form=form)
+        return redirect(url_for('student.student_home'))
+    return render_template('student/student_reg.html',title='student registation',form=form)

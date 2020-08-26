@@ -13,18 +13,18 @@ from app.tutor import tutor
 @tutor.route('/home')
 @login_required
 def tutor_home():
-    return render_template('tutor_home.html')
+    return render_template('tutor/tutor_home.html')
 
 
 @tutor.route('/profile')
 @login_required
 def tutor_profile():
-    return render_template('tutor_profile.html',title='profile')
+    return render_template('tutor/tutor_profile.html',title='profile')
 
 @tutor.route('/registration', methods=['GET','POST'])
 def tutorRegistration():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth.index'))
     form = TutorRegForm()
     if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
@@ -34,8 +34,8 @@ def tutorRegistration():
         db.session.add(tutor)
         db.session.commit()
         flash('Congratulations, you are now a registered Tutor!')
-        return redirect(url_for('tutor_home'))
-    return render_template('auth/tutor_reg.html',title='tutor registation',form=form)
+        return redirect(url_for('tutor.tutor_home'))
+    return render_template('tutor/tutor_reg.html',title='tutor registation',form=form)
 
 
 @tutor.route('/edit-profile', methods=['GET','POST'])
@@ -51,7 +51,7 @@ def edit_tutor():
         current_user.tutor.status = int(form.status.data)
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('tutor_profile'))
+        return redirect(url_for('tutor.tutor_profile'))
     elif request.method == 'GET':
         form.account_type.data = current_user.tutor.account_type
         form.account_number.data = current_user.tutor.account_number
@@ -59,26 +59,26 @@ def edit_tutor():
         form.branch_code.data = current_user.tutor.branch_code
         form.phone_number.data = current_user.tutor.phone_number
         form.status.data = current_user.tutor.status
-    return render_template('edit_tutor.html',title='edit profile', form=form)
+    return render_template('tutor/edit_tutor.html',title='edit profile', form=form)
 
 
 @tutor.route('/view-courses/my-courses')
 @login_required
 def tutor_courses():
-    return render_template('tutor_courses.html', title = 'My courses')
+    return render_template('tutor/tutor_courses.html', title = 'My courses')
 
 @tutor.route('/access-a-tutor')
 @login_required
 def access_tutor():
     tutors = Tutor.query.all()
-    return render_template('access_tutors.html', title='Access a tutors', tutors=tutors)
+    return render_template('tutor/access_tutors.html', title='Access a tutors', tutors=tutors)
 
 @tutor.route('/tutor-details/<id_number>')
 @login_required
 def tutor_details(id_number):
     tutor = Tutor.query.filter_by(id_number=id_number).first_or_404()
     print(tutor)
-    return render_template('tutor_details.html',title='Tutor details', tutor=tutor)
+    return render_template('tutor/tutor_details.html',title='Tutor details', tutor=tutor)
 
 
     

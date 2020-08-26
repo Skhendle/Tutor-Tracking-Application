@@ -15,18 +15,18 @@ from app.lecturer import lecturer
 @lecturer.route('/home')
 @login_required
 def lecture_home():
-    return render_template('lecture_home.html')
+    return render_template('lecturer/lecture_home.html')
 
 @lecturer.route('/profile')
 @login_required
 def lecture_profile():
-    return render_template('lecture_profile.html',title='profile')
+    return render_template('lecturer/lecture_profile.html',title='profile')
 
 
 @lecturer.route('/registration', methods=['GET','POST'])
 def lectureRegistration():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth.index'))
     form = LectureRegForm()
     if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
@@ -36,8 +36,8 @@ def lectureRegistration():
         db.session.add(lecture)
         db.session.commit()
         flash('Congratulations, you are now a registered Lecture!')
-        return redirect(url_for('lecture_home'))
-    return render_template('auth/lecture_reg.html',title='lecture registation',form=form)
+        return redirect(url_for('lecturer.lecture_home'))
+    return render_template('lecturer/lecture_reg.html',title='lecture registation',form=form)
 
 @lecturer.route('/edit-profile', methods=['GET','POST'])
 @login_required
@@ -48,10 +48,10 @@ def edit_lecture():
         current_user.lecture.telephone_number = form.telephone_number.data
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('lecture_profile'))
+        return redirect(url_for('lecturer.lecture_profile'))
     elif request.method == 'GET':
         form.office_number.data = current_user.lecture.office_number
         form.telephone_number.data = current_user.lecture.telephone_number
-    return render_template('edit_lecture.html',title='edit profile', form=form)
+    return render_template('lecturer/edit_lecture.html',title='edit profile', form=form)
 
 

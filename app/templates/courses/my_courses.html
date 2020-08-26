@@ -11,9 +11,9 @@
     <div class="w3-container">
                 <p>{{course.name}}</p>
     </div>
-    <a href="{{url_for('show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">Course details</button></a>
+    <a href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">Course details</button></a>
 </div>
 <br>
 {%endfor%}
-<a href="{{url_for('create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
+<a href="{{url_for('courses.create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
 {%endblock%}
