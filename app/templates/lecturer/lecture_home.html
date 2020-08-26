@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+      <!-- configuration for  pc  and tablets -->
+{%block content%}
+
+<div class="w3-card-4">
+      <header class="w3-container w3-light-grey">
+            <h3>My Courses</h3>
+      </header>
+      <div class="w3-container">
+                  <p>A list of all the courses that you are lecturing.</p>
+      </div>
+      <a href="{{url_for('courses.my_courses')}}" class="w3-button w3-block w3-flat-carrot">View courses</a>
+</div><br>
+
+{%endblock%}  
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}

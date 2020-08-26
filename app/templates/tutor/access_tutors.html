@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+{%for tutor in tutors%}
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>{{tutor.user.firstname}} {{tutor.user.lastname}}</h3>
+    </header>
+    <div class="w3-container">
+        {%if tutor.status == True %}
+                <p>Available</p>
+        {%else%}
+                <p>Busy</p>
+        {%endif%}
+    </div>
+    <a href="{{url_for('tutor.tutor_details' , id_number=tutor.id_number)}}"><button class="w3-button w3-block w3-grey">Tutor details</button></a>
+</div>
+<br>
+{%endfor%}
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}

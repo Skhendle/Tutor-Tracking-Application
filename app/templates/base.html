@@ -106,7 +106,13 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-ios.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-indigo.css">
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <body>
 
   <div class="w3-container w3-light-grey">
@@ -117,29 +123,32 @@
 
 <div class="w3-flat-wet-asphalt w3-bar w3-large">
   {%if current_user.is_anonymous %}
-  <a href="{{url_for('login')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-in"></i>login</a>
+  <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-in"></i>login</a>
   {% else %}
-  <a href="{{url_for('logout')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-out"></i> logout</a>
+  <a href="{{url_for('auth.logout')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-out"></i> logout</a>
   <div class="w3-dropdown-hover w3-mobile w3-right">
     <button class="w3-button"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile</button>
     <div id="demo" class="w3-dropdown-content w3-bar-block w3-card-4">
       {%if current_user.lecture %}
-      <a href="{{url_for('lecture_profile')}}" class="w3-bar-item w3-button">My profile</a>
+      <a href="{{url_for('lecturer.lecture_profile')}}" class="w3-bar-item w3-button">My profile</a>
       {% elif current_user.student %}
-      <a href="{{url_for('student_profile')}}" class="w3-bar-item w3-button">My profile</a>
+      <a href="{{url_for('student.student_profile')}}" class="w3-bar-item w3-button">My profile</a>
       {% else %}
-      <a href="{{url_for('tutor_profile')}}" class="w3-bar-item w3-button">My profile</a>
+      <a href="{{url_for('tutor.tutor_profile')}}" class="w3-bar-item w3-button">My profile</a>
       {%endif%}
     </div>
     </div>
   <button class="w3-button w3-right w3-hover-none w3-hover-text-white">Hi,{{current_user.firstname}} {{current_user.lastname}}!</button>
-  <a href="{{url_for('index')}}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
+  <a href="{{url_for('auth.index')}}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
   {%if current_user.lecture %}
-  <a href="{{url_for('lecture_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('lecturer.lecture_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('tutor.access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
   {% elif current_user.student %}
-  <a href="{{url_for('student_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('student.student_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('courses.explore')}}" class="w3-bar-item w3-button">Explore</a>
+  <a href="{{url_for('tutor.access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
   {% else %}
-  <a href="{{url_for('tutor_home')}}" class="w3-bar-item w3-button">Dashboard</a>
+  <a href="{{url_for('tutor.tutor_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   {% endif %}
   {% endif %}
 </div>

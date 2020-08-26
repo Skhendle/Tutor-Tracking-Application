@@ -19,7 +19,6 @@ class User(db.Model,UserMixin):
     username = db.Column(db.String(120),nullable=False, index=True, unique=True)
     password_hash = db.Column(db.String(120),nullable=False, unique=True)
     create_date = db.Column(db.DateTime , index=True,default=datetime.utcnow)
-    group = db.Column(db.String(20),index=True)
     lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
     tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
     student = db.relationship('Student', backref='user', uselist=False, lazy=True)
@@ -59,11 +58,13 @@ class Lecture(db.Model):
 class Tutor(db.Model):
     id_number = db.Column(db.String(10), primary_key=True)
     account_type = db.Column(db.String(60))
-    account_number = db.Column(db.String(60), unique=True)
+    account_number = db.Column(db.String(60))
     bank_name = db.Column(db.String(60))
     branch_code = db.Column(db.String(20))
     phone_number = db.Column(db.String(10))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+    courses = db.relationship('Course', secondary='tutors_and_courses' , backref='enrolled_tutors' , lazy=True)
+    status = db.Column(db.Boolean, default=True)
 
     def __repr__(self):
         return f'Tutor {self.id_number}'
@@ -75,6 +76,7 @@ class Student(db.Model):
     year_of_study = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(10))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+    courses = db.relationship('Course', secondary='students_and_courses' , backref='enrolled_students' , lazy=True)
 
     def __repr__(self):
         return f'Student {self.student_number}'
@@ -88,7 +90,23 @@ class Course(db.Model):
     end_time = db.Column(db.String(120), nullable = False)
     day = db.Column(db.String(120),nullable = False)
     number_of_tutors = db.Column(db.Integer, nullable = False)
-    lecture_employee_number = db.Column(db.String(20), db.ForeignKey('lecture.employee_number'), nullable = False)
+    Lecture_employee_number = db.Column(db.String(20), db.ForeignKey('lecture.employee_number'), nullable = False)
+    students = db.relationship('Student', secondary='students_and_courses', backref='enrolled_courses', lazy=True)
+    tutors = db.relationship('Tutor', secondary='tutors_and_courses', backref='enrolled_courses', lazy=True)
+    key = db.Column(db.String(120))
 
     def __repr__(self):
         return f'Course {self.course_code}'
+
+#Association table students
+students_and_courses = db.Table('students_and_courses',
+    db.Column('student_number',db.String(20), db.ForeignKey('student.student_number'), primary_key = True),
+    db.Column('course_code',db.String(20),db.ForeignKey('course.course_code'),primary_key=True)
+)
+
+
+#Association Table tutors
+tutors_and_courses = db.Table('tutors_and_courses',
+    db.Column('id_number',db.String(20), db.ForeignKey('tutor.id_number'), primary_key=True),
+    db.Column('course_code',db.String(20),db.ForeignKey('course.course_code'),primary_key=True)
+)
