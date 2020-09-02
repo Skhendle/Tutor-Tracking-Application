@@ -33,6 +33,11 @@ def explore():
     courses = Course.query.all()
     return render_template('courses/explore.html', title='explore courses', courses=courses)
 
+@courses.route('/apply')
+@login_required
+def apply():
+    courses = Course.query.all()
+    return render_template('courses/apply.html', title='apply for a courses', courses=courses)
 
 @courses.route('/<course_code>')
 @login_required
@@ -87,3 +92,5 @@ def edit_course_details(course_code):
         form.day.data = course.day
         form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)
+
+
