@@ -66,6 +66,7 @@ class Tutor(db.Model):
     courses = db.relationship('Course', secondary='tutors_and_courses' , backref='enrolled_tutors' , lazy=True)
     status = db.Column(db.Boolean, default=True)
     applicaion = db.relationship('Application',backref='tutors',lazy=True)
+    register = db.relationship('Register',backref='tutors',lazy=True)
     
 
     def __repr__(self):
@@ -97,6 +98,7 @@ class Course(db.Model):
     tutors = db.relationship('Tutor', secondary='tutors_and_courses', backref='enrolled_courses', lazy=True)
     key = db.Column(db.String(120))
     applicaion = db.relationship('Application',backref='courses',lazy=True)
+    register = db.relationship('Register',backref='courses',lazy=True)
 
     def __repr__(self):
         return f'Course {self.course_code}'
@@ -124,3 +126,11 @@ class Application(db.Model):
 
     def __repr__(self):
         return f'Application {self.course} by {self.tutor}'
+
+
+class Register(db.Model):
+    register_id = db.Column(db.Integer, primary_key=True)
+    otp = db.Column(db.String(50), nullable = False)
+    session = db.Column(db.DateTime ,default=datetime.utcnow)
+    course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
+    tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number')) 
