@@ -65,6 +65,8 @@ class Tutor(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     courses = db.relationship('Course', secondary='tutors_and_courses' , backref='enrolled_tutors' , lazy=True)
     status = db.Column(db.Boolean, default=True)
+    applicaion = db.relationship('Application',backref='tutors',lazy=True)
+    
 
     def __repr__(self):
         return f'Tutor {self.id_number}'
@@ -94,6 +96,7 @@ class Course(db.Model):
     students = db.relationship('Student', secondary='students_and_courses', backref='enrolled_courses', lazy=True)
     tutors = db.relationship('Tutor', secondary='tutors_and_courses', backref='enrolled_courses', lazy=True)
     key = db.Column(db.String(120))
+    applicaion = db.relationship('Application',backref='courses',lazy=True)
 
     def __repr__(self):
         return f'Course {self.course_code}'
@@ -110,3 +113,14 @@ tutors_and_courses = db.Table('tutors_and_courses',
     db.Column('id_number',db.String(20), db.ForeignKey('tutor.id_number'), primary_key=True),
     db.Column('course_code',db.String(20),db.ForeignKey('course.course_code'),primary_key=True)
 )
+
+
+class Application(db.Model):
+    applicaton_id = db.Column(db.Integer, primary_key=True)
+    motivation = db.Column(db.String(2048), nullable=False)
+    academic_record = db.Column(db.String(255))
+    course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
+    tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number'))
+
+    def __repr__(self):
+        return f'Application {self.course} by {self.tutor}'
