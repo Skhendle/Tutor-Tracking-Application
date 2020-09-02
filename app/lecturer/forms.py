@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField , RadioField
 from wtforms.validators import DataRequired, Email, EqualTo , Length
-from app.models import Lecture
+from app.models import Lecture,User
 
 from app.auth.forms import validate_employee_student_number , validate_phone_number
 

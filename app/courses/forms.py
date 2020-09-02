@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError , SelectField , RadioField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
+from app.models import Course
 import re
 
 
@@ -14,6 +15,7 @@ class CourseCreationForm(FlaskForm):
     day = DateField('Day')
     number_of_tutors = IntegerField('Number of tutors',default=0, validators=[DataRequired()])
     submit = SubmitField('Create/Update course')
+    key = StringField('Enrollment key',validators=[DataRequired()])
 
 class EnrollmentKeyForm(FlaskForm):
     key = StringField('Enrollment key',validators=[DataRequired()])

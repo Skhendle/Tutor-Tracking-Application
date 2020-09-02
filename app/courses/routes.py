@@ -15,7 +15,8 @@ def create_course():
     form = CourseCreationForm()
     if form.validate_on_submit():
         course = Course(course_code=form.course_code.data,name=form.name.data,venue=form.venue.data,start_time=form.start_time.data,end_time=form.end_time.data,\
-            day=form.day.data, number_of_tutors=form.number_of_tutors.data,lecturer=current_user.lecture)
+            day=form.day.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
+        course.lecturer = current_user.lecture
         db.session.add(course)
         db.session.commit()
         return redirect(url_for('courses.my_courses'))
@@ -80,5 +81,9 @@ def edit_course_details(course_code):
         form.name.data = course.name
         form.venue.data = course.venue
         form.number_of_tutors.data = course.number_of_tutors 
+        form.key.data = course.key
+        form.start_time.data = course.start_time
+        form.end_time.data = course.end_time
+        form.day.data = course.day
         form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)
