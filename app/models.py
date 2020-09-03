@@ -50,6 +50,8 @@ class Lecture(db.Model):
     telephone_number = db.Column(db.String(12),unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     course = db.relationship('Course', backref='lecturer',lazy=True)
+    messages = db.relationship('Message',backref='lecturer',lazy=True)
+
     def __repr__(self):
         return 'Lecture {}'.format(self.employee_number)
 
@@ -66,7 +68,8 @@ class Tutor(db.Model):
     courses = db.relationship('Course', secondary='tutors_and_courses' , backref='enrolled_tutors' , lazy=True)
     status = db.Column(db.Boolean, default=True)
     application = db.relationship('Application',backref='tutors',lazy=True)
-    register = db.relationship('Register',backref='tutors',lazy=True)
+    register = db.relationship('Register',backref='attendance',lazy=True)
+    messages = db.relationship('Message',backref='tutor',lazy=True)
     
 
     def __repr__(self):
@@ -135,4 +138,17 @@ class Register(db.Model):
     session = db.Column(db.DateTime ,default=datetime.utcnow)
     course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
     tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number')) 
+
+    def __repr__(self):
+        return f'Register {self.register_id}'
     
+class Message(db.Model):
+    message_id = db.Column(db.Integer, primary_key = True)
+    direct_message = db.Column(db.String(9204))
+    tutor = db.Column(db.String(15),db.ForeignKey('tutor.id_number'))
+    lecturer = db.Column(db.String(15),db.ForeignKey('lecture.employee_number'))
+    status = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return f'Message {self.message_id}'
+
