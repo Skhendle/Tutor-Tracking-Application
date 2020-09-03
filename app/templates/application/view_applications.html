@@ -10,7 +10,7 @@
     <div class="w3-container">
                 <p>ID number - {{application.tutors.id_number}}</p>
     </div>
-    <a href="#"><button class="w3-button w3-hover-white w3-block">details</button></a>
+    <a href="{{url_for('application.application_details' ,app_id=application.applicaton_id)}}"><button class="w3-button w3-hover-white w3-block">details</button></a>
 </div>
 <br>
 {%endfor%}

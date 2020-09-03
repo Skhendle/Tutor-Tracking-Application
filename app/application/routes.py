@@ -1,6 +1,6 @@
 from app import db
 from config import basedir
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request , send_from_directory
 from app.application.forms import ApplicationForm
 from flask_login import current_user, login_required
 from app.models import Application,Course
@@ -35,3 +35,14 @@ def my_applications():
 def view_applications(course_code):
     course = Course.query.filter_by(course_code=course_code).first_or_404()
     return render_template('application/view_applications.html', title='View applicatins' , course=course)
+
+@application.route('/application-details/<int:app_id>')
+@login_required
+def application_details(app_id):
+    application = Application.query.filter_by(applicaton_id=app_id).first_or_404()
+    return render_template('application/application_details.html', title='Application Details', application=application)
+
+@application.route('/academic_record/<filename>')
+@login_required
+def academic_record(filename):
+    return send_from_directory(UPLOAD_FOLDER,filename)
