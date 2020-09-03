@@ -50,7 +50,7 @@ class Lecture(db.Model):
     telephone_number = db.Column(db.String(12),unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     course = db.relationship('Course', backref='lecturer',lazy=True)
-    messages = db.relationship('Message',backref='lecturer',lazy=True)
+    messages = db.relationship('Message',backref='lecturers',lazy=True)
 
     def __repr__(self):
         return 'Lecture {}'.format(self.employee_number)
@@ -69,7 +69,7 @@ class Tutor(db.Model):
     status = db.Column(db.Boolean, default=True)
     application = db.relationship('Application',backref='tutors',lazy=True)
     register = db.relationship('Register',backref='attendance',lazy=True)
-    messages = db.relationship('Message',backref='tutor',lazy=True)
+    messages = db.relationship('Message',backref='tutors',lazy=True)
     
 
     def __repr__(self):
@@ -100,7 +100,7 @@ class Course(db.Model):
     students = db.relationship('Student', secondary='students_and_courses', backref='enrolled_courses', lazy=True)
     tutors = db.relationship('Tutor', secondary='tutors_and_courses', backref='enrolled_courses', lazy=True)
     key = db.Column(db.String(120))
-    applicaion = db.relationship('Application',backref='courses',lazy=True)
+    application = db.relationship('Application',backref='courses',lazy=True)
     register = db.relationship('Register',backref='courses',lazy=True)
 
     def __repr__(self):

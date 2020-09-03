@@ -30,3 +30,8 @@ def application_form(course_code):
 def my_applications():
     return render_template('application/my_applications.html', title='My applications')
 
+@application.route('/view-applications/<course_code>')
+@login_required
+def view_applications(course_code):
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
+    return render_template('application/view_applications.html', title='View applicatins' , course=course)
