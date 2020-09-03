@@ -7,4 +7,4 @@ app = create_app()
 @app.shell_context_processor
 def make_shell_context():
     return {'db': db, 'User': User, 'Lecture':Lecture , 'Tutor':Tutor , 'tutors_and_courses':tutors_and_courses,'Student':Student,'students_and_courses':students_and_courses\
-     ,'Applicaton':Application, 'Register':Register}
+     ,'Application':Application, 'Register':Register}

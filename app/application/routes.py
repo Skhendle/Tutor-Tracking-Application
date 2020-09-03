@@ -10,7 +10,7 @@ import os
 
 UPLOAD_FOLDER = os.path.join(basedir,'app\static\\academic_records')
 
-@application.route('applicaton-form/<course_code>' , methods=['POST','GET'])
+@application.route('/applicaton-form/<course_code>' , methods=['POST','GET'])
 @login_required
 def application_form(course_code):
     form = ApplicationForm()
@@ -19,14 +19,14 @@ def application_form(course_code):
         file = form.academic_record.data
         filename = secure_filename(file.filename)
         file.save(os.path.join(UPLOAD_FOLDER,filename))
-        application = Application(motivation=form.motivation.data,academic_record=filename,courses=course , tutors=current_user.tutor)
+        application = Application(motivation=form.motivation.data,academic_record=filename,status='Pending',courses=course , tutors=current_user.tutor)
         db.session.add(application)
         db.session.commit()
         return redirect(url_for('courses.apply'))
     return render_template('application/application_form.html', title='Application form' , form=form , course_code=course_code)
 
-
-
-
-
+@application.route('/my-applications')
+@login_required
+def my_applications():
+    return render_template('application/my_applications.html', title='My applications')
 

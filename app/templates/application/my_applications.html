@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+{%block content%}
+{%for application in current_user.tutor.application%}
+<h1 class="w3-center">My applications </h1> 
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>{{application.courses}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>{{application.courses.name}}</p>
+    </div>
+    <button class="w3-button w3-hover-white w3-block">{%if application.status == 'Pending' %}
+            <p class="w3-text-yellow w3-left">{{application.status}}</p>
+        {% elif  application.status == 'Rejected' %}
+            <p class="w3-text-red w3-left">{{application.status}}</p>
+        {% else %}
+            <p class="w3-text-green w3-left">{{application.status}}</p>
+        {%endif%}
+    </button>
+</div>
+<br>
+{%endfor%}
+{%endblock%}
+
+{%block footer%}
+    {%include "footer.html"%}
+{%endblock%}

@@ -123,6 +123,7 @@ class Application(db.Model):
     academic_record = db.Column(db.String(255))
     course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
     tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number'))
+    status = db.Column(db.String(10))
 
     def __repr__(self):
         return f'Application {self.course} by {self.tutor}'
@@ -134,3 +135,4 @@ class Register(db.Model):
     session = db.Column(db.DateTime ,default=datetime.utcnow)
     course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
     tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number')) 
+    

@@ -4,6 +4,8 @@
 {%block content%}
 {%for course in courses%}
     {% if current_user.tutor not in course.enrolled_tutors%}
+        {%for application in current_user.tutor.application%}
+            {%if application.courses != course %}
 <div class="w3-card-4">
     <header class="w3-container w3-light-grey">
           <h3>{{course.course_code}}</h3>
@@ -14,6 +16,8 @@
     <a href="{{url_for('application.application_form' , course_code = course.course_code)}}"><button class="w3-button w3-block w3-grey">apply</button></a>
 </div>
 <br>
+{%endif%}
+{%endfor%}
 {%endif%}
 {%endfor%}
 {%endblock%}
