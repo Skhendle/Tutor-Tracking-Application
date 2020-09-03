@@ -65,7 +65,7 @@ class Tutor(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     courses = db.relationship('Course', secondary='tutors_and_courses' , backref='enrolled_tutors' , lazy=True)
     status = db.Column(db.Boolean, default=True)
-    applicaion = db.relationship('Application',backref='tutors',lazy=True)
+    application = db.relationship('Application',backref='tutors',lazy=True)
     register = db.relationship('Register',backref='tutors',lazy=True)
     
 
