@@ -3,7 +3,7 @@ from config import basedir
 from flask import render_template, url_for, flash, redirect, request , send_from_directory
 from app.application.forms import ApplicationForm
 from flask_login import current_user, login_required
-from app.models import Application,Course
+from app.models import Application,Course, Message
 from werkzeug.utils import secure_filename
 from app.application import application
 import os
@@ -52,5 +52,10 @@ def academic_record(filename):
 def application_response(app_id,response):
     application = Application.query.filter_by().first_or_404()
     application.status = response
+    if response == 'Accepted':
+        Message(direct_message='You application has been approved, use the enrollment key "thabo" to enroll in the course',tutors=application.tutors,lecturers=current_user.lecture)
+    else:
+        Message(direct_message='Unfortunatly your application did not meet the requirements, try applying for a different course, good luck!',tutors=application.tutors,lecturers=current_user.lecture)
     db.session.commit()
     return redirect(url_for('application.application_details',app_id=app_id))
+
