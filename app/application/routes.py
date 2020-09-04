@@ -46,3 +46,11 @@ def application_details(app_id):
 @login_required
 def academic_record(filename):
     return send_from_directory(UPLOAD_FOLDER,filename)
+
+@application.route('/application-response/<int:app_id>/<response>')
+@login_required
+def application_response(app_id,response):
+    application = Application.query.filter_by().first_or_404()
+    application.status = response
+    db.session.commit()
+    return redirect(url_for('application.application_details',app_id=app_id))
