@@ -3,6 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
+import random
 
 
 #User mixin extends the user model to add three fields required to manage a user
@@ -70,6 +71,7 @@ class Tutor(db.Model):
     application = db.relationship('Application',backref='tutors',lazy=True)
     register = db.relationship('Register',backref='attendance',lazy=True)
     messages = db.relationship('Message',backref='tutors',lazy=True)
+    otp = db.Column(db.String(20),default=random.randint(10000000,50000000))
     
 
     def __repr__(self):

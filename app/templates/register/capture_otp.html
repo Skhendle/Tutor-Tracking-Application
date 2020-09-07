@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+
+{%block content%}
+    <h1>Capture tutor</h1>
+    {% with messages =  get_flashed_messages()%}
+        {%if messages %}
+            {%for message in messages%}
+                <p>{{message}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    <form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" style="width: 50%;" method="POST" novalidate>
+        {{form.csrf_token}}
+        <p><label class= "w3-left">{{form.id_number.label}}</label>{{form.id_number(class="w3-input w3-border")}}</p>
+        {% for error in form.otp.errors %}<span style="color: red;">{{ error }}</span>{% endfor %}
+
+        <p><label class= "w3-left">{{form.otp.label}}</label>{{form.otp(class="w3-input w3-border")}}</p>
+        {% for error in form.otp.errors %}<span style="color: red;">{{ error }}</span>{% endfor %}
+
+        <p>{{form.submit(class="w3-button w3-blue")}}</p>
+    </form>
+{%endblock%}

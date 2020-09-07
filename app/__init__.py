@@ -32,6 +32,7 @@ def create_app(config_class=Config):
     from app.courses import courses
     from app.application import application
     from app.messages import messages
+    from app.register import register
 
 
 
@@ -42,6 +43,7 @@ def create_app(config_class=Config):
     app.register_blueprint(courses)
     app.register_blueprint(application)
     app.register_blueprint(messages)
+    app.register_blueprint(register)
 
     return app
 

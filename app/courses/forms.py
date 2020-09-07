@@ -3,7 +3,6 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 from app.models import Course
-import re
 
 
 class CourseCreationForm(FlaskForm):
