@@ -5,6 +5,7 @@
 
 {%block content%}
 <a class="w3-button w3-marign w3-round" href="{{url_for('register.capture_otp' , course_code = course.course_code)}}">Capture a student</a>
+<a class="w3-button w3-marign w3-round" href="{{url_for('register.attendance' , course_code = course.course_code)}}">Register</a>
 <div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
     <ul class="w3-ul">
     <li><h2>Course information</h2></li>
