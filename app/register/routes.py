@@ -40,4 +40,8 @@ def capture_otp(course_code):
 def attendance(course_code):
     page = request.args.get('page', 1, type=int)
     attendance_list = Register.query.filter_by(course=course_code).paginate(page,2,False)
-    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items)
+    next_url = url_for('register.attendance', course_code=course_code, page=attendance_list.next_num) \
+        if attendance_list.has_next else None
+    prev_url = url_for('register.attendance',course_code=course_code, page=attendance_list.prev_num) \
+        if attendance_list.has_prev else None
+    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url)

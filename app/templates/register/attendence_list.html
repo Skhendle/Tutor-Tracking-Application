@@ -21,6 +21,11 @@
     {% endfor %}
   </tbody>
 </table>
-
+{% if prev_url %}
+<a href="{{ prev_url }}">prev |</a>
+{% endif %}
+{% if next_url %}
+<a href="{{ next_url }}"> next</a>
+{% endif %}
 
 {%endblock%}
