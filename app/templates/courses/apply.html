@@ -2,10 +2,17 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for message in messages%}
+        <p class="w3-green">{{message}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
 {%for course in courses%}
     {% if current_user.tutor not in course.enrolled_tutors%}
         {%for application in current_user.tutor.application%}
-            {%if application.courses != course %}
+            {%if application.courses.course_code != course.course_code %}
 <div class="w3-card-4">
     <header class="w3-container w3-light-grey">
           <h3>{{course.course_code}}</h3>

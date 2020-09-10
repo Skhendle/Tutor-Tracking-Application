@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
 import random
+import json
+from time import time
 
 
 #User mixin extends the user model to add three fields required to manage a user
@@ -23,7 +25,29 @@ class User(db.Model,UserMixin):
     lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
     tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
     student = db.relationship('Student', backref='user', uselist=False, lazy=True)
+    messages_sent = db.relationship('Message',
+                                    foreign_keys='Message.sender_id',
+                                    backref='author', lazy='dynamic')
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.recipient_id',
+                                        backref='recipient', lazy='dynamic')
+    last_message_read_time = db.Column(db.DateTime)
 
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
+
+
+    def add_notification(self, name, data):
+        self.notifications.filter_by(name=name).delete()
+        n = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(n)
+        return n
+
+
+    def new_messages(self):
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+        return Message.query.filter_by(recipient=self).filter(
+            Message.timestamp > last_read_time).count()
 
     def __repr__(self):
         return 'User {}'.format(self.username)
@@ -51,8 +75,7 @@ class Lecture(db.Model):
     telephone_number = db.Column(db.String(12),unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     course = db.relationship('Course', backref='lecturer',lazy=True)
-    messages = db.relationship('Message',backref='lecturers',lazy=True)
-
+    
     def __repr__(self):
         return 'Lecture {}'.format(self.employee_number)
 
@@ -70,9 +93,12 @@ class Tutor(db.Model):
     status = db.Column(db.Boolean, default=True)
     application = db.relationship('Application',backref='tutors',lazy=True)
     register = db.relationship('Register',backref='attendance',lazy=True)
-    messages = db.relationship('Message',backref='tutors',lazy=True)
     otp = db.Column(db.String(20),default=random.randint(10000000,50000000))
     
+    def get_all_application_courses(self):
+        applications = self.application
+        application_list = [application.courses for application in applications ]
+        return application_list
 
     def __repr__(self):
         return f'Tutor {self.id_number}'
@@ -145,12 +171,22 @@ class Register(db.Model):
         return f'Register {self.register_id}'
     
 class Message(db.Model):
-    message_id = db.Column(db.Integer, primary_key = True)
-    direct_message = db.Column(db.String(9204))
-    tutor = db.Column(db.String(15),db.ForeignKey('tutor.id_number'))
-    lecturer = db.Column(db.String(15),db.ForeignKey('lecture.employee_number'))
-    status = db.Column(db.Integer, default=0)
+    message_id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
 
     def __repr__(self):
         return f'Message {self.message_id}'
 
+class Notification(db.Model):
+    notification_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+    def get_data(self):
+        return json.loads(str(self.payload_json))

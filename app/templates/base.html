@@ -125,7 +125,7 @@
   {%if current_user.is_anonymous %}
   <a href="{{url_for('auth.login')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-in"></i>login</a>
   {% else %}
-  <a href="{{url_for('auth.logout')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-out"></i> logout</a>
+  <a href="{{url_for('auth.logout')}}" style="text-decoration: none;" class="w3-bar-item w3-button w3-right"><i class="fa fa-sign-out"></i> logout</a>
   <div class="w3-dropdown-hover w3-mobile w3-right">
     <button class="w3-button"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile</button>
     <div id="demo" class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -145,16 +145,27 @@
   {%if current_user.lecture %}
   <a href="{{url_for('lecturer.lecture_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   <a href="{{url_for('tutor.access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
-  <a href="{{url_for('messages.notifications')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-bell-o"></i> 
-    {%for message in current_user.lecture.messages %}{%if message.status == 0%}<span class="badge badge-light">new</span>{%endif%}{%endfor%}</a>
+  <a href="{{ url_for('messages.messages') }}" class="w3-bar-item w3-button" style="text-decoration: none;"><i class="fa fa-bell-o"></i>{% set new_messages = current_user.new_messages() %}
+        <span id="message_count" class="badge badge-light"
+              style="visibility: {% if new_messages %}visible
+                                 {% else %}hidden {% endif %};">
+            {{ new_messages }}
+        </span>
+  </a>
   {% elif current_user.student %}
   <a href="{{url_for('student.student_home')}}" class="w3-bar-item w3-button">Dashboard</a>
   <a href="{{url_for('courses.explore')}}" class="w3-bar-item w3-button">Explore</a>
   <a href="{{url_for('tutor.access_tutor')}}" class="w3-bar-item w3-button">Access a tutor</a>
   {% else %}
   <a href="{{url_for('tutor.tutor_home')}}" class="w3-bar-item w3-button">Dashboard</a>
-  <a href="{{url_for('messages.notifications')}}" class="w3-bar-item w3-button w3-right"><i class="fa fa-bell-o"></i> 
-    {%for message in current_user.tutor.messages %}{%if message.status == 0%}<span class="badge badge-light">new</span>{%endif%}{%endfor%}</a>
+  <a href="{{ url_for('messages.messages') }}" class="w3-bar-item w3-button" style="text-decoration: none;"><i class="fa fa-bell-o"></i>
+    {% set new_messages = current_user.new_messages() %}
+    <span id="message_count" class="badge badge-light"
+          style="visibility: {% if new_messages %}visible
+                             {% else %}hidden {% endif %};">
+        {{ new_messages }}
+    </span>
+  </a>
   {% endif %}
   {% endif %}
 </div>
@@ -169,5 +180,33 @@
   {%endblock%}
 </div>
 
+{%block scripts%}
+<script>
+  {% if current_user.is_authenticated %}
+  $(function() {
+      var since = 0;
+      setInterval(function() {
+          $.ajax('{{ url_for('messages.notifications') }}?since=' + since).done(
+              function(notifications) {
+                  for (var i = 0; i < notifications.length; i++) {
+                      if (notifications[i].name == 'unread_message_count')
+                          set_message_count(notifications[i].data);
+                      since = notifications[i].timestamp;
+                  }
+              }
+          );
+      }, 10000);
+  });
+  {% endif %}
+</script>
+
+<script>
+  // ...
+  function set_message_count(n) {
+      $('#message_count').text(n);
+      $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+  }
+</script>
+{%endblock%}
 </body>
 </html> 
