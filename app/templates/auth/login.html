@@ -1,20 +1,47 @@
 {%extends "base.html"%}
 
-{%block title %}{{title}}{%endblock%}
 
 {%block content%}
-    <h2 class= "w3-center">Welcome to TUTOR TRACKER</h2>
-    <p class= "w3-xxlarge w3-center"><i class="fa fa-user "></i></p>
+    <div class="row align-items-center justify-content-center" style="height: 200px;">
+        <div class="col-md-2" align="center">
+            <img src="static/tutortrackerlogo.png">
+        </div>
+    </div>
 
-    <form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST">
+        <p align="center" style="color:cadetblue;"><b>Hey good to see you again!</b></p>
+
+    {%include "flash.html"%}   
+    <form method="POST" novalidate>
         {{form.csrf_token}}
-        <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.username.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+        <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                <label>{{form.username.label}}</label>
+                {{form.username(class="form-control", placeholder="Enter email")}}
+                <div class="text-danger">
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-        <p><label class= "w3-left">{{form.password.label}}</label>{{form.password(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.password.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.password.label}}</label>
+                {{form.password(class="form-control" ,placeholder="Enter password")}}
+                <div class="text-danger">
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-        <p>{{form.submit(class="w3-button w3-green")}}</p>
+        <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                {{form.submit(class="btn btn-primary offset-md-5")}}
+            </div>
+        </div>
     </form>
 
     <p class="w3-center">New at TUTOR TRACKER? <a href= "{{url_for('auth.account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
