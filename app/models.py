@@ -128,9 +128,11 @@ class Application(db.Model):
         return f'Application {self.course} by {self.tutor}'
 
 
-class Register(db.Model):
-    register_id = db.Column(db.Integer, primary_key=True)
-    otp = db.Column(db.String(50), nullable = False)
-    session = db.Column(db.DateTime ,default=datetime.utcnow)
-    course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
-    tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number')) 
+class Session(db.Model):
+    session_id = db.Column(db.Integer, primary_key=True)
+    session_date = db.Column(db.DateTime , default=datetime.utcnow)
+    session_start = db.Column(db.Time, nullable = False)
+    session_end = db.Column(db.Time, nullable = False)
+    tutor_id = db.Column(db.String(15), db.ForeignKey('tutor.id_number'), default="")
+    otp = db.Column(db.String(10), default="")
+    course = db.Column(db.String(50), db.ForeignKey('course.course_code')) 
