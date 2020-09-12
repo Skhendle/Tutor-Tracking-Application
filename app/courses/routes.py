@@ -1,11 +1,15 @@
 from app import db
 from flask import render_template, url_for, flash, redirect, request
-from app.courses.forms import CourseCreationForm , EnrollmentKeyForm, SessionRegForm
+from app.courses.forms import CourseCreationForm , EnrollmentKeyForm, SessionRegForm, GenerateOTP
 from flask_login import current_user, login_required
 from app.models import User, Lecture ,Tutor, Student, Course, Session
 from werkzeug.urls import url_parse
 from app.courses import courses 
+import random
+import string
 
+def randStr(chars = string.ascii_uppercase + string.digits, N=10):
+	return ''.join(random.choice(chars) for _ in range(N))
 
 @courses.route('/create-course' ,methods = ['GET','POST'])
 @login_required
@@ -20,6 +24,9 @@ def create_course():
         return redirect(url_for('courses.my_courses'))
     return render_template('courses/create_course.html',title='Create a course',form=form)
 
+
+# This function should allow the lecturer to create a new session for any of the courses 
+# they are lecturing
 @courses.route('/create_session', methods = ['GET', 'POST'])
 @login_required
 def create_session():
@@ -32,12 +39,26 @@ def create_session():
     return render_template('courses/create_session.html',title='Create a session', form=form)
 
 A = ["Session1", "Session2"]
-B = ["TutorOne", "TutorTwo", "TutuorThree", "TutorFour"]
-
+B = ["Session Course", "Date", "start_time", "end_time"]
+# Lecturer side
+# This function should display the sesions created by the current lecturer
+# A nd B are mockup items to test the view
 @courses.route('/view_sessions')
 @login_required
 def view_session():
     return render_template('courses/view_sessions.html',title='View sessions', A=A, B=B)
+
+A = ["Session1", "Session2"]
+B = ["Session Course", "Date", "start_time", "end_time", "OTP"]
+# This fuunction should search if there are sessions for the current 
+# tutor by checking if the are not any sessions available for the courses
+# the tutor is registered for. When the tutor has an OTP already just reload page.
+# 
+@courses.route('/view_sessions_tutor')
+@login_required
+def view_sessions_tutor():
+    form =  GenerateOTP()
+    return render_template('courses/view_sessions_tutor.html',title='View sessions', A=A, B=B, form=form)
 
 @courses.route('/my-courses')
 @login_required
