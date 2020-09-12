@@ -1,12 +1,10 @@
 from app import db
 from flask import render_template, url_for, flash, redirect, request
-from app.courses.forms import CourseCreationForm , EnrollmentKeyForm
+from app.courses.forms import CourseCreationForm , EnrollmentKeyForm, SessionRegForm
 from flask_login import current_user, login_required
-from app.models import User, Lecture ,Tutor, Student, Course
+from app.models import User, Lecture ,Tutor, Student, Course, Session
 from werkzeug.urls import url_parse
 from app.courses import courses 
-
-
 
 
 @courses.route('/create-course' ,methods = ['GET','POST'])
@@ -22,6 +20,25 @@ def create_course():
         return redirect(url_for('courses.my_courses'))
     return render_template('courses/create_course.html',title='Create a course',form=form)
 
+@courses.route('/create_session', methods = ['GET', 'POST'])
+@login_required
+def create_session():
+    form = SessionRegForm(current_user.lecture.course)
+    if form.validate_on_submit():
+        session = Session(course = form.course.data, session_start = form.start_time.data, session_end = form.end_time.data, session_date = form.date.data)
+        db.session.add(session)
+        db.session.commit()
+        return redirect(url_for('courses.view_sessions'))
+    return render_template('courses/create_session.html',title='Create a session', form=form)
+
+A = ["Session1", "Session2"]
+B = ["TutorOne", "TutorTwo", "TutuorThree", "TutorFour"]
+
+@courses.route('/view_sessions')
+@login_required
+def view_session():
+    return render_template('courses/view_sessions.html',title='View sessions', A=A, B=B)
+
 @courses.route('/my-courses')
 @login_required
 def my_courses():
@@ -32,7 +49,6 @@ def my_courses():
 def explore():
     courses = Course.query.all()
     return render_template('courses/explore.html', title='explore courses', courses=courses)
-
 
 @courses.route('/<course_code>')
 @login_required
