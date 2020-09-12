@@ -3,8 +3,17 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 from app.models import Course
+from app.models import Session
+
 import re
 
+
+class SessionRegForm(FlaskForm):
+    course = StringField('Course code',validators=[DataRequired()])
+    start_time = TimeField('Start at', validators=[DataRequired()])
+    end_time = TimeField('End at', validators=[DataRequired()])
+    date = DateField('Day', validators=[DataRequired()])
+    submit = SubmitField('Create sesion')
 
 class CourseCreationForm(FlaskForm):
     course_code = StringField('Course code',validators=[DataRequired()]) 
