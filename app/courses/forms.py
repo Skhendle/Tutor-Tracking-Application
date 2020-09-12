@@ -4,9 +4,10 @@ from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 from app.models import Course
 from app.models import Session
-
 import re
 
+class GenerateOTP(FlaskForm):
+    submit = SubmitField('Generate OTP')
 
 class SessionRegForm(FlaskForm):
     course = StringField('Course code',validators=[DataRequired()])
@@ -14,6 +15,7 @@ class SessionRegForm(FlaskForm):
     end_time = TimeField('End at', validators=[DataRequired()])
     date = DateField('Day', validators=[DataRequired()])
     submit = SubmitField('Create sesion')
+
 
 class CourseCreationForm(FlaskForm):
     course_code = StringField('Course code',validators=[DataRequired()]) 
