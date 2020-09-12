@@ -1,0 +1,32 @@
+{% extends "base.html"%}
+
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+<!--
+  Currrently struggling to fetch information from the Session table
+-->
+{% for rowOne in A %}
+
+<div class="w3-card-4">
+  <header class="w3-container w3-light-grey">
+    <h3>{{rowOne}}</h3>
+  </header>
+  {% for rowTwo in B %}
+  <div class="w3-container">
+    <p>{{rowTwo}}</p>
+  </div>
+  {%endfor%}
+  <div class="w3-container">
+    <p></p>
+  </div>
+</div>
+<br>
+
+{%endfor%}
+<a href="{{url_for('courses.create_session')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> Add a new session</a> 
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}
