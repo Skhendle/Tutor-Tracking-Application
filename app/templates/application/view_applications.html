@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+
+{%block content%}
+{%for application in course.application%}
+<h1 class="w3-center">Applications for {{course.name}}</h1> 
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>Name - {{application.tutors.user.firstname}} {{application.tutors.user.lastname}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>ID number - {{application.tutors.id_number}}</p>
+    </div>
+    <a href="{{url_for('application.application_details' ,app_id=application.applicaton_id)}}"><button class="w3-button w3-hover-white w3-block">details</button></a>
+</div>
+<br>
+{%endfor%}
+{%endblock%}
+
+{%block footer%}
+    {%include "footer.html"%}
+{%endblock%}

@@ -3,8 +3,11 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 from app.models import Course
+<<<<<<< HEAD
 from app.models import Session
 import re
+=======
+>>>>>>> TM-testing
 
 class GenerateOTP(FlaskForm):
     submit = SubmitField('Generate OTP')
@@ -28,6 +31,11 @@ class CourseCreationForm(FlaskForm):
     submit = SubmitField('Create/Update course')
     key = StringField('Enrollment key',validators=[DataRequired()])
 
+    def validate_course_code(self,course_code):
+         course =  Course.query.filter_by(course_code=course_code.data).first()
+         if course is not None:
+             raise ValidationError('A Course with the name already exits')     
+
 class EnrollmentKeyForm(FlaskForm):
     key = StringField('Enrollment key',validators=[DataRequired()])
     course_code = StringField('course code',validators=[DataRequired()])
@@ -35,6 +43,6 @@ class EnrollmentKeyForm(FlaskForm):
 
 
     def validate_key(self,key):
-        course =  Course.query.filter_by(course_code=self.course_code.data).first()
+        course =  Course.query.filter_by(course_code=course_code.data).first()
         if key.data != course.key:
             raise ValidationError('Incorrect key entered')

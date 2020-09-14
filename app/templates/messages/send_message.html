@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+
+{%block content%}
+<h1 class="w3-center">send message</h1>
+{%with messages = get_flashed_messages()%}
+{%if messages%}
+    {%for message in messages%}
+        <p class="w3-green">{{message}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<form method="POST" class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" novalidate>
+    {{form.csrf_token}}
+    <p><label class= "w3-left">{{form.message.label}}</label>{{form.message(class="w3-input w3-border",maxlength=60)}}</p>
+    {% for error in form.message.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+
+    <p>{{form.submit(class="w3-button w3-blue")}}</p>
+</form>
+{%endblock content%}
+
+
+{%block footer%}
+    {%include "footer.html"%}
+{%endblock footer%}

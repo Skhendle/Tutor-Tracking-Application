@@ -9,10 +9,11 @@ from app.auth import auth
 
 
 
-@auth.route('/')
+@auth.route('/welcome-page')
 def index():
     return render_template('auth/index.html', title='index')
 
+@auth.route('/', methods=['GET','POST'])
 @auth.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
@@ -31,7 +32,7 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('auth.index'))
+    return redirect(url_for('auth.login'))
 
 @auth.route('/account_type')
 def account_type():

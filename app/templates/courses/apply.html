@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+{%block content%}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for message in messages%}
+        <p class="w3-green">{{message}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+{%for course in courses%}
+    {% if current_user.tutor not in course.enrolled_tutors%}
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>{{course.course_code}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>{{course.name}}</p>
+    </div>
+    <button class="w3-button w3-light-grey w3-hover-light-grey"><a href="{{url_for('application.application_form' , course_code = course.course_code)}}">apply</a></button> <button class= "w3-button w3-grey w3-hover-grey w3-round"><a href="{{url_for('courses.enroll_in_a_course' , course_code = course.course_code)}}">enroll</a></button>
+</div>
+
+</div>
+</div>
+<br>
+{%endif%}
+{%endfor%}
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}

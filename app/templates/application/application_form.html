@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+
+{%block content%}
+    <h1>Applying for {{course_code}}</h1>
+
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {{form.csrf_token}}
+
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.motivation.label}}</label>
+                {{form.motivation(class="form-control" ,placeholder="Enter your motivation")}}
+                <div class="text-danger">
+                    {% for error in form.motivation.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.academic_record.label}}</label>
+                {{form.academic_record(class="form-control" ,placeholder="academic record")}}
+                <div class="text-danger">
+                    {% for error in form.academic_record.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                {{form.submit(class="btn btn-primary offset-md-5")}}
+            </div>
+        </div>
+    </form>
+
+{%endblock%}
+
+{%block footer%}
+    {%include "footer.html"%}
+{%endblock%}

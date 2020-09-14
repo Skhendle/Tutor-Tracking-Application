@@ -17,7 +17,7 @@ def create_course():
     form = CourseCreationForm()
     if form.validate_on_submit():
         course = Course(course_code=form.course_code.data,name=form.name.data,venue=form.venue.data,start_time=form.start_time.data,end_time=form.end_time.data,\
-            day=form.day.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
+            day=form.day.data, key=form.key.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
         course.lecturer = current_user.lecture
         db.session.add(course)
         db.session.commit()
@@ -70,6 +70,12 @@ def my_courses():
 def explore():
     courses = Course.query.all()
     return render_template('courses/explore.html', title='explore courses', courses=courses)
+
+@courses.route('/apply')
+@login_required
+def apply():
+    courses = Course.query.all()
+    return render_template('courses/apply.html', title='apply for a courses', courses=courses)
 
 @courses.route('/<course_code>')
 @login_required
@@ -124,3 +130,8 @@ def edit_course_details(course_code):
         form.day.data = course.day
         form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> TM-testing

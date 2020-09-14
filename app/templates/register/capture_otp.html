@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+
+
+{%block content%}
+<h1 class="w3-center">Capture a tutor</h1>
+    {%include "flash.html"%}
+    <form  method="POST" novalidate>
+        {{form.csrf_token}}
+
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.id_number.label}}</label>
+                {{form.id_number(class="form-control" ,placeholder="Enter your id number here")}}
+                <div class="text-danger">
+                    {% for error in form.id_number.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.otp.label}}</label>
+                {{form.otp(class="form-control" ,placeholder="Enter one time pin")}}
+                <div class="text-danger">
+                    {% for error in form.otp.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+           <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                {{form.submit(class="btn btn-primary offset-md-5")}}
+            </div>
+        </div>
+    </form>
+{%endblock%}

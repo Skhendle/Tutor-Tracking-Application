@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+{%block content%}
+<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+    <ul class="w3-ul">
+    <li><h2>Application information</h2></li>
+    <li><b>Application Status</b> <i class="w3-right">{{application.status}}</i></li>
+    <li><b>ID number</b> <i class="w3-right" style = "text-transform:capitalize;">{{application.tutors.id_number}}</i></li>
+    <li><b>Name</b> <i class="w3-right" style = "text-transform:capitalize;">{{application.tutors.user.firstname}} {{application.tutors.user.lastname}}</i></li>
+    <li><b>Motivation</b> <i class="w3-right">{{application.motivation}}</i></li>
+    <li><b>Academic record</b> <i class="w3-right"><a href="{{url_for('application.academic_record' ,filename=application.academic_record)}}" target="_blank">view</a></i></li>
+    </ul>
+    {% if current_user.lecture%}
+    <p><a class="w3-button w3-green w3-margin w3-round" href="{{url_for('application.application_response',app_id=application.applicaton_id,response='Accepted')}}" style="width: 30%;">Accept</a>
+    <a class="w3-button w3-red w3-margin w3-round" href="{{url_for('application.application_response',app_id=application.applicaton_id,response='Rejected')}}" style="width: 30%;">Reject</a></p>
+    {% endif %}
+</div>
+
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}

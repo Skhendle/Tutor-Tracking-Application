@@ -1,21 +1,9 @@
-dist: xenial
 language: python
 python:
-  - "3.8.1"
-cache: pip
-services:
- - mysql
-before_install:
- - pip install pytest
- - pip install pytest-cov
- - pip install coveralls
+  - "3.8"
 install:
- - pip install -r requirements.txt
-script: 
- - pip install mysql-connector-python-rf
- - python3 -m venv venv
- - . venv/bin/activate
- - pip install -r requirements.txt
- - coverage run -m pytest
+  - pip install -r requirements.txt
+script:
+  - coverage run -m pytest 
 after_success:
- - codecov
+  - bash <(curl -s https://codecov.io/bash)

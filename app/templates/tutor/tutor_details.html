@@ -5,6 +5,7 @@
 
 {%block content%}
 <br>
+<a href="{{url_for('messages.send_message' , recipient=tutor.user.username)}}">Send message</a>
 <div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
     <ul class="w3-ul">
     <li><h1>Tutor information</h1></li>

@@ -3,6 +3,8 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+import os
+from config import basedir
 
 
 db = SQLAlchemy()
@@ -11,6 +13,7 @@ login = LoginManager()
 login.login_view = 'auth.login'
 
 def create_app(config_class=Config):
+    UPLOAD_FOLDER = os.path.join(basedir,'static\academic_records') 
 
     app = Flask(__name__)
     app.config.from_object(config_class)
@@ -29,6 +32,9 @@ def create_app(config_class=Config):
     from app.tutor import tutor
     from app.student import student
     from app.courses import courses
+    from app.application import application
+    from app.messages import messages
+    from app.register import register
 
 
 
@@ -37,6 +43,9 @@ def create_app(config_class=Config):
     app.register_blueprint(tutor)
     app.register_blueprint(student)
     app.register_blueprint(courses)
+    app.register_blueprint(application)
+    app.register_blueprint(messages)
+    app.register_blueprint(register)
 
     return app
 

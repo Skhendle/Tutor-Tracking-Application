@@ -77,7 +77,6 @@ def access_tutor():
 @login_required
 def tutor_details(id_number):
     tutor = Tutor.query.filter_by(id_number=id_number).first_or_404()
-    print(tutor)
     return render_template('tutor/tutor_details.html',title='Tutor details', tutor=tutor)
 
 

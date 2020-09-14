@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+
+{%block content%}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID number</th>
+      <th scope="col">Session</th>
+      <th scope="col">Course</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for reg in attendance_list %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ reg.tutor}}</td>
+      <td>{{ reg.session}}</td>
+      <td>{{ reg.course}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if prev_url %}
+<a href="{{ prev_url }}">prev |</a>
+{% endif %}
+{% if next_url %}
+<a href="{{ next_url }}"> next</a>
+{% endif %}
+
+{%endblock%}
