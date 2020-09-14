@@ -27,10 +27,10 @@ def capture_otp(course_code):
                 db.session.add(reg)
                 tutor.otp = random.randint(10000000,50000000)
                 db.session.commit()
-                flash('The student has been capture')
+                flash('The student has been captured')
                 return redirect(url_for('register.capture_otp' , course_code=course_code))
             else:
-                flash('The student has been capture/One time pin is invalid')
+                flash('The student has been captured/One time pin is invalid')
                 return redirect(url_for('register.capture_otp', course_code=course_code))
     return render_template('register/capture_otp.html', title='Capture One time pin' , form = form )
 
