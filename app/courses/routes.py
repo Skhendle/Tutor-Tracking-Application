@@ -1,8 +1,8 @@
 from app import db
 from flask import render_template, url_for, flash, redirect, request
-from app.courses.forms import CourseCreationForm , EnrollmentKeyForm, SessionRegForm, GenerateOTP
+from app.courses.forms import CourseCreationForm , EnrollmentKeyForm
 from flask_login import current_user, login_required
-from app.models import User, Lecture ,Tutor, Student, Course, Session
+from app.models import User, Lecture ,Tutor, Student, Course
 from werkzeug.urls import url_parse
 from app.courses import courses 
 import random

@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from app.application import application
 import os
 
-UPLOAD_FOLDER = os.path.join(basedir,'app\static\\academic_records')
+UPLOAD_FOLDER = os.path.join(basedir,'app\static\academic_records')
 
 @application.route('/applicaton-form/<course_code>' , methods=['POST','GET'])
 @login_required
