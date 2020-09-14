@@ -5,7 +5,6 @@ from app.register.forms import RegisterForm
 from app.models import Register,  Course , Tutor
 from app import db
 import random
-from flask_paginate import Pagination, get_page_parameter
 
 @register.route('/generate-otp')
 @login_required
