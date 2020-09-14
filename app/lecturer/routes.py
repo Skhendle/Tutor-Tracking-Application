@@ -35,7 +35,7 @@ def lectureRegistration():
         db.session.add(user)
         db.session.add(lecture)
         db.session.commit()
-        flash('Congratulations, you are now a registered Lecture!')
+        flash('Congratulations, you are now a registered Lecturer!')
         return redirect(url_for('lecturer.lecture_home'))
     return render_template('lecturer/lecture_reg.html',title='lecture registation',form=form)
 
@@ -47,7 +47,7 @@ def edit_lecture():
         current_user.lecture.office_number = form.office_number.data
         current_user.lecture.telephone_number = form.telephone_number.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash('Your changes have been saved successfully.')
         return redirect(url_for('lecturer.lecture_profile'))
     elif request.method == 'GET':
         form.office_number.data = current_user.lecture.office_number
