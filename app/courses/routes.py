@@ -15,7 +15,7 @@ def create_course():
     form = CourseCreationForm()
     if form.validate_on_submit():
         course = Course(course_code=form.course_code.data,name=form.name.data,venue=form.venue.data,start_time=form.start_time.data,end_time=form.end_time.data,\
-            day=form.day.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
+            day=form.day.data, key=form.key.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
         course.lecturer = current_user.lecture
         db.session.add(course)
         db.session.commit()

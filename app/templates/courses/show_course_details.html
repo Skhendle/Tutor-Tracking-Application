@@ -4,9 +4,18 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<a class="w3-button w3-marign w3-round" href="{{url_for('register.capture_otp' , course_code = course.course_code)}}">Capture a student</a>
-<a class="w3-button w3-marign w3-round" href="{{url_for('register.attendance' , course_code = course.course_code)}}">Register</a>
-<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+
+<div class="row">
+<div class="col-md-2">
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action" href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}">Course details</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('register.capture_otp' , course_code = course.course_code)}}">Capture a student</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('register.attendance' , course_code = course.course_code)}}">Attendance List</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('application.view_applications' , course_code=course.course_code)}}">View applications</a>
+    </div>
+</div>
+
+<div class="col-md-10">
     <ul class="w3-ul">
     <li><h2>Course information</h2></li>
     <li><b>Course code</b> <i class="w3-right" style = "text-transform:capitalize;">{{course.course_code}}</i></li>
@@ -19,9 +28,10 @@
     <li><b>Enrollment key</b> <i class="w3-right">{{course.key}}</i></li>
     </ul>
     {% if current_user.lecture%}
-    <p><a class="w3-button w3-green w3-margin w3-round" href="{{url_for('courses.edit_course_details' , course_code=course.course_code)}}" style="width: 30%;">Update Course</a>
-        <a class="w3-button w3-blue w3-margin w3-round" href="{{url_for('application.view_applications' , course_code=course.course_code)}}" style="width: 30%;">View applications</a></p>
+    <p><a class="w3-button w3-grey w3-margin w3-round" href="{{url_for('courses.edit_course_details' , course_code=course.course_code)}}" style="width: 30%;">Update Course</a>
+        </p>
     {% endif %}
+</div>
 </div>
 
 {%endblock%}

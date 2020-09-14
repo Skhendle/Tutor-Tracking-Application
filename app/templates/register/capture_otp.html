@@ -2,22 +2,39 @@
 
 
 {%block content%}
-    <h1>Capture tutor</h1>
-    {% with messages =  get_flashed_messages()%}
-        {%if messages %}
-            {%for message in messages%}
-                <p>{{message}}</p>
-            {%endfor%}
-        {%endif%}
-    {%endwith%}
-    <form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" style="width: 50%;" method="POST" novalidate>
+<h1 class="w3-center">Capture a tutor</h1>
+    {%include "flash.html"%}
+    <form  method="POST" novalidate>
         {{form.csrf_token}}
-        <p><label class= "w3-left">{{form.id_number.label}}</label>{{form.id_number(class="w3-input w3-border")}}</p>
-        {% for error in form.otp.errors %}<span style="color: red;">{{ error }}</span>{% endfor %}
 
-        <p><label class= "w3-left">{{form.otp.label}}</label>{{form.otp(class="w3-input w3-border")}}</p>
-        {% for error in form.otp.errors %}<span style="color: red;">{{ error }}</span>{% endfor %}
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.id_number.label}}</label>
+                {{form.id_number(class="form-control" ,placeholder="Enter your id number here")}}
+                <div class="text-danger">
+                    {% for error in form.id_number.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-        <p>{{form.submit(class="w3-button w3-blue")}}</p>
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.otp.label}}</label>
+                {{form.otp(class="form-control" ,placeholder="Enter one time pin")}}
+                <div class="text-danger">
+                    {% for error in form.otp.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+           <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                {{form.submit(class="btn btn-primary offset-md-5")}}
+            </div>
+        </div>
     </form>
 {%endblock%}

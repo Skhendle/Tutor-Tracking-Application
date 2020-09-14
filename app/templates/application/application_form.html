@@ -1,17 +1,40 @@
 {%extends "base.html"%}
 
 {%block content%}
-    <h1 class="w3-center">Applying for {{course_code}}</h1>
+    <h1>Applying for {{course_code}}</h1>
 
-    <form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" novalidate>
         {{form.csrf_token}}
-        <p><label class="w3-left">{{form.motivation.label}}</label>{{form.motivation(class="w3-input w3-border" ,type="text")}}</p>
-        {% for error in form.motivation.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
-        <p><label class="w3-left">{{form.academic_record.label}}</label>{{form.academic_record(class="w3-input w3-border")}}</p>
-        {% for error in form.academic_record.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-        
-        <p>{{form.submit(class="w3-button w3-green w3-round")}}</p>
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.motivation.label}}</label>
+                {{form.motivation(class="form-control" ,placeholder="Enter your motivation")}}
+                <div class="text-danger">
+                    {% for error in form.motivation.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">    
+            <div class="form-group col-md-4">
+                <label>{{form.academic_record.label}}</label>
+                {{form.academic_record(class="form-control" ,placeholder="academic record")}}
+                <div class="text-danger">
+                    {% for error in form.academic_record.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="form-group col-md-4">
+                {{form.submit(class="btn btn-primary offset-md-5")}}
+            </div>
+        </div>
     </form>
 
 {%endblock%}

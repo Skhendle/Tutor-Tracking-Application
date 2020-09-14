@@ -70,8 +70,12 @@
         <div class="dropdown-divider"></div>
         {%if current_user.lecture %}
         <a href="{{url_for('lecturer.lecture_profile')}}" class="dropdown-item">My profile</a>
+        <div class="dropdown-divider"></div>
+        <a href="{{url_for('auth.logout')}}" class="dropdown-item">logout</a>
         {% elif current_user.student %}
         <a href="{{url_for('student.student_profile')}}" class="dropdown-item">My profile</a>
+        <div class="dropdown-divider"></div>
+        <a href="{{url_for('auth.logout')}}" class="dropdown-item">logout</a>
         {% else %}
         <a href="{{url_for('tutor.tutor_profile')}}" class="dropdown-item">My profile</a>
         <a href="{{url_for('application.my_applications')}}" class="dropdown-item">My applications</a>

@@ -1,8 +1,8 @@
 {%extends "base.html"%}
 
 {%block content%}
-{%for application in current_user.tutor.application%}
 <h1 class="w3-center">My applications </h1> 
+{%for application in current_user.tutor.application%}
 <div class="w3-card-4">
     <header class="w3-container w3-light-grey">
           <h3>{{application.courses.course_code}}</h3>

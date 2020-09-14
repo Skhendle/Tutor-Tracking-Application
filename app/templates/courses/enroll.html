@@ -2,14 +2,29 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<h2 class="w3-center">Enter your enrollement key for {{course_code}}</h2>
+<h2 class="w3-center">Enrollement key for {{course_code}}</h2>
 <br>
-<form class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" method="POST">
+<form method="POST" novalidate>
     {{form.csrf_token}}
-    <p><label class= "w3-left">{{form.key.label}}</label>{{form.key(class="w3-input w3-border",maxlength=60)}}</p>
-    {% for error in form.key.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    <p>{{form.course_code(type="hidden")}}</p>
-    <p>{{form.submit(class="w3-button w3-green")}}</p>
+
+    <div class="row justify-content-center">
+        <div class="form-group col-md-4">
+            <label>{{form.key.label}}</label>
+            {{form.key(class="form-control", placeholder="Enter key")}}
+            <div class="text-danger">
+                {% for error in form.key.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="form-group col-md-4">
+            {{form.submit(class="btn btn-primary offset-md-5")}}
+        </div>
+    </div>
+
 </form>
 {%endblock%}
 

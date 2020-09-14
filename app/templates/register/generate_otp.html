@@ -1,6 +1,21 @@
 {%extends "base.html"%}
 
 {%block content%}
-<h2>the code that you generated</h2>
-    <h2>{{current_user.tutor.otp}}</h2>
+    
+<div class="row justify-content-center">
+    <div align="center" class="col card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header"><h2>{{current_user.tutor.otp}}</h2></div>
+        <div class="card-body">
+          <h5 class="card-title">Unique Code disclaimer</h5>
+          <p class="card-text">This code is Unique to you. Do not share this code with anyone. If any other person uses this code, you will
+              be held accoutable. This code is used to mark you present for attending the set course. Only share it with your lecturer. 
+          </p>
+        </div>
+      </div>
+</div>
+
+{%endblock%}
+
+{%block footer%}
+      {%include "footer.html"%}
 {%endblock%}
