@@ -3,11 +3,6 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField ,IntegerField
 from app.models import Course
-<<<<<<< HEAD
-from app.models import Session
-import re
-=======
->>>>>>> TM-testing
 
 class GenerateOTP(FlaskForm):
     submit = SubmitField('Generate OTP')
