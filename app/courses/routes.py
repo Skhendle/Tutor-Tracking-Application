@@ -130,8 +130,5 @@ def edit_course_details(course_code):
         form.day.data = course.day
         form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)
-<<<<<<< HEAD
-=======
 
 
->>>>>>> TM-testing
