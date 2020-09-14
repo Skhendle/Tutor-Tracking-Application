@@ -1,17 +1,12 @@
-"""
-Conftest.py 
-
-Write fixtures in this file so that they can be available to all the test files
-
-example fixture
-
+from app import create_app
 import pytest
-@pytest.fixture
-def supply_AA_BB_CC():
-	aa=25
-	bb =35
-	cc=45
-	return [aa,bb,cc]
+from config import Config
 
-other tests will take this fixture as an argument
-"""
+@pytest.fixture
+def flask_app_client():
+	app = create_app(config_class=Config)
+	client = app.test_client()
+		
+	return client
+
+
