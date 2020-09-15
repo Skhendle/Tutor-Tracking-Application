@@ -7,7 +7,7 @@ Testing the tutor functionality.
 
 test_index: Tests if a tutor  can access the website basic page
 
-test_login_pass, def test_tutor_logout: Testing whether a tutor can 
+test_login_pass, test_tutor_logout: Testing whether a tutor can 
 successfully login and logout since we re-direct loggin page for login out
 
 test_welcome_page: Testing the data in the welcome page after loggin
@@ -34,8 +34,15 @@ def test_login_pass(flask_app_client):
     client = flask_app_client
     request = client.post('/login' , data=dict(
         username='tutor1demo',password='1234'),follow_redirects=True)
+    assert request.status_code == 200   
+
+    
+def test_tutor_logout(flask_app_client):
+    client = flask_app_client
+    request = client.post('/logout' , follow_redirects=True)
     assert request.status_code == 200
 
+    
 def test_login_fail(flask_app_client):
     client = flask_app_client
     request = client.post('/login' , data=dict(
