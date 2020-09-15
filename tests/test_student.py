@@ -38,7 +38,12 @@ def test_student_homepage(flask_app_client):
 def test_student_profile(flask_app_client):
     client = flask_app_client
     request = client.get('/student/profile',follow_redirects=True)
-    assert request.status_code == 200   
+    assert request.status_code == 200
+    
+def test_student_logout(flask_app_client):
+    client = flask_app_client
+    request = client.get('/logout',follow_redirects=True)
+    assert request.status_code == 200
 
 def test_student_registration(flask_app_client):
     client = flask_app_client
