@@ -25,40 +25,6 @@ def create_course():
     return render_template('courses/create_course.html',title='Create a course',form=form)
 
 
-# This function should allow the lecturer to create a new session for any of the courses 
-# they are lecturing
-@courses.route('/create_session', methods = ['GET', 'POST'])
-@login_required
-def create_session():
-    form = SessionRegForm(current_user.lecture.course)
-    if form.validate_on_submit():
-        session = Session(course = form.course.data, session_start = form.start_time.data, session_end = form.end_time.data, session_date = form.date.data)
-        db.session.add(session)
-        db.session.commit()
-        return redirect(url_for('courses.view_sessions'))
-    return render_template('courses/create_session.html',title='Create a session', form=form)
-
-A = ["Session1", "Session2"]
-B = ["Session Course", "Date", "start_time", "end_time"]
-# Lecturer side
-# This function should display the sesions created by the current lecturer
-# A nd B are mockup items to test the view
-@courses.route('/view_sessions')
-@login_required
-def view_session():
-    return render_template('courses/view_sessions.html',title='View sessions', A=A, B=B)
-
-A = ["Session1", "Session2"]
-B = ["Session Course", "Date", "start_time", "end_time", "OTP"]
-# This fuunction should search if there are sessions for the current 
-# tutor by checking if the are not any sessions available for the courses
-# the tutor is registered for. When the tutor has an OTP already just reload page.
-# 
-@courses.route('/view_sessions_tutor')
-@login_required
-def view_sessions_tutor():
-    form =  GenerateOTP()
-    return render_template('courses/view_sessions_tutor.html',title='View sessions', A=A, B=B, form=form)
 
 @courses.route('/my-courses')
 @login_required
@@ -87,6 +53,8 @@ def show_course_details(course_code):
 @login_required
 def enroll_in_a_course(course_code):
     form = EnrollmentKeyForm()
+    if request.method == 'GET':
+        form.course_code.data = course_code
     course = Course.query.filter_by(course_code=course_code).first_or_404()
     if form.validate_on_submit():
         if current_user.student:
@@ -97,8 +65,6 @@ def enroll_in_a_course(course_code):
             current_user.tutor.enrolled_courses.append(course)
             db.session.commit()
             return redirect(url_for('tutor.tutor_courses'))
-    if request.method == "GET":
-        form.course_code.data = course_code
     return render_template('courses/enroll.html',title=f'enroll in {course_code}' , form=form , course_code=course_code)
     
 

@@ -37,7 +37,7 @@ class EnrollmentKeyForm(FlaskForm):
     submit = SubmitField('Enroll')
 
 
-    def validate_key(self,key):
-        course =  Course.query.filter_by(course_code=course_code.data).first()
-        if key.data != course.key:
+    def validate_key(self,course_code):
+        course =  Course.query.filter_by(course_code=self.course_code.data).first()
+        if self.key.data != course.key:
             raise ValidationError('Incorrect key entered')

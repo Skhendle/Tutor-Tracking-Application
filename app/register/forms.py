@@ -9,7 +9,13 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Capture')
 
     def validate_id_number(self,id_number):
-         tutor =  Tutor.query.filter_by(id_number=id_number.data).first()
-         if tutor is None:
+        tutor =  Tutor.query.filter_by(id_number=id_number.data).first()
+        if tutor is None:
              raise ValidationError('This tutor does not exit')
+
+    def validate_otp(self,id_number):
+         tutor =  Tutor.query.filter_by(id_number=self.id_number.data).first()
+         if tutor is not None:
+            if self.otp.data != tutor.otp:
+                raise ValidationError('Tutor OTP has been captured for this session/Tutor OTP is invalid')
              

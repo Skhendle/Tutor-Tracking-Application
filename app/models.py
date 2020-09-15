@@ -21,7 +21,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(255),nullable=False, unique=True)
     username = db.Column(db.String(120),nullable=False, index=True, unique=True)
     password_hash = db.Column(db.String(120),nullable=False, unique=True)
-    create_date = db.Column(db.DateTime , index=True,default=datetime.utcnow)
+    create_date = db.Column(db.DateTime , index=True,default=datetime.now)
     lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
     tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
     student = db.relationship('Student', backref='user', uselist=False, lazy=True)
@@ -163,7 +163,7 @@ class Application(db.Model):
 class Register(db.Model):
     register_id = db.Column(db.Integer, primary_key=True)
     otp = db.Column(db.String(50), nullable = False)
-    session = db.Column(db.DateTime ,default=datetime.utcnow)
+    session = db.Column(db.DateTime ,default=datetime.now)
     course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
     tutor = db.Column(db.String(15), db.ForeignKey('tutor.id_number')) 
 
@@ -175,7 +175,7 @@ class Message(db.Model):
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
 
 
     def __repr__(self):

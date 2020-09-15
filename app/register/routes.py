@@ -22,25 +22,22 @@ def capture_otp(course_code):
             flash('Student is not enrolled in this course')
             return redirect(url_for('register.capture_otp', course_code=course_code))
         else:
-            if tutor.otp == form.otp.data:
-                reg =  Register(otp=form.otp.data,courses=course, attendance=tutor)    
-                db.session.add(reg)
-                tutor.otp = random.randint(10000000,50000000)
-                db.session.commit()
-                flash('The student has been capture')
-                return redirect(url_for('register.capture_otp' , course_code=course_code))
-            else:
-                flash('The student has been capture/One time pin is invalid')
-                return redirect(url_for('register.capture_otp', course_code=course_code))
+            reg =  Register(otp=form.otp.data,courses=course, attendance=tutor)    
+            db.session.add(reg)
+            tutor.otp = random.randint(10000000,50000000)
+            db.session.commit()
+            flash('The tutor has been captured')
+            return redirect(url_for('register.capture_otp' , course_code=course_code))
     return render_template('register/capture_otp.html', title='Capture One time pin' , form = form )
 
 @register.route('/attendance/<course_code>')
 @login_required
 def attendance(course_code):
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
     page = request.args.get('page', 1, type=int)
-    attendance_list = Register.query.filter_by(course=course_code).paginate(page,2,False)
+    attendance_list = Register.query.filter_by(course=course_code).paginate(page,course.number_of_tutors,False)
     next_url = url_for('register.attendance', course_code=course_code, page=attendance_list.next_num) \
         if attendance_list.has_next else None
     prev_url = url_for('register.attendance',course_code=course_code, page=attendance_list.prev_num) \
         if attendance_list.has_prev else None
-    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url)
+    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url,page = page)
