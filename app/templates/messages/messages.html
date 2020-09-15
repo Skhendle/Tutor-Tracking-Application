@@ -11,11 +11,15 @@
           </li>
 
           {% for message in messages %}
-          <div class="card border-info mb-3" style="width: 20cm ;">
+          <p><small>{{message.author.firstname}} {{message.timestamp}}</small></p>
+          <div class="col offset-mb-1">
+          <div class="card border-info mb-3" style="width: 15cm ;">
             <div class="card-body text-info">
-              <p class="card-text">{{message.body}}       {{message.author.firstname}} {{message.timestamp}} </p>
+              <p class="card-text">{{message.body}}</p>
             </div>
           </div>
+          </div>
+          <br>
           {% endfor %}
 
   

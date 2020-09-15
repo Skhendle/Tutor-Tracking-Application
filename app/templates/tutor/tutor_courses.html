@@ -4,7 +4,7 @@
       <!-- configuration for  pc  and tablets -->
 {%block content%}
 {%if not current_user.tutor.enrolled_courses%}
-<h3>You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></h3>
+<h3 style="color: lightgray;">You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></h3>
 {%else%}
 {%for course in current_user.tutor.enrolled_courses%}
 <div class="w3-card-4">

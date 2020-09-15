@@ -22,10 +22,8 @@
     {% for error in form.phone_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
     
     <!-- Default checked -->
-    <p><div class="custom-control custom-switch">
-        {{form.status(class="custom-control-input")}}
-        <label class="custom-control-label" for="customSwitch1">{{form.status.label}}</label>
-    </div></p>
+    <p>{{form.status()}}</p>
+    {% for error in form.status.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
     <p>{{form.submit(class="w3-button w3-blue")}}</p>
 </form>

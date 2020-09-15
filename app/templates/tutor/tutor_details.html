@@ -5,11 +5,18 @@
 
 {%block content%}
 <br>
-<a href="{{url_for('messages.send_message' , recipient=tutor.user.username)}}">Send message</a>
-<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="{{url_for('messages.send_message' , recipient=tutor.user.username)}}">Send message</a>
+        </div>
+</div>
+
+<div class="col-md-10">
     <ul class="w3-ul">
     <li><h1>Tutor information</h1></li>
-    <li><h2>{{tutor.user.firstname}} {{tutor.user.lastname}}</h2><istyle = "text-transform:capitalize;"></i></li>
+    <li><h2>{{tutor.user.firstname}} {{tutor.user.lastname}}</h2><i style = "text-transform:capitalize;"></i></li>
     <li><b>Tutor Status</b> <i class="w3-right" style = "text-transform:capitalize;">
         {%if tutor.status ==  True %} 
         Available 
