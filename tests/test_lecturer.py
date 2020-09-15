@@ -59,4 +59,34 @@ def test_lecturer_profile(flask_app_client):
     request = client.get('/lecturer/profile',follow_redirects=True)
     assert request.status_code == 200   
 
+"Test if registration is working"
+def test_lecturer_registration(flask_app_client):
+    client = flask_app_client
+    request = client.post('/lecturer/registration', data=dict(
+        firstname = 'Steve',
+        lastname = 'James',
+        email = 'steve@wits.ac.za',
+        username = 'steve',
+        employee_number = '100112',
+        password1 = 'I am steve',
+        password2 = 'I am steve', follow_redirected=True))
+    assert request.status_code == 200
+    
+"Check if lecturer can edit profile unsuccessfully (failure)"
+def test_lecturer_profile_edit(flask_app_client):
+    client = flask_app_client
+    request = client.post('lecturer/edit-profile', data= dict(
+        office_number = 'WSS201',
+        telephone_number = '07107107', follow_redirects = True))
+    assert request.status_code == 302    
 
+"Test lecturer registration with missing fields"
+def test_lecturer_registration_failure(flask_app_client):
+    client = flask_app_client
+    request = client.post('/lecturer/registration', data=dict(
+        firstname = 'Steve',
+        lastname = 'James',
+        username = 'steve',
+        employee_number = '100112',
+        password2 = 'I am steved', follow_redirected=True))
+    assert request.status_code == 200
