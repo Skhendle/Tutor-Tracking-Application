@@ -19,6 +19,8 @@ the dashboard after login.
 
 test_tutor_profile: Testing whether a tutor can access the profile settings page.
 
+test_tutor_profile_edit: Testing whether the tutor can edit the profile
+
 test_tutor_application: Testing whether a tutor can access the application page.
 
 """
@@ -64,6 +66,18 @@ def test_tutor_dashboard(flask_app_client):
 def test_tutor_profile(flask_app_client):
     client = flask_app_client
     request = client.get('/tutor/profile',follow_redirects=True)
+    assert request.status_code == 200
+
+def test_tutor_profile_edit(flask_app_client):
+    client = flask_app_client
+    request = client.post('/tutor/registration', data=dict(
+        account_type ='tutor',
+        account_number ='000000',
+        bank_name ='testdummy',
+        branch_code ='45456',
+        phone_number ='000000002',
+        status ='Available',
+        password2='1234'),follow_redirects=True)
     assert request.status_code == 200
 
 def test_tutor_application(flask_app_client):
