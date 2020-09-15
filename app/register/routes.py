@@ -22,25 +22,12 @@ def capture_otp(course_code):
             flash('Student is not enrolled in this course')
             return redirect(url_for('register.capture_otp', course_code=course_code))
         else:
-<<<<<<< HEAD
             reg =  Register(otp=form.otp.data,courses=course, attendance=tutor)    
             db.session.add(reg)
             tutor.otp = random.randint(10000000,50000000)
             db.session.commit()
             flash('The tutor has been captured')
             return redirect(url_for('register.capture_otp' , course_code=course_code))
-=======
-            if tutor.otp == form.otp.data:
-                reg =  Register(otp=form.otp.data,courses=course, attendance=tutor)    
-                db.session.add(reg)
-                tutor.otp = random.randint(10000000,50000000)
-                db.session.commit()
-                flash('The student has been captured')
-                return redirect(url_for('register.capture_otp' , course_code=course_code))
-            else:
-                flash('The student has been captured/One time pin is invalid')
-                return redirect(url_for('register.capture_otp', course_code=course_code))
->>>>>>> 69a7e1582ef8e7e8ed6af47a8ff1e8c38965b5a0
     return render_template('register/capture_otp.html', title='Capture One time pin' , form = form )
 
 @register.route('/attendance/<course_code>')
@@ -53,8 +40,4 @@ def attendance(course_code):
         if attendance_list.has_next else None
     prev_url = url_for('register.attendance',course_code=course_code, page=attendance_list.prev_num) \
         if attendance_list.has_prev else None
-<<<<<<< HEAD
     return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url,page = page)
-=======
-    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url)
->>>>>>> 69a7e1582ef8e7e8ed6af47a8ff1e8c38965b5a0
