@@ -38,15 +38,56 @@ def test_session_creation(flask_app_client):
         day = '12.10.2020',
         key = '300400555',
         number_of_tutors = '6',
-        lecturer = 'steve',
-        course_lecturer = 'steve', follow_redirects = True))
+        follow_redirects = True))
     assert request.status_code != 200
 
 
-""" Use this template for testing routes. routes are the easiest to test for
-
-def test_create_course(flask_app_client):
+"Test if the view session by totor route is working"
+def test_view_my_courses(flask_app_client):
     client = flask_app_client
-    request = client.get('/courses/create-course',follow_redirects=True)
-    assert request.status_code == 200 
-"""
+    request = client.get('courses/my-courses',follow_redirects=True)
+    assert request.status_code == 200
+
+"Test if the view explore by totor route is working"
+def test_view_explore(flask_app_client):
+    client = flask_app_client
+    request = client.get('courses/explore',follow_redirects=True)
+    assert request.status_code == 200
+
+    "Test if the view apply by totor route is working"
+def test_view_apply(flask_app_client):
+    client = flask_app_client
+    request = client.get('courses/apply',follow_redirects=True)
+    assert request.status_code == 200
+
+    "Test if the view show_course_details by totor route is working"
+def test_view_my_courses(flask_app_client):
+    client = flask_app_client
+    request = client.get('courses/<course_code>',follow_redirects=True)
+    assert request.status_code == 200
+
+    "Test if the view enroll by totor route is working"
+def test_enroll(flask_app_client):
+    client = flask_app_client
+    request = client.post('/courses/enroll/<course_code>', data = dict(
+        course_code = 'coms2004',
+        follow_redirects = True))
+    assert request.status_code != 200
+
+    "test edit course details by lecturer"
+def test_edit_profile(flask_app_client):
+    client = flask_app_client
+    request = client.post('/course/<course_code>', data = dict(
+        course_code = 'Coms2004',
+        name = 'Mobile computing',
+        venue = 'MSL004',
+        start_time = '15:00:00',
+        end_time = '16:30:00',
+        day = '02.08.2020',
+        number_of_tutors = '9',
+        key = '38705000', follow_redirects = True))
+    assert request.status_code != 200
+
+
+
+    
