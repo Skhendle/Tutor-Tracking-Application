@@ -41,6 +41,7 @@ def test_student_profile(flask_app_client):
     assert request.status_code == 200   
 
 def test_student_registration(flask_app_client):
+    client = flask_app_client
     request = client.post('/lecturer/registration', data=dict(
         firstname = 'Senza',
         lastname = 'Mamba',
