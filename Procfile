@@ -1,1 +1,1 @@
-web: gunicorn app:tutortracker
+web: flask db upgrade; gunicorn tutortracker:app
