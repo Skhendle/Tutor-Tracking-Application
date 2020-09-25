@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 align="center" style="color: lightgray;"> Notifications </h1>
+    <nav aria-label="...">
+      <ul class="w3-ul">
+          <li class="previous{% if not prev_url %} disabled{% endif %}">
+              <a href="{{ prev_url or '#' }}">
+                  <span aria-hidden="true">&larr;</span>Newer messages
+              </a>
+          </li>
+
+          {% for message in messages %}
+          <p><small>{{message.author.firstname}} {{message.timestamp}}</small></p>
+          <div class="col offset-mb-1">
+          <div class="card border-info mb-3" style="width: 15cm ;">
+            <div class="card-body text-info">
+              <p class="card-text">{{message.body}}</p>
+            </div>
+          </div>
+          </div>
+          <br>
+          {% endfor %}
+
+  
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Older messages<span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    {%with messages = get_flashed_messages()%}
+{%if messages%}
+    {%for message in messages%}
+        <p class="w3-green">{{message}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<form method="POST" novalidate>
+    {{form.csrf_token}}
+    <div class="row justify-content-center">    
+        <div class="form-group col-md-4">
+            <label>{{form.message.label}}</label>
+            {{form.message(class="form-control" ,placeholder="Your message here")}}
+            <div class="text-danger">
+                {% for error in form.message.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="form-group col-md-4">
+            {{form.submit(class="btn btn-primary offset-md-5")}}
+        </div>
+    </div>
+</form>
+{% endblock %}
