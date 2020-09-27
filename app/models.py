@@ -176,7 +176,7 @@ class Message(db.Model):
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     forum_recipt_id = db.Column(db.Integer, db.ForeignKey('forum.forum_id'))
-    body = db.Column(db.String(140))
+    body = db.Column(db.String(30000))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
 
 

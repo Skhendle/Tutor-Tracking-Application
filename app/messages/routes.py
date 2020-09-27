@@ -79,7 +79,7 @@ def forum_messages(course_code):
         flash('Your message has been sent.')
         return redirect(url_for('messages.forum_messages' ,course_code=course_code))
     return render_template('messages/forum_messages.html', title='forum messages', messages=messages.items,
-                           next_url=next_url, prev_url=prev_url , form=form)
+                           next_url=next_url, prev_url=prev_url , form=form, course_code=course_code)
 
 
 
