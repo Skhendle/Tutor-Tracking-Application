@@ -23,9 +23,7 @@ def send_message(recipient):
         flash('Your message has been sent.')
         return redirect(url_for('messages.send_message' ,recipient=user.username))
     return render_template('messages/send_message.html', title='Send Message',
-                           form=form, recipient=recipient)
-
-
+                           form=form, recipient=recipient)      
 
 @messages.route('/notifications')
 @login_required
@@ -54,5 +52,7 @@ def messages():
         if messages.has_prev else None
     return render_template('messages/messages.html', title='messages', messages=messages.items,
                            next_url=next_url, prev_url=prev_url)
+
+    
 
 

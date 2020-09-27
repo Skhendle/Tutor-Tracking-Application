@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+
+{%block content%}
+{%for course in current_user.lecture.course %}
+<div class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+          <h3>Forum for {{course.course_code}}</h3>
+    </header>
+    <div class="w3-container">
+                <p>{{course.name}}</p>
+    </div>
+    <!--Change this URL to point to topic of discussion in a certain course-->
+    <a href="{{url_for('messages.forum_tutors', course_code=course.course_code)}}"><button class="w3-button w3-hover-white w3-block">Tutors for {{course.course_code}} forum</button></a>
+   
+</div>
+<br>
+{%endfor%}
+<!--Make this into create topic page... And make a user add a topic, as well as the message of that topoc-->
+<!--a href="{{url_for('courses.create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a--> 
+{%endblock%}
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}

@@ -25,6 +25,10 @@
     </a>
     </li>
 
+    <li class="nav-item">
+      <a href="{{url_for('messages.forum_courses')}}" class="nav-link">Forum Messages</a>
+      </li>
+
     {% elif current_user.student %}
     <li class="nav-item">
     <a href="{{url_for('student.student_home')}}" class="nav-link">Dashboard</a>

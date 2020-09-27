@@ -8,6 +8,8 @@ from app.courses import courses
 import random
 import string
 
+from app.messages import messages
+
 def randStr(chars = string.ascii_uppercase + string.digits, N=10):
 	return ''.join(random.choice(chars) for _ in range(N))
 
@@ -97,4 +99,8 @@ def edit_course_details(course_code):
         form.key.data = course.key
     return render_template('courses/create_course.html', title = 'Edit course details', form = form)
 
-
+"Forum Implementation"
+@messages.route('/forum_courses')
+@login_required
+def forum_courses():
+    return render_template('messages/forum_courses.html',title='Forum Courses') 

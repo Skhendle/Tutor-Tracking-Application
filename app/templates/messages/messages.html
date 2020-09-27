@@ -10,12 +10,15 @@
               </a>
           </li>
 
+          <!--Include reply option for each message-->
           {% for message in messages %}
           <div class="card border-info mb-3" style="width: 20cm ;">
             <div class="card-body text-info">
-              <p class="card-text">{{message.body}}       {{message.author.firstname}} {{message.timestamp}} </p>
+              <p class="card-text" style="color: black;">{{message.body}} </p>
+              <p class="card-text" > {{message.author.firstname}} {{message.timestamp}} </p>
             </div>
           </div>
+          <a href="{{url_for('messages.send_message' , recipient=message.author.username)}}"><button class="w3-button w3-hover-white w3-block">Send a reply to {{message.author.firstname}}</button></a>
           {% endfor %}
 
   

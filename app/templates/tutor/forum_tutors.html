@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+
+      <!-- configuration for  pc  and tablets -->
+{%block content%}
+<div class="z-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
+    <ul class="w3-ul">
+      <header class="w3-container w3-light-grey">
+            <h3>Tutors in {{course.course_code}} forum</h3>
+      </header>
+        <div class="w3-container" >
+        {%if not course.tutors%}
+            <p>There are currently no tutors for this course. If you are a tutor and you qualify, apply here <a class="w3-text-blue" href="{{url_for('courses.explore')}}">here</a></p>
+        {%else%}
+            {%for tutor in course.tutors%}
+            <li><b>Name and Surname</b> <i class="w3-right" style = "text-transform:capitalize;"> {{tutor.user.firstname}} {{tutor.user.lastname}}</i></li>
+            </li>
+            <ul></ul>
+
+            <li><b>Tutor Availability</b> <i class="w3-right" style = "text-transform:capitalize;">
+                {%if tutor.status ==  True %} 
+                Available 
+                {%else%} 
+                Busy 
+                {%endif%}</i></li>
+
+            <li><b>What can you ask me about in the course: </b> <i class="w3-right" style = "text-transform:capitalize;"> Topics of expertise.</i></li>
+            </li>
+            <ul></ul>
+                <p><a class="w3-button w3-green w3-margin w3-round" href="{{url_for('messages.send_message' , recipient=tutor.user.username)}}" style="width: 30%;">Send Message</a>
+                    <a class="w3-button w3-red w3-margin w3-round" href="{{url_for('messages.messages')}}" style="width: 30%;">View Message</a></p>
+            {%endfor%}
+            {%endif%}
+        </div>
+    </ul>   
+    </div>
+  <br>
+{%endblock%}    
+
+
+{%block footer%}
+{% include "footer.html"%}
+{%endblock%}
+

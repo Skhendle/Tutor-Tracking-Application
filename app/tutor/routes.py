@@ -6,6 +6,7 @@ from app.models import User, Lecture ,Tutor, Student, Course
 from werkzeug.urls import url_parse
 
 from app.tutor import tutor
+from app.messages import messages
 
 
 
@@ -81,3 +82,11 @@ def tutor_details(id_number):
 
 
     
+"Forum Implementation"
+"Forum tutors need to be for a certain course"
+@messages.route('/forum_tutors/<course_code>')
+@login_required
+def forum_tutors(course_code):
+    course = Course.query.filter_by(course_code=course_code).first_or_404()
+    tutors = Tutor.query.all()
+    return render_template('tutor/forum_tutors.html', title='Forum Tutors', course=course, tutors=tutors)

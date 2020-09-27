@@ -25,6 +25,7 @@ class User(db.Model,UserMixin):
     lecture = db.relationship('Lecture', backref='user', uselist=False, lazy=True)
     tutor = db.relationship('Tutor', backref='user', uselist=False, lazy=True)
     student = db.relationship('Student', backref='user', uselist=False, lazy=True)
+    "The message implementations should also be set up for course. Since a course has to have relationships with messaging"
     messages_sent = db.relationship('Message',
                                     foreign_keys='Message.sender_id',
                                     backref='author', lazy='dynamic')
@@ -130,6 +131,7 @@ class Course(db.Model):
     key = db.Column(db.String(120))
     application = db.relationship('Application',backref='courses',lazy=True)
     register = db.relationship('Register',backref='courses',lazy=True)
+    """message = db.relationship('Message',backref='courses',lazy=True)"""
 
     def __repr__(self):
         return f'Course {self.course_code}'
@@ -174,9 +176,10 @@ class Message(db.Model):
     message_id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    "This is when dealing with the list of courses in the forum"
+    "course_forum_id = db.Column(db.String(50), db.ForeignKey('course.course_code'))"
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
-
 
     def __repr__(self):
         return f'Message {self.message_id}'
@@ -190,3 +193,4 @@ class Notification(db.Model):
 
     def get_data(self):
         return json.loads(str(self.payload_json))
+
