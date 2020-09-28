@@ -130,6 +130,7 @@ class Course(db.Model):
     key = db.Column(db.String(120))
     application = db.relationship('Application',backref='courses',lazy=True)
     register = db.relationship('Register',backref='courses',lazy=True)
+    forum = db.relationship('Forum',backref='forum_course', uselist=False ,lazy=True)
 
     def __repr__(self):
         return f'Course {self.course_code}'
@@ -174,9 +175,12 @@ class Message(db.Model):
     message_id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    body = db.Column(db.String(140))
+    forum_recipt_id = db.Column(db.Integer, db.ForeignKey('forum.forum_id'))
+    body = db.Column(db.String(30000))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
-
+    attachment_name = db.Column(db.String(1000))
+    upvote_count = db.Column(db.Integer)
+    downvote_count =  db.Column(db.Integer)
 
     def __repr__(self):
         return f'Message {self.message_id}'
@@ -190,3 +194,11 @@ class Notification(db.Model):
 
     def get_data(self):
         return json.loads(str(self.payload_json))
+
+class Forum(db.Model):
+    forum_id = db.Column(db.Integer, primary_key=True)
+    course = db.Column(db.String(50), db.ForeignKey('course.course_code'))
+    messages_received = db.relationship('Message',
+                                        foreign_keys='Message.forum_recipt_id',
+                                        backref='forum', lazy='dynamic')
+

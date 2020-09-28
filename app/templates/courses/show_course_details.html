@@ -5,13 +5,35 @@
 
 {%block content%}
 
+<div align="center" class="text-danger">
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%for message in messages%}
+    {%if message == 'forum has been successfully created for you course' %}    
+        <p style="color: green;">{{message}}</p>
+    {%else%}
+        {{message}}
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    </div>
+
 <div class="row">
 <div class="col-md-2">
     <div class="list-group">
+        {%if current_user.lecture%}
         <a class="list-group-item list-group-item-action" href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}">Course details</a>
         <a class="list-group-item list-group-item-action" href="{{url_for('register.capture_otp' , course_code = course.course_code)}}">Capture a student</a>
         <a class="list-group-item list-group-item-action" href="{{url_for('register.attendance' , course_code = course.course_code)}}">Attendance List</a>
         <a class="list-group-item list-group-item-action" href="{{url_for('application.view_applications' , course_code=course.course_code)}}">View applications</a>
+        {%endif%}
+        {%if course.forum %}
+        <a class="list-group-item list-group-item-action" href="{{url_for('messages.forum_messages' , course_code=course.course_code)}}">Forum</a>
+        {%endif%}
+        {%if not course.forum and current_user.lecture %}
+        <a class="list-group-item list-group-item-action" href="{{url_for('messages.add_forum' , course_code=course.course_code)}}">Add forum</a>
+        {%endif%}
     </div>
 </div>
 
