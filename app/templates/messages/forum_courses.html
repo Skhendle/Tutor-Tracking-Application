@@ -2,23 +2,29 @@
 
 {%block content%}
 {%if current_user.lecture %}
-    {%for course in current_user.lecture.course %}
-    <div class="w3-card-4">
-        <header class="w3-container w3-light-grey">
-            <h3>Forum for {{course.course_code}}</h3>
-        </header>
-        <div class="w3-container">
-                <p>{{course.name}}</p>
+    {%if current_user.lecture%}
+        {%for course in current_user.lecture.course %}
+        <div class="w3-card-4">
+            <header class="w3-container w3-light-grey">
+                <h3>Forum for {{course.course_code}}</h3>
+            </header>
+            <div class="w3-container">
+                    <p>{{course.name}}</p>
+            </div>
+            <!--Change this URL to point to topic of discussion in a certain course-->
+            <a href="{{url_for('messages.forum_tutors', course_code=course.course_code)}}"><button class="w3-button w3-hover-white w3-block">Tutors for {{course.course_code}} forum</button></a>
         </div>
-        <!--Change this URL to point to topic of discussion in a certain course-->
-        <a href="{{url_for('messages.forum_tutors', course_code=course.course_code)}}"><button class="w3-button w3-hover-white w3-block">Tutors for {{course.course_code}} forum</button></a>
-    </div>
-    <br>
-    {%endfor%}
+        <br>
+    {%else%}    
+        <p>You do not have any courses you are teaching. To add courses you are lecturing click <a class="w3-text-blue"href="{{url_for('courses.my_courses')}}">here</a></p>
+        
+        {%endfor%}
+    {%endif%}
+    
 
 {% elif current_user.tutor %}
     {%if not current_user.tutor.enrolled_courses%}
-        <h3>You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></h3>
+        <p>You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></p>
     {%else%}
         {%for course in current_user.tutor.enrolled_courses%}
         <div class="w3-card-4">
@@ -35,6 +41,25 @@
         <br>
         {%endfor%}
     {%endif%}
+
+{% elif current_user.student %}
+    {%if not current_user.student.enrolled_courses%}
+    <p>You do not have any courses you are enrolled in. To access the forum, please enroll for courses <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></p>
+    {%else%}
+    {%for course in current_user.student.enrolled_courses%}
+        <div class="w3-card-4">
+                <header class="w3-container w3-light-grey">
+                    <h3>{{course.course_code}}</h3>
+                </header>
+            <div class="w3-container">
+                <p>{{course.name}}</p>
+            </div>
+            <a href="{{url_for('messages.forum_tutors', course_code=course.course_code)}}"><button class="w3-button w3-hover-white w3-block">Tutors for {{course.course_code}} forum</button></a>
+        </div>
+        <br>
+    {%endfor%}
+{%endif%}
+
 {%endif%}
 
 
