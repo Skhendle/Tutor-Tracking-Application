@@ -26,14 +26,42 @@
 
             <li><b>What can you ask me about in the course: </b> <i class="w3-right" style = "text-transform:capitalize;"> Topics of expertise.</i></li>
             </li>
-            <ul></ul>
+            <ul>
                 <p><a class="w3-button w3-green w3-margin w3-round" href="{{url_for('messages.send_message' , recipient=tutor.user.username)}}" style="width: 30%;">Send Message</a>
-                    <a class="w3-button w3-red w3-margin w3-round" href="{{url_for('messages.messages')}}" style="width: 30%;">View Message</a></p>
-            {%endfor%}
+                    <a class="w3-button w3-red w3-margin w3-round" href="{{url_for('messages.messages')}}" style="width: 30%;">View Messages</a></p>
+            </ul>
+                {%endfor%}
             {%endif%}
+        
+        <div>
+            <header class="w3-container w3-light-grey">
+                <h3>Lecturers for {{course.course_code}} forum</h3>
+            </header>
         </div>
-    </ul>   
+        <ul class="w3-ul">
+            
+
+            <div class="w3-container" ></div>
+            {% for lecturer in lecturers %}
+                {% if lecturer == course.lecturer%}
+                <li><b>Name and Surname</b> <i class="w3-right" style = "text-transform:capitalize;"> {{lecturer.user.firstname}} {{lecturer.user.lastname}}</i></li>
+                </li>
+
+                <li><b>Latest forum announcement: </b> <i class="w3-right" style = "text-transform:capitalize;"> The assignment deadline will be extended.</i></li>
+                </li>
+            
+                <ul>
+                    <p><a class="w3-button w3-green w3-margin w3-round" href="{{url_for('messages.send_message' , recipient=lecturer.user.username)}}" style="width: 30%;">Send Message</a>
+                        <a class="w3-button w3-red w3-margin w3-round" href="{{url_for('messages.messages')}}" style="width: 30%;">View Messages</a></p>
+                </ul>
+
+            {%endif%}
+            {%endfor%}
+        </ul>
     </div>
+
+    </ul>   
+</div>
   <br>
 {%endblock%}    
 

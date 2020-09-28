@@ -7,6 +7,7 @@ from werkzeug.urls import url_parse
 
 from app.tutor import tutor
 from app.messages import messages
+from app.lecturer import lecturer
 
 
 
@@ -89,4 +90,5 @@ def tutor_details(id_number):
 def forum_tutors(course_code):
     course = Course.query.filter_by(course_code=course_code).first_or_404()
     tutors = Tutor.query.all()
-    return render_template('tutor/forum_tutors.html', title='Forum Tutors', course=course, tutors=tutors)
+    lecturers = Lecture.query.all()
+    return render_template('tutor/forum_tutors.html', title='Forum Tutors', course=course, tutors=tutors, lecturers = lecturers)
