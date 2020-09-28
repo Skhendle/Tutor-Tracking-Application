@@ -178,7 +178,9 @@ class Message(db.Model):
     forum_recipt_id = db.Column(db.Integer, db.ForeignKey('forum.forum_id'))
     body = db.Column(db.String(30000))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
-
+    attachment_name = db.Column(db.String(1000))
+    upvote_count = db.Column(db.Integer)
+    downvote_count =  db.Column(db.Integer)
 
     def __repr__(self):
         return f'Message {self.message_id}'

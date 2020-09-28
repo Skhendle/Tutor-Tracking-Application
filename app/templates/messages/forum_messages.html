@@ -1,7 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center">
+<style>
+    .imgcls {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      width: 100px;
+      height: 100px;
+    }
+    
+    img:hover {
+      box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+</style>
+<div class="row justify-content-center" style="height: 20cm;">
     <div class="col-md-11">
 
         <div class="row">
@@ -16,11 +29,23 @@
         <div class="col">
             {%for message in messages%}
             {%if message.author == current_user%}
-            <div class="row justify-content-end">
+            <div class="row justify-content-end"> 
+                    {{message.upvote_count}}<a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                      </svg></a>
                 <div class="card bg-light mb-3" style="max-width: 70rem;">
                     <div class="card-body">
                       <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
-                      <p class="card-text">{{message.body}}</p>
+                      <p class="card-text">{{message.body}}</p> 
+                      {%if message.attachment_name != None %}
+                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
+                        {%if ".jpg" in message.attachment_name%}
+                        <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
+                        {%else%}
+                        <img class="imgcls" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/x-office-document-icon.png" alt="Document">{{message.attachment_name}}
+                        {%endif%}
+                    </a>
+                      {%endif%}
                     </div>
                 </div>
                 
@@ -29,11 +54,24 @@
             
             {%else%}
             <div class="row justify-content-start">
+                {{message.upvote_count}} <a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                  </svg></a>
             <div class="card text-white bg-primary mb-3" style="max-width: 70rem;">
                 <div class="card-body">
                   <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
-                  <p class="card-text">{{message.body}}</p>
+                  <p class="card-text">{{message.body}} </p>
+                  {%if message.attachment_name != None %}
+                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}" style="color: white;">
+                        {%if ".jpg" in message.attachment_name%}
+                        <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
+                        {%else%}
+                        <img class="imgcls" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/x-office-document-icon.png" alt="Document">{{message.attachment_name}}
+                        {%endif%}
+                    {%endif%}
+                    </a>
                 </div>
+                
             </div>
             </div>
             {%endif%}
@@ -41,9 +79,9 @@
     </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div class="row fixed-bottom justify-content-center">
         <div class="col-md-10">
-            <form class="form-row" method="POST" novalidate>
+            <form class="form-row" method="POST" enctype="multipart/form-data" novalidate>
                 {{form.csrf_token}}
                 <div class="col">
                   <label for="inputPassword2" class="sr-only">Password</label>
@@ -51,6 +89,7 @@
                 </div>
                 <div class="vol">
                     <button type=submit class="btn btn-primary">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    {{form.message_attachment}}
                 </div>
 
               </form>
