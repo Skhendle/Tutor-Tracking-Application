@@ -24,3 +24,9 @@ def test_sending_messages(flask_app_client):
     client = flask_app_client
     request = client.get('/messages/send_message/<recepient>',follow_redirects=True)
     assert request.status_code == 200 
+    
+"Test if message home route is working"     
+def test_home_for_messaging(flask_app_client):
+    client = flask_app_client
+    request = client.get('/',follow_redirects=True)
+    assert request.status_code == 200           
