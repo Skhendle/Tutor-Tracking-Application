@@ -60,11 +60,6 @@ def test_view_apply(flask_app_client):
     request = client.get('courses/apply',follow_redirects=True)
     assert request.status_code == 200
 
-    "Test if the view show_course_details by totor route is working"
-def test_view_my_courses(flask_app_client):
-    client = flask_app_client
-    request = client.get('courses/<course_code>',follow_redirects=True)
-    assert request.status_code == 200
 
     "Test if the view enroll by totor route is working"
 def test_enroll(flask_app_client):
