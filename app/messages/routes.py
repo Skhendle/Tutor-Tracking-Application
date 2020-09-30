@@ -50,6 +50,7 @@ def forum_messages(course_code):
     form = MessageForm()
     forum = Forum.query.filter_by(course=course_code).first_or_404()
     course = Course.query.filter_by(course_code = course_code).first_or_404()
+    ordered_messages = forum.messages_received.order_by(Message.upvote_count.desc())
     if request.method ==  'GET':
         page = request.args.get('page', 1, type=int)
         messages = forum.messages_received.paginate(
@@ -58,7 +59,7 @@ def forum_messages(course_code):
             if messages.has_next else None
         prev_url = url_for('messages.forum_messages',course_code=course_code, page=messages.prev_num) \
             if messages.has_prev else None
-     
+        
     if form.validate_on_submit():
         myfile = request.files['message_attachment']
         if myfile.filename  == '':
@@ -74,7 +75,7 @@ def forum_messages(course_code):
         flash('Your message has been sent.')
         return redirect(url_for('messages.forum_messages' ,course_code=course_code))
     return render_template('messages/forum_messages.html', title='forum messages', messages=messages.items,
-                           next_url=next_url, prev_url=prev_url , form=form, course_code=course_code)
+                           next_url=next_url, prev_url=prev_url , form=form, course_code=course_code, ordered_messages=ordered_messages)
 
 
 @messages.route('/upvote/<int:message_id>/<course_code>')
@@ -95,6 +96,17 @@ def upvote_count(message_id, course_code):
 @login_required
 def message_attachment(filename):
     return send_from_directory(UPLOAD_FOLDER,filename)
+
+
+@messages.route('/<course_code>/highest-upvote')
+@login_required
+def highest_upvote(course_code):
+    forum = Forum.query.filter_by(course=course_code).first_or_404()
+    course = Course.query.filter_by(course_code = course_code).first_or_404()
+    if request.method ==  'GET':
+        messages = forum.messages_received.order_by(Message.upvote_count.desc())
+    return render_template('messages/highest_upvote.html', title='Highest upvote', messages=messages)
+
 
 @messages.route('/')
 @login_required
