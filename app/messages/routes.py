@@ -1,9 +1,9 @@
 from app import db
 from config import basedir
-from flask import render_template, url_for, flash, redirect, request , send_from_directory, current_app
+from flask import render_template, url_for, flash, redirect, request , send_from_directory, current_app , jsonify
 from app.messages.forms import MessageForm
 from flask_login import current_user, login_required
-from app.models import Application,Course, Message, User , Course ,Forum
+from app.models import Application,Course, Message, User , Course ,Forum, Notification
 from werkzeug.utils import secure_filename
 from app.messages import messages
 import os
