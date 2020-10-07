@@ -17,7 +17,7 @@ def index():
 @auth.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit():# pragma: no cover
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
