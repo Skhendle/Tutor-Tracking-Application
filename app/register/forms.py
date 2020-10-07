@@ -8,12 +8,12 @@ class RegisterForm(FlaskForm):
     otp = StringField('One time pin' , validators=[DataRequired()])
     submit = SubmitField('Capture')
 
-    def validate_id_number(self,id_number):
+    def validate_id_number(self,id_number):# pragma: no cover
         tutor =  Tutor.query.filter_by(id_number=id_number.data).first()
         if tutor is None:
              raise ValidationError('This tutor does not exit')
 
-    def validate_otp(self,id_number):
+    def validate_otp(self,id_number):# pragma: no cover
          tutor =  Tutor.query.filter_by(id_number=self.id_number.data).first()
          if tutor is not None:
             if self.otp.data != tutor.otp:
