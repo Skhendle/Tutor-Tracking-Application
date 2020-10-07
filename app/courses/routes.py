@@ -14,8 +14,8 @@ def randStr(chars = string.ascii_uppercase + string.digits, N=10):
 
 @courses.route('/create-course' ,methods = ['GET','POST'])
 @login_required
-def create_course():# pragma: no cover
-    form = CourseCreationForm()
+def create_course():
+    form = CourseCreationForm()# pragma: no cover
     if form.validate_on_submit():# pragma: no cover
         course = Course(course_code=form.course_code.data,name=form.name.data,venue=form.venue.data,start_time=form.start_time.data,end_time=form.end_time.data,\
             day=form.day.data, key=form.key.data, number_of_tutors=form.number_of_tutors.data, lecturer=current_user.lecture)
@@ -34,15 +34,15 @@ def my_courses():
 
 @courses.route('/explore')
 @login_required
-def explore():# pragma: no cover
-    courses = Course.query.all()
-    return render_template('courses/explore.html', title='explore courses', courses=courses)
+def explore():
+    courses = Course.query.all()# pragma: no cover
+    return render_template('courses/explore.html', title='explore courses', courses=courses)# pragma: no cover
 
 @courses.route('/apply')
 @login_required
-def apply():# pragma: no cover
-    courses = Course.query.all()
-    return render_template('courses/apply.html', title='apply for a courses', courses=courses)
+def apply():
+    courses = Course.query.all()# pragma: no cover
+    return render_template('courses/apply.html', title='apply for a courses', courses=courses)# pragma: no cover
 
 @courses.route('/<course_code>')
 @login_required
