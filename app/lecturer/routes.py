@@ -25,10 +25,10 @@ def lecture_profile():
 
 @lecturer.route('/registration', methods=['GET','POST'])
 def lectureRegistration():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated:# pragma: no cover
         return redirect(url_for('auth.index'))
     form = LectureRegForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit():# pragma: no cover
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
         user.set_password(form.password1.data)
         lecture = Lecture(employee_number=form.employee_number.data, user=user)
@@ -43,13 +43,13 @@ def lectureRegistration():
 @login_required
 def edit_lecture():
     form = EditLectureProfileForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit():# pragma: no cover
         current_user.lecture.office_number = form.office_number.data
         current_user.lecture.telephone_number = form.telephone_number.data
         db.session.commit()
         flash('Your changes have been saved successfully.')
         return redirect(url_for('lecturer.lecture_profile'))
-    elif request.method == 'GET':
+    elif request.method == 'GET':# pragma: no cover
         form.office_number.data = current_user.lecture.office_number
         form.telephone_number.data = current_user.lecture.telephone_number
     return render_template('lecturer/edit_lecture.html',title='edit profile', form=form)
