@@ -41,7 +41,7 @@ class User(db.Model,UserMixin):
         self.notifications.filter_by(name=name).delete()# pragma: no cover
         n = Notification(name=name, payload_json=json.dumps(data), user=self)# pragma: no cover
         db.session.add(n)# pragma: no cover
-        return n
+        return n # pragma: no cover
 
 
     def new_messages(self):
