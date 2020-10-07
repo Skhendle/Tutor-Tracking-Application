@@ -67,9 +67,9 @@ def application_response(app_id,response):
     else:# pragma: no cover
         message = Message(body=f'Unfortunatly your application for {application.courses.course_code} did not meet the requirements, try applying for a different course, good luck!',
                             author=current_user , recipient=application.tutors.user)
-    db.session.add(application)
-    db.session.add(message)
-    db.session.commit()
+    db.session.add(application)# pragma: no cover
+    db.session.add(message)# pragma: no cover
+    db.session.commit()# pragma: no cover
 
     return redirect(url_for('application.application_details',app_id=app_id))
 
