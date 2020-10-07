@@ -31,7 +31,7 @@ def notifications():# pragma: no cover
 @messages.route('/add-forum/<course_code>')
 @login_required
 def add_forum(course_code):
-    course = Course.query.filter_by(course_code = course_code).first_or_404()
+    course = Course.query.filter_by(course_code = course_code).first_or_404()# pragma: no cover
     if course.forum:# pragma: no cover
         flash("forum already exits for this course")
         redirect(url_for('courses.show_course_details' , course_code=course_code))
@@ -41,7 +41,7 @@ def add_forum(course_code):
         db.session.commit()
         flash("forum has been successfully created for you course")
         redirect(url_for('courses.show_course_details' , course_code=course_code))
-    return redirect(url_for('courses.show_course_details' , course_code=course_code))
+    return redirect(url_for('courses.show_course_details' , course_code=course_code))# pragma: no cover
 
 
 @messages.route('/<course_code>/forum' , methods=['GET','POST'])
@@ -94,7 +94,7 @@ def upvote_count(message_id, course_code):# pragma: no cover
 @messages.route('/<filename>')
 @login_required
 def message_attachment(filename):
-    return send_from_directory(UPLOAD_FOLDER,filename)
+    return send_from_directory(UPLOAD_FOLDER,filename)# pragma: no cover
 
 @messages.route('/')
 @login_required
