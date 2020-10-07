@@ -15,12 +15,12 @@ from app.lecturer import lecturer
 @lecturer.route('/home')
 @login_required
 def lecture_home():
-    return render_template('lecturer/lecture_home.html')
+    return render_template('lecturer/lecture_home.html')# pragma: no cover
 
 @lecturer.route('/profile')
 @login_required
 def lecture_profile():
-    return render_template('lecturer/lecture_profile.html',title='profile')
+    return render_template('lecturer/lecture_profile.html',title='profile')# pragma: no cover
 
 
 @lecturer.route('/registration', methods=['GET','POST'])
@@ -42,7 +42,7 @@ def lectureRegistration():
 @lecturer.route('/edit-profile', methods=['GET','POST'])
 @login_required
 def edit_lecture():
-    form = EditLectureProfileForm()
+    form = EditLectureProfileForm()# pragma: no cover
     if form.validate_on_submit():# pragma: no cover
         current_user.lecture.office_number = form.office_number.data
         current_user.lecture.telephone_number = form.telephone_number.data
@@ -52,6 +52,6 @@ def edit_lecture():
     elif request.method == 'GET':# pragma: no cover
         form.office_number.data = current_user.lecture.office_number
         form.telephone_number.data = current_user.lecture.telephone_number
-    return render_template('lecturer/edit_lecture.html',title='edit profile', form=form)
+    return render_template('lecturer/edit_lecture.html',title='edit profile', form=form)# pragma: no cover
 
 
