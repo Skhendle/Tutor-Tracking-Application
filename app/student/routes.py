@@ -13,19 +13,19 @@ from app.student import student
 @student.route('/home')
 @login_required
 def student_home():
-    return render_template('student/student_home.html', title = 'Student home')
+    return render_template('student/student_home.html', title = 'Student home')# pragma: no cover
 
 
 @student.route('/profile')
 @login_required
 def student_profile():
-    return render_template('student/student_profile.html',title='profile')
+    return render_template('student/student_profile.html',title='profile')# pragma: no cover
 
 
 @student.route('/registration', methods=['GET','POST'])
 def studentRegistration():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.index'))
+        return redirect(url_for('auth.index'))# pragma: no cover
     form = StudentRegForm()
     if form.validate_on_submit():# pragma: no cover
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
