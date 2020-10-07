@@ -23,11 +23,11 @@ def student_profile():
 
 
 @student.route('/registration', methods=['GET','POST'])
-def studentRegistration():
+def studentRegistration():# pragma: no cover
     if current_user.is_authenticated:
         return redirect(url_for('auth.index'))
     form = StudentRegForm()
-    if form.validate_on_submit():# pragma: no cover
+    if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)
         user.set_password(form.password1.data)
         student = Student(student_number=form.student_number.data,year_of_study=form.year_of_study.data,user=user)
