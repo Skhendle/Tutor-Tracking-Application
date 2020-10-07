@@ -12,13 +12,13 @@ from app.student import student
 
 @student.route('/home')
 @login_required
-def student_home():
+def student_home():# pragma: no cover
     return render_template('student/student_home.html', title = 'Student home')
 
 
 @student.route('/profile')
 @login_required
-def student_profile():
+def student_profile():# pragma: no cover
     return render_template('student/student_profile.html',title='profile')
 
 
