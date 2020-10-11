@@ -78,7 +78,7 @@
 
         <div class="row">
         <div class="col" >
-            <h1 align="center" style="color: lightgray;"> {{course_code}} Forum <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <h1 align="center" style="color: lightgray;"> {{course_code}} Forum {{current_user.last_message_read_time}} <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
               </svg>
               <a onclick="openNav()"><svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -193,50 +193,6 @@
     
   </div>
   
-
-<!----------------------------------------
-          <li class="previous{% if not prev_url %} disabled{% endif %}">
-            <a href="{{ prev_url or '#' }}">
-                <span aria-hidden="true">&larr;</span>Newer messages
-            </a>
-            </li>
-  
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older messages<span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    {%with messages = get_flashed_messages()%}
-{%if messages%}
-    {%for message in messages%}
-        <p class="w3-green">{{message}}</p>
-    {%endfor%}
-{%endif%}
-{%endwith%}
-<form method="POST" novalidate>
-    {{form.csrf_token}}
-    <div class="row justify-content-center">    
-        <div class="form-group col-md-4">
-            <label>{{form.message.label}}</label>
-            {{form.message(class="form-control" ,placeholder="Your message here")}}
-            <div class="text-danger">
-                {% for error in form.message.errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    
-    <div class="row justify-content-center">
-        <div class="form-group col-md-4">
-            {{form.submit(class="btn btn-primary offset-md-5")}}
-        </div>
-    </div>
-</form>
---------------------->
 <script>
     function openNav() {
       document.getElementById("mySidebar").style.width = "250px";
@@ -247,6 +203,18 @@
       document.getElementById("mySidebar").style.width = "0";
       document.getElementById("main").style.marginLeft= "0";
     }
+
+    $(function(){
+        setInterval(function(){
+            $.get("{{url_for('messages.unread_messages' , course=course_code)}}").done(function(response){
+                if(response == "True"){
+                    location.reload();
+                }
+                
+            });
+
+        },10000);
+    });
 </script>
 {% endblock %}
 

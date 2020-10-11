@@ -43,10 +43,22 @@ def add_forum(course_code):
         redirect(url_for('courses.show_course_details' , course_code=course_code))
     return redirect(url_for('courses.show_course_details' , course_code=course_code))
 
+@messages.route('/unread_messages/<course>' , methods=['GET'])
+@login_required
+def unread_messages(course):
+    forum = Forum.query.filter_by(course=course).first_or_404()
+    last_message = forum.messages_received.all()[-1]
+    if last_message.timestamp > current_user.last_message_read_time:
+        return "True"
+    else:
+        return "False"
+
 
 @messages.route('/<course_code>/forum' , methods=['GET','POST'])
 @login_required
 def forum_messages(course_code):
+    current_user.last_message_read_time = datetime.now()
+    db.session.commit()
     form = MessageForm()
     forum = Forum.query.filter_by(course=course_code).first_or_404()
     course = Course.query.filter_by(course_code = course_code).first_or_404()
@@ -71,7 +83,6 @@ def forum_messages(course_code):
             
         db.session.add(msg)
         db.session.commit()
-    
         flash('Your message has been sent.')
         return redirect(url_for('messages.forum_messages' ,course_code=course_code))
     return render_template('messages/forum_messages.html', title='forum messages', messages=messages.items,
