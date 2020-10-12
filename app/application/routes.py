@@ -62,10 +62,10 @@ def application_response(app_id,response):
     application = Application.query.filter_by(applicaton_id=app_id).first_or_404()# pragma: no cover
     application.status = response# pragma: no cover
     if response == 'Accepted':# pragma: no cover
-        message = Message(body=f"Congratulations {application.tutors.user.firstname} Your application had for {application.courses.course_code} has been accepted the lecturer will contact you regarding enrollment details",
+        message = Message(body=f"Congratulations {application.tutors.user.firstname} Your application for {application.courses.course_code} has been accepted. The lecturer will contact you regarding enrollment details",
                             author=current_user , recipient=application.tutors.user)
     else:# pragma: no cover
-        message = Message(body=f'Unfortunatly your application for {application.courses.course_code} did not meet the requirements, try applying for a different course, good luck!',
+        message = Message(body=f'Unfortunatly your application for {application.courses.course_code} did not meet the requirements, try applying for a different course. Good luck!',
                             author=current_user , recipient=application.tutors.user)
     db.session.add(application)# pragma: no cover
     db.session.add(message)# pragma: no cover
