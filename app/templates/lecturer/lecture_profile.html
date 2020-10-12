@@ -3,22 +3,39 @@
 {%include "profile_page.html"%}
 
 {%block content%}
-
-    <div class="w3-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
-        <ul class="w3-ul">
-        <li><h2>Your information</h2></li>
-        <li><b>Name</b> <i class="w3-right" style = "text-transform:capitalize;">{{current_user.firstname}}</i></li>
-        <li><b>Surname</b> <i class="w3-right" style = "text-transform:capitalize;">{{current_user.lastname}}</i></li>
-        <li><b>Email address</b> <i class="w3-right">{{current_user.email}}</i></li>
-        <li><b>Username</b> <i class="w3-right">{{current_user.username}}</i></li>
-        <li><b>Employee number</b> <i class="w3-right">{{current_user.lecture.employee_number}}</i></li>
-        <li><b>Office</b> <i class="w3-right">{{current_user.lecture.office_number}}</i></li>
-        <li><b>Telephone</b> <i class="w3-right">{{current_user.lecture.telephone_number}}</i></li>
-        </ul>
-        <a class="w3-button w3-green w3-margin w3-round" href="{{url_for('lecturer.edit_lecture')}}" style="width: 30%;">Update profile</a>
-
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: solid 3px white; margin-bottom: 2cm; padding-bottom: 1cm; color: white;">
+            <div style="border: solid 3px white; margin-bottom: 1cm; margin-top: 0.5cm;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">User details</h4>
+                <div style="padding-left: 1em;">
+                    <p><b>email</b></p>
+                    <p>{{current_user.email}}</p>
+                </div>
+                
+            </div>
+            <div class="row justify-content-around" style="padding-bottom: 1cm;">
+            
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Other</h4>
+                <p><b>Username</b></p>
+                <p>{{current_user.username}}</p>
+                <p><b>Employee Number</b></p>
+                <p>{{current_user.lecture.employee_number}}</p>
+            </div>
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Miscellaneous</h4>
+                <p><b>Office number</b></p>
+                <p>{{current_user.lecture.office_number}}</p>
+                <p><b>Telephone number</b></p>
+                <p>{{current_user.lecture.telephone_number}}</p>
+            </div>
+            </div>
+            {% if current_user.lecture%}
+                    <a style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; font-family: monospace;" href="{{url_for('lecturer.edit_lecture')}}">Update details</a>
+            {% endif %}
+        </div>
     </div>
-
 {%endblock%}
 
 {%block footer%}

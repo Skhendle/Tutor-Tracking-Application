@@ -2,16 +2,45 @@
 
 
 {%block content%}
+<style>
+    #main {
+        background-image: url('https://images.wallpaperscraft.com/image/book_apple_arms_91313_1280x960.jpg');
+        padding-bottom: 5cm;
+        
+    }
+
+    #fp1 {
+        border-style: solid;
+        border-color: cadetblue;
+        border-width: 1px;
+        background-color: white;
+        margin-left: 15cm;
+        margin-right: 15cm;
+    }
+
+
+    
+</style>
+<div id="main">
+
     <div class="row align-items-center justify-content-center" style="height: 200px;">
         <div class="col-md-2" align="center">
             <img src="static/tutortrackerlogo.png">
         </div>
     </div>
 
-        <p align="center" style="color:cadetblue;"><b>Hey good to see you again!</b></p>
+    
+    <div align="center" class="text-danger" style="color: red; font-family: monospace;">
+        {%with messages = get_flashed_messages()%}
+            {%if messages%}
+                {%for message in messages%}
+                    <p>{{message}}</p>
+                {%endfor%}
+            {%endif%}
+        {%endwith%}
+    </div>
 
-    {%include "flash.html"%}   
-    <form method="POST" novalidate>
+    <form method="POST" novalidate style="font-family: monospace; color: white; margin-top: 2cm;">
         {{form.csrf_token}}
         <div class="row justify-content-center">
             <div class="form-group col-md-4">
@@ -19,7 +48,7 @@
                 {{form.username(class="form-control", placeholder="Enter email")}}
                 <div class="text-danger">
                     {% for error in form.username.errors %}
-                        {{ error }}
+                        <small>{{ error }}</small>
                     {% endfor %}
                 </div>
             </div>
@@ -31,7 +60,7 @@
                 {{form.password(class="form-control" ,placeholder="Enter password")}}
                 <div class="text-danger">
                     {% for error in form.password.errors %}
-                        {{ error }}
+                    <small>{{ error }}</small>
                     {% endfor %}
                 </div>
             </div>
@@ -44,8 +73,8 @@
         </div>
     </form>
 
-    <p class="w3-center">New at TUTOR TRACKER? <a href= "{{url_for('auth.account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
-    <br>
+    <p id="fp1" class="w3-center" style="font-family: monospace;">New at TUTOR TRACKER? <a href= "{{url_for('auth.account_type')}}" class= "w3-text-blue" style="text-decoration:none">Create Account</a></p>
+</div>
 {%endblock%}
 
 {%block footer%}

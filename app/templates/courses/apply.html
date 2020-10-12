@@ -2,32 +2,16 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-
 <style>
-    .btn {
-    width: 100%;
-    margin-bottom: 20px;
-    height: 40px;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    }
-
-    .box {
-        width: 100%;
-        height: 200px;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        background: #f0f2f5;
-        
-    }
-
-</style>
-
+    #div1 {
+        color: white;
+        border-style: solid;
+        border-width: 3px;
+        margin-bottom: 3em;
+        margin-left: 12em;
+        padding-bottom: 2em;
+    }    
+  </style>
 
 {%with messages = get_flashed_messages() %}
 {%if messages%}
@@ -36,25 +20,21 @@
     {%endfor%}
 {%endif%}
 {%endwith%}
+
 {%for course in courses%}
     {% if current_user.tutor not in course.enrolled_tutors%}
-    <div class="box" style="width:100%; text-align:center;">
-        <div class="w3-container">
-            <h3>{{course.course_code}} - {{course.name}} </h3><br><br>
+    <div class="row" style="font-family: monospace;">
+        <div id="div1" class="col-md-4">
+              <header style="padding: 0.5em; font-size: 2em; border-bottom: solid 3px white;">
+                    {{course.course_code}}
+              </header>  
+              <h5 style="padding: 0.5em; font-family: monospace;">{{course.name}}</h5>       
+              <a href="{{url_for('application.application_form' , course_code = course.course_code)}}" style="border: solid 3px white; color: white; padding: 5px; margin-right: 1em; text-decoration: none;">Apply </a>
+              <a href="{{url_for('courses.enroll_in_a_course' , course_code = course.course_code)}}" style="border: solid 3px white; color: white; padding: 5px; text-decoration: none;">Enroll </a>
+              
         </div>
-
-        <table style="width:100%">
-            <td>
-                <button class="btn"><a href="{{url_for('application.application_form' , course_code = course.course_code)}}">apply</a></button>
-            </td>
-            
-            <td>
-                <button class= "btn"><a href="{{url_for('courses.enroll_in_a_course' , course_code = course.course_code)}}">enroll</a></button>
-            </td>
-        </table>
-    </div>
-
-<br>
+        
+  </div>
 {%endif%}
 {%endfor%}
 {%endblock%}

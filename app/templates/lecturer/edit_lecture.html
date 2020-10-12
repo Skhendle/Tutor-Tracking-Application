@@ -3,8 +3,6 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<br>
-<br>
 <div class="w3-center w3-text-green">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -17,15 +15,53 @@
     {% endwith %}
 
 </div>
-<form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" style="width: 50%;" method="POST">
-    {{form.csrf_token}}
-    <p><label class= "w3-left">{{form.office_number.label}}</label>{{form.office_number(class="w3-input w3-border")}}</p>
-    {% for error in form.office_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+<h1 class="mb-5 ml-4" style="font-family: monospace; color: white;">Update Profile</h1>
 
-    <p><label class= "w3-left">{{form.telephone_number.label}}</label>{{form.telephone_number(class="w3-input w3-border")}}</p>
-    {% for error in form.telephone_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    <p>{{form.submit(class="w3-button w3-blue w3-round")}}</p>
-</form>
+<div class="row" style="font-family: monospace; color: white; margin-bottom: 3cm;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form method="POST" novalidate>
+            {{form.csrf_token}}
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label>{{form.office_number.label}}</label>
+                    {{form.office_number(id="office_number" ,class="form-control" , placeholder="Office number")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.office_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3"> 
+                <div class="form-group col-md-6">
+                    <label>{{form.telephone_number.label}}</label>
+                    {{form.telephone_number(id="telephone_number" ,class="form-control", placeholder="Telephone number")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.telephone_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>  
+            </div>
+            <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Update profile</button>
+        </form>
+    </div>
+</div>
+
+
+{% if form.telephone_number.errors %}
+<script>
+    $("#telephone_number").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.office_number.errors %}
+<script>
+    $("#office_number").addClass("is-invalid")
+</script>
+{%endif%}
+
 {%endblock%}
 
 {%block footer%}

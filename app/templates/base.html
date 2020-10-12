@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    body {
+      font-family: monospace;
+      background-image: url('https://images.wallpaperscraft.com/image/minimalism_sky_clouds_sun_mountains_lake_landscape_95458_1280x720.jpg');
+      background-repeat: no-repeat;
+      background-size: 100% 100%; 
+    }
+
+    li:hover:not(.nav-item){
+            background-color: skyblue;
+    }
+
+    a:hover:not(.nav-link){
+        background-color: skyblue;
+    }
+  </style>
 <title>{{title}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/static/tutortrackerlogo.ico"/>
@@ -18,15 +34,14 @@
 <body>
 {%include "navbar.html"%}
 
-<div style = "font-family:Verdana, Geneva, Tahoma, sans-serif,arial;">
+<div id="base">
 {%block content%}
 {%endblock%}
 </div>
 
-<div style = "font-family:Verdana, Geneva, Tahoma, sans-serif;">
-  {%block footer%}
-  {%endblock%}
-</div>
+
+{%block footer%}
+{%endblock%}
 
 {%block scripts%}
 

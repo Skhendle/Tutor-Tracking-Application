@@ -2,16 +2,17 @@
 
 
 {%block content%}
-<h1 class="w3-center">Capture a tutor</h1>
+
+<h1 class="w3-center" style="color: white; font-family: monospace;">Capture a tutor</h1>
     {%include "flash.html"%}
-    <form  method="POST" novalidate>
+    <form  method="POST" style="font-family: monospace; color: white; margin-bottom: 5cm;" novalidate>
         {{form.csrf_token}}
 
-        <div class="row justify-content-center">    
+        <div class="row justify-content-center" >    
             <div class="form-group col-md-4">
                 <label>{{form.id_number.label}}</label>
                 {{form.id_number(class="form-control" ,placeholder="Enter your id number here")}}
-                <div class="text-danger">
+                <div class="invalid-feedback">
                     {% for error in form.id_number.errors %}
                         {{ error }}
                     {% endfor %}
@@ -23,7 +24,7 @@
             <div class="form-group col-md-4">
                 <label>{{form.otp.label}}</label>
                 {{form.otp(class="form-control" ,placeholder="Enter one time pin")}}
-                <div class="text-danger">
+                <div class="invalid-feedback">
                     {% for error in form.otp.errors %}
                         {{ error }}
                     {% endfor %}
@@ -33,8 +34,25 @@
 
            <div class="row justify-content-center">
             <div class="form-group col-md-4">
-                {{form.submit(class="btn btn-primary offset-md-5")}}
+                <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Capture</button>
             </div>
         </div>
     </form>
+
+    {% if form.otp.errors %}
+    <script>
+        $("#otp").addClass("is-invalid")
+    </script>
+    {%endif%}
+    
+    {% if form.id_number.errors %}
+    <script>
+        $("#id_number").addClass("is-invalid")
+    </script>
+    {%endif%}
+    
+{%endblock%}
+
+{%block footer%}
+{%include "footer.html"%}
 {%endblock%}

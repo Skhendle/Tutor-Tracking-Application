@@ -3,20 +3,31 @@
 
       <!-- configuration for  pc  and tablets -->
 {%block content%}
+<style>
+      #div1 {
+          color: white;
+          border-style: solid;
+          border-width: 3px;
+          margin-bottom: 3em;
+          margin-left: 12em;
+          padding-bottom: 2em;
+      }    
+    </style>
 {%if not current_user.student.enrolled_courses%}
 <h3>You do not have any courses you are enrolled in. Visit explore to add courses to your dashboard <a class="w3-text-blue"href="{{url_for('courses.explore')}}">here</a></h3>
 {%else%}
 {%for course in current_user.student.enrolled_courses%}
-<div class="w3-card-4">
-      <header class="w3-container w3-light-grey">
-            <h3>{{course.course_code}}</h3>
-      </header>
-      <div class="w3-container">
-                  <p>{{course.name}}</p>
+<div class="row" style="font-family: monospace;">
+      <div id="div1" class="col-md-4">
+            <header style="padding: 0.5em; font-size: 2em; border-bottom: solid 3px white;">
+                  {{course.course_code}}
+            </header>  
+            <h5 style="padding: 0.5em; font-family: monospace;">{{course.name}}</h5>       
+            <a href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}" style="border: solid 3px white; color: white; padding: 5px; text-decoration: none;">course details</a>
+            
       </div>
-      <a href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">course details</button></a>
-  </div>
-  <br>
+      
+</div>
 {%endfor%}
 {%endif%}
 {%endblock%}

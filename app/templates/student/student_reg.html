@@ -2,40 +2,166 @@
 
 {%block title %}{{title}}{%endblock%}
 {%block content%}
-<h1 class= "w3-center">Create your student account</h1>
+<div class="p-4 mb-5 row" style="background-color:royalblue; font-family: monospace; color: white;">
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+        <h1>TutorTracker</h1>
+    </div>
+    <div class="col-md">
+        <p class="mt-3">Already have an account? <a href= "{{url_for('auth.login')}}" style="color: yellow;">Sign In</a></p>
+    </div>
+</div>
 
-    <form method="POST" class="w3-container w3-auto w3-card  w3-light-grey w3-center" style="width: 50%;" novalidate>
-        {{form.csrf_token}}
-        <p><label class= "w3-left">{{form.firstname.label}}</label>{{form.firstname(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.firstname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+<h1 class="text-center mb-5" style="font-family: monospace;">Create a new account</h1>
 
-        <p><label class= "w3-left">{{form.lastname.label}}</label>{{form.lastname(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.lastname.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form method="POST" novalidate>
+            {{form.csrf_token}}
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label>{{form.firstname.label}}</label>
+                    {{form.firstname(id="firstname" , class="form-control" , placeholder="Your name")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.firstname.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>{{form.lastname.label}}</label>
+                    {{form.lastname(id="lastname" ,class="form-control", placeholder="Your surname")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.lastname.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-4">
+                    <label>{{form.student_number.label}}</label>
+                    {{form.student_number(id="student_number" ,class="form-control", placeholder="Student number here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.student_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>   
+                <div class="form-group col-md-4">
+                    <label>{{form.email.label}}</label>
+                    {{form.email(id="email" ,class="form-control", placeholder="Email here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.email.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>{{form.username.label}}</label>
+                    {{form.username(id="username" ,class="form-control" , placeholder="Username here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.username.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                    <small class="form-text text-muted">
+                        Your username must not contain spaces, special characters, or emoji.
+                    </small>
+                </div>
+            </div> 
+            <div class="form-row mb-3">
+                <div class="form-group col-md-2">
+                    <label>{{form.year_of_study.label}}</label>
+                    {{form.year_of_study(id="year_of_study" ,class="form-control")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.year_of_study.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-10">
+                    <label>{{form.password1.label}}</label>
+                    {{form.password1(id="password1" ,class="form-control" , placeholder="Password here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.password1.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                    <small class="form-text text-muted">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </small>
+                </div>
+            </div>
+            <div class="form-row mb-3"> 
+                <div class="form-group col-md-10">
+                    <label>{{form.password2.label}}</label>
+                    {{form.password2(id="password2" ,class="form-control", placeholder="Repeat your password")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.password2.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>  
+            </div>
+            <button type="submit" class="btn btn-primary">Create account</button>
+        </form>
+    </div>
+</div>
 
-        <p><label class= "w3-left">{{form.student_number.label}}</label>{{form.student_number(class="w3-input w3-border")}}</p>
-        {% for error in form.student_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
 
-        <p><label class= "w3-left">{{form.year_of_study.label}}</label>{{form.year_of_study(class="w3-input w3-border")}}</p>
-        {% for error in form.year_of_study.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+{% if form.firstname.errors %}
+<script>
+    $("#firstname").addClass("is-invalid")
+</script>
+{%endif%}
 
-        <p><label class= "w3-left">{{form.username.label}}</label>{{form.username(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.username.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+{% if form.lastname.errors %}
+<script>
+    $("#lastname").addClass("is-invalid")
+</script>
+{%endif%}
 
-        <p><label class= "w3-left">{{form.email.label}}</label>{{form.email(class="w3-input w3-border",maxlength=120)}}</p>
-        {% for error in form.email.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+{% if form.student_number.errors %}
+<script>
+    $("#student_number").addClass("is-invalid")
+</script>
+{%endif%}
 
-        <p><label class= "w3-left">{{form.password1.label}}</label>{{form.password1(class="w3-input w3-border",maxlength=60)}}</p>
-        {% for error in form.password1.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+{% if form.email.errors %}
+<script>
+    $("#email").addClass("is-invalid")
+</script>
+{%endif%}
 
-        <p><label class= "w3-left">{{form.password2.label}}</label>{{form.password2(class="w3-input w3-border")}}</p>
-        {% for error in form.password2.errors %}<span style="color: red;">{{ error }}</span>{% endfor %}
+{% if form.username.errors %}
+<script>
+    $("#username").addClass("is-invalid")
+</script>
+{%endif%}
 
-        <p>{{form.submit(class="w3-button w3-blue")}}</p>
-    </form>
-    <p class="w3-center">Already have an account ? <a href= "{{url_for('auth.login')}}" class= "w3-text-blue" style="text-decoration:none">Sign In</a></p>
-    <br>
+{% if form.year_of_study.errors %}
+<script>
+    $("#year_of_study").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.password1.errors %}
+<script>
+    $("#password1").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.password2.errors %}
+<script>
+    $("#password2").addClass("is-invalid")
+</script>
+{%endif%}
+
 {%endblock%}
-
 
 {%block footer%}
 {% include "footer.html"%}

@@ -13,7 +13,7 @@ from app.tutor import tutor
 @tutor.route('/home')
 @login_required
 def tutor_home():
-    return render_template('tutor/tutor_home.html')
+    return render_template('tutor/tutor_home.html', title='Home')
 
 
 @tutor.route('/profile')
