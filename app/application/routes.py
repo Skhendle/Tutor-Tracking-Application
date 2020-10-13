@@ -31,7 +31,7 @@ def application_form(course_code):
         db.session.commit()
         return redirect(url_for('courses.apply'))
     return render_template('application/application_form.html', 
-                        title='Application form' , form=form , course_code=course_code)
+                        title='Application form' , form=form , course_code=course_code)# pragma: no cover
 
 @application.route('/my-applications')
 @login_required
