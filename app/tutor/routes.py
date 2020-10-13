@@ -24,7 +24,8 @@ def tutor_profile():
 @tutor.route('/registration', methods=['GET','POST'])
 def tutorRegistration():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.index'))
+        return redirect(url_for('auth.index'))# pragma: no cover
+
     form = TutorRegForm()
     if form.validate_on_submit():# pragma: no cover
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data,username=form.username.data)

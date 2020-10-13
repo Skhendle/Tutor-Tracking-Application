@@ -19,18 +19,18 @@ class LectureRegForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Please use a different username.')# pragma: no cover
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('Please use a different email address.')# pragma: no cover
 
     def validate_employee_number(self, employee_number):
         number = Lecture.query.filter_by(employee_number=employee_number.data).first()
         if number is not None:
-            raise ValidationError('Your employee number is already registered.')
-
+            raise ValidationError('Your employee number is already registered.')# pragma: no cover
+            
 
 class EditLectureProfileForm(FlaskForm):
     office_number = StringField('Office number',validators=[validate_employee_student_number])
