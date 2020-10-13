@@ -3,35 +3,61 @@
 {%include "profile_page.html"%}
 
 {%block content%}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul style="color: limegreen;">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: solid 3px white; margin-bottom: 2cm; padding-bottom: 1cm; color: white;">
+            <div style="border: solid 3px white; margin-bottom: 1cm; margin-top: 0.5cm;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">User details</h4>
+                <div style="padding-left: 1em;">
+                    <p><b>email</b></p>
+                    <p>{{current_user.email}}</p>
+                    <p><b>Status</b></p>
+                    <p>{%if current_user.tutor.status ==  True %} 
+                        Available 
+                        {%else%} 
+                        Busy 
+                        {%endif%}</p>
+                </div>
+                
+            </div>
+            <div class="row justify-content-around" style="padding-bottom: 1cm;">
+            
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Other</h4>
+                <p><b>Username</b></p>
+                <p>{{current_user.username}}</p>
+                <p><b>Identification Number</b></p>
+                <p>{{current_user.tutor.id_number}}</p>
+            </div>
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Miscellaneous</h4>
+                <p><b>Phone number</b></p>
+                <p>{{current_user.tutor.phone_number}}</p>
+                <p><b>Account type</b></p>
+                <p>{{current_user.tutor.account_type}}</p>
+                <p><b>Account Number</b></p>
+                <p>{{current_user.tutor.account_number}}</p>
+                <p><b>Bank name</b></p>
+                <p>{{current_user.tutor.bank_name}}</p>
+                <p><b>Banch code</b></p>
+                <p>{{current_user.tutor.branch_code}}</p>
 
-{% include "flash.html"%}
-
-<h1 align="center" style="color: lightgray;">Your profile</h1>
-<div class="w3-container w3-auto w3-card w3-hover-shadow w3-white w3-round" style="width:70%;">
-    <ul class = "w3-ul">
-    <li><h2>Your information</h2></li>
-    <li><b>My Status</b> <i class="w3-right" style = "text-transform:capitalize;">
-      {%if current_user.tutor.status ==  True %} 
-      Available 
-      {%else%} 
-      Busy 
-      {%endif%}</i></li>
-    <li><b>Name</b> <i class="w3-right" style = "text-transform:capitalize;">{{current_user.firstname}}</i></li>
-    <li><b>Surname</b> <i class="w3-right" style ="text-transform:capitalize;">{{current_user.lastname}}</i></li>
-    <li><b>Email</b> <i class="w3-right">{{current_user.email}}</i></li>
-    <li><b>Username</b> <i class="w3-right">{{current_user.username}}</i></li>
-    <li><b>Student number</b> <i class="w3-right">{{current_user.tutor.student_number}}</i></li>
-    <li><b>Account type</b> <i class="w3-right">{{current_user.tutor.account_type}}</i></li>
-    <li><b>Account number</b> <i class="w3-right">{{current_user.tutor.account_number}}</i></li>
-    <li><b>Bank name</b> <i class="w3-right">{{current_user.tutor.bank_name}}</i></li>
-    <li><b>Branch code</b> <i class="w3-right">{{current_user.tutor.branch_code}}</i></li>
-    <li><b>Phone number</b> <i class="w3-right">{{current_user.tutor.phone_number}}</i></li>
-    <li><b>Year of study</b> <i class="w3-right">{{current_user.tutor.year_of_study}}</i></li>
-    </ul>
-    <a class="w3-button w3-green w3-margin w3-round" href="{{url_for('tutor.edit_tutor')}}" style="width: 30%;">Update profile</a>
-</div>
-
-
+            </div>
+            </div>
+            {% if current_user.tutor%}
+                    <a style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; font-family: monospace;" href="{{url_for('tutor.edit_tutor')}}">Update details</a>
+            {% endif %}
+        </div>
+    </div>
 {%endblock%}
 
 {%block footer%}

@@ -1,16 +1,16 @@
 {%extends "base.html"%}
 
 {%block content%}
-    <h1>Applying for {{course_code}}</h1>
+    <h1 style="margin-left: 3cm; color:white; font-family: monospace;">Applying for {{course_code}}</h1>
 
-    <form method="POST" enctype="multipart/form-data" novalidate>
+    <form method="POST" enctype="multipart/form-data" novalidate style="font-family: monospace; color: white;">
         {{form.csrf_token}}
 
         <div class="row justify-content-center">    
             <div class="form-group col-md-4">
                 <label>{{form.motivation.label}}</label>
-                {{form.motivation(class="form-control" ,placeholder="Enter your motivation")}}
-                <div class="text-danger">
+                {{form.motivation(id="motivation" ,class="form-control" ,placeholder="Enter your motivation")}}
+                <div class="invalid-feedback">
                     {% for error in form.motivation.errors %}
                         {{ error }}
                     {% endfor %}
@@ -21,8 +21,8 @@
         <div class="row justify-content-center">    
             <div class="form-group col-md-4">
                 <label>{{form.academic_record.label}}</label>
-                {{form.academic_record(class="form-control" ,placeholder="academic record")}}
-                <div class="text-danger">
+                {{form.academic_record(id="academic_record", class="form-control" ,placeholder="academic record")}}
+                <div class="invalid-feedback">
                     {% for error in form.academic_record.errors %}
                         {{ error }}
                     {% endfor %}
@@ -32,10 +32,23 @@
 
         <div class="row justify-content-center">
             <div class="form-group col-md-4">
-                {{form.submit(class="btn btn-primary offset-md-5")}}
+                <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Apply</button>
             </div>
         </div>
     </form>
+
+
+{% if form.motivation.errors %}
+<script>
+    $("#motivation").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.academic_record.errors %}
+<script>
+    $("#academic_record").addClass("is-invalid")
+</script>
+{%endif%}
 
 {%endblock%}
 

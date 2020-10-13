@@ -2,6 +2,10 @@
 
 {% block content %}
 <style>
+    #message_attachment{
+      padding-bottom: 5px;
+    }
+
     .imgcls {
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -13,15 +17,85 @@
     img:hover {
       box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
     }
+
+
+    .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: lightgray;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    }
+
+    .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+    color: #f1f1f1;
+    }
+
+    .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    }
+
+    .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    }
+
+    .openbtn:hover {
+    background-color: #444;
+    }
+
+    body{
+      background-image: none;
+ 
+    }
+
+    #main {
+    transition: margin-left .5s;
+    padding: 16px;
+    }
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
 </style>
-<div class="row justify-content-center" style="height: 20cm;">
+<div class="row justify-content-center">
     <div class="col-md-11">
 
         <div class="row">
         <div class="col" >
             <h1 align="center" style="color: lightgray;"> {{course_code}} Forum <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-              </svg></h1>
+              </svg>
+              <a onclick="openNav()"><svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                <circle cx="8" cy="4.5" r="1"/>
+              </svg></a>
+            </h1>
         </div>
         </div>
     
@@ -30,7 +104,7 @@
             {%for message in messages%}
             {%if message.author == current_user%}
             <div class="row justify-content-end"> 
-                    {{message.upvote_count}}<a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    {{message.upvote_count}}<a class="forum" href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                       </svg></a>
                 <div class="card bg-light mb-3" style="max-width: 70rem;">
@@ -38,7 +112,7 @@
                       <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
                       <p class="card-text">{{message.body}}</p> 
                       {%if message.attachment_name != None %}
-                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
                         {%if ".jpg" in message.attachment_name%}
                         <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
                         {%else%}
@@ -54,7 +128,7 @@
             
             {%else%}
             <div class="row justify-content-start">
-                {{message.upvote_count}} <a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                {{message.upvote_count}} <a class="forum" href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                   </svg></a>
             <div class="card text-white bg-primary mb-3" style="max-width: 70rem;">
@@ -62,7 +136,7 @@
                   <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
                   <p class="card-text">{{message.body}} </p>
                   {%if message.attachment_name != None %}
-                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}" style="color: white;">
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}" style="color: white;">
                         {%if ".jpg" in message.attachment_name%}
                         <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
                         {%else%}
@@ -78,67 +152,86 @@
             {%endfor%}
     </div>
         </div>
-
-        <div class="row fixed-bottom justify-content-center">
-        <div class="col-md-10">
-            <form class="form-row" method="POST" enctype="multipart/form-data" novalidate>
-                {{form.csrf_token}}
-                <div class="col">
-                  <label for="inputPassword2" class="sr-only">Password</label>
-                {{form.message(class="form-control" , placeholder="Type a message")}}
-                </div>
-                <div class="vol">
-                    <button type=submit class="btn btn-primary">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                    {{form.message_attachment}}
-                </div>
-
-              </form>
-        </div>
-        </div>
-
     </div>
 </div>
-<!----------------------------------------
-          <li class="previous{% if not prev_url %} disabled{% endif %}">
-            <a href="{{ prev_url or '#' }}">
-                <span aria-hidden="true">&larr;</span>Newer messages
-            </a>
-            </li>
-  
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older messages<span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 
-    {%with messages = get_flashed_messages()%}
-{%if messages%}
-    {%for message in messages%}
-        <p class="w3-green">{{message}}</p>
-    {%endfor%}
-{%endif%}
-{%endwith%}
-<form method="POST" novalidate>
-    {{form.csrf_token}}
-    <div class="row justify-content-center">    
-        <div class="form-group col-md-4">
-            <label>{{form.message.label}}</label>
-            {{form.message(class="form-control" ,placeholder="Your message here")}}
-            <div class="text-danger">
-                {% for error in form.message.errors %}
-                    {{ error }}
-                {% endfor %}
+<div class="row fixed-bottom">
+  <div class="col-md-11">
+      <form method="POST" enctype="multipart/form-data" novalidate>
+          {{form.csrf_token}}
+          <div class="form-row">
+            <div class="form-group ml-5 col-md-6">
+              {{form.message(class="form-control" , placeholder="Type a message")}}
             </div>
-        </div>
-    </div>
+            <div class="form-group col-md-1">
+                <button type=submit class="form-control btn btn-primary">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
+            <div class="form-group col-md-1">
+              {{form.message_attachment(id="message_attachment" ,class="form-control")}}
+            </div>
+          </div>
+          
+
+        </form>
+  </div>
+  </div>
+
+<div id="mySidebar" class="sidebar">
+    <a class="forum" href="javascript:void(0)" onclick="closeNav()">×</a>
+    <h1 style="color: lightgray; text-align: center;">Upvotes</h1>
+{%for message in ordered_messages%}
+            <div class="row justify-content-start"> 
+                <div class="col">
+                    {{message.upvote_count}}<a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                      </svg></a>
+                <div class="card bg-light mb-3" style="max-width: 70rem;">
+                    <div class="card-body">
+                      <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
+                      <p class="card-text">{{message.body}}</p> 
+                      {%if message.attachment_name != None %}
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
+                        {%if ".jpg" in message.attachment_name%}
+                        <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
+                        {%else%}
+                        <img class="imgcls" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/x-office-document-icon.png" alt="Document">{{message.attachment_name}}
+                        {%endif%}
+                    </a>
+                      {%endif%}
+                    </div>
+                </div>
+                </div>
+            </div>
+{%endfor%}
     
-    <div class="row justify-content-center">
-        <div class="form-group col-md-4">
-            {{form.submit(class="btn btn-primary offset-md-5")}}
-        </div>
-    </div>
-</form>
---------------------->
+  </div>
+  
+<script>
+
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+
+    $(function(){
+        setInterval(function(){
+            $.get("{{url_for('messages.unread_messages' , course=course_code)}}").done(function(response){
+                if(response == "True"){
+                    location.reload();
+                }
+                
+            });
+
+        },10000);
+    });
+</script>
 {% endblock %}
+
+{%block footer%}
+    {%include "footer.html"%}
+{%endblock%}

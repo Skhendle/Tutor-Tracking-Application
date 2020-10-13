@@ -13,7 +13,7 @@ from app.tutor import tutor
 @tutor.route('/home')
 @login_required
 def tutor_home():
-    return render_template('tutor/tutor_home.html')# pragma: no cover
+    return render_template('tutor/tutor_home.html', title='Home')
 
 
 @tutor.route('/profile')
@@ -50,7 +50,6 @@ def edit_tutor():
         current_user.tutor.phone_number = form.phone_number.data
         current_user.tutor.status = int(form.status.data)
         db.session.commit()
-        flash('Your changes have been saved successfully.')
         return redirect(url_for('tutor.tutor_profile'))
     elif request.method == 'GET':# pragma: no cover
         form.account_type.data = current_user.tutor.account_type

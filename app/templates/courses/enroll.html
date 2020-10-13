@@ -2,16 +2,16 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<h2 class="w3-center">Enrollement key for {{course_code}}</h2>
+<h2 class="w3-center" style="font-family: monospace; color: white;">Enrollement key for {{course_code}}</h2>
 <br>
-<form method="POST" novalidate>
+<form method="POST" novalidate style="color: white; font-family: monospace;">
     {{form.csrf_token}}
 
     <div class="row justify-content-center">
         <div class="form-group col-md-4">
             <label>{{form.key.label}}</label>
-            {{form.key(class="form-control", placeholder="Enter key")}}
-            <div class="text-danger">
+            {{form.key(id="key", class="form-control", placeholder="Enter key")}}
+            <div class="invalid-feedback">
                 {% for error in form.key.errors %}
                     {{ error }}
                 {% endfor %}
@@ -25,11 +25,17 @@
     
     <div class="row justify-content-center">
         <div class="form-group col-md-4">
-            {{form.submit(class="btn btn-primary offset-md-5")}}
+            <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Enroll</button>
         </div>
     </div>
 
 </form>
+
+{% if form.key.errors %}
+<script>
+    $("#key").addClass("is-invalid")
+</script>
+{%endif%}
 {%endblock%}
 
 {%block footer%}

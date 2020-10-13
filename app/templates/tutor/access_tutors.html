@@ -2,21 +2,32 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
+<style>
+    #div1 {
+        color: white;
+        border-style: solid;
+        border-width: 3px;
+        margin-bottom: 3em;
+        margin-left: 12em;
+        padding-bottom: 2em;
+    }    
+  </style>
 {%for tutor in tutors%}
-<div class="w3-card-4">
-    <header class="w3-container w3-light-grey">
-          <h3>{{tutor.user.firstname}} {{tutor.user.lastname}}</h3>
-    </header>
-    <div class="w3-container">
-        {%if tutor.status == True %}
-                <p>Available</p>
-        {%else%}
-                <p>Busy</p>
-        {%endif%}
+<div class="row" style="font-family: monospace;">
+    <div id="div1" class="col-md-4">
+          <header style="padding: 0.5em; font-size: 2em; border-bottom: solid 3px white;">
+            {{tutor.user.firstname}} {{tutor.user.lastname}}
+          </header>  
+          <h5 style="padding: 0.5em; font-family: monospace;">{%if tutor.status == True %}
+                Available
+             {%else%}
+                    Busy
+             {%endif%}</h5>       
+          <a href="{{url_for('tutor.tutor_details' , id_number=tutor.id_number)}}" style="border: solid 3px white; color: white; padding: 5px; text-decoration: none;">Tutor details</a>
+          
     </div>
-    <a href="{{url_for('tutor.tutor_details' , id_number=tutor.id_number)}}"><button class="w3-button w3-block w3-grey">Tutor details</button></a>
+    
 </div>
-<br>
 {%endfor%}
 {%endblock%}
 

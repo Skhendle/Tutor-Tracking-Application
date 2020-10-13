@@ -2,38 +2,147 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<h1 class="w3-center">Create your course</h1>
-<div>
-    <form class="w3-container w3-auto w3-card w3-hover-shadow w3-light-grey w3-center" style="width: 50%;" method="POST">
-        {{form.csrf_token}}
-        <p><label class="w3-left">{{form.course_code.label}}</label>{{form.course_code(class="w3-input w3-border")}}</p>
-        {% for error in form.course_code.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+<h1 class="text-center mb-5" style="font-family: monospace; color: white;">Create a new account</h1>
 
-        <p><label class="w3-left">{{form.name.label}}</label>{{form.name(class="w3-input w3-border")}}</p>
-        {% for error in form.name.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p><label class="w3-left">{{form.venue.label}}</label>{{form.venue(class="w3-input w3-border")}}</p>
-        {% for error in form.venue.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p><label class="w3-left">{{form.start_time.label}}</label>{{form.start_time(class="w3-input w3-border")}}</p>
-        {% for error in form.start_time.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p><label class="w3-left">{{form.end_time.label}}</label>{{form.end_time(class="w3-input w3-border")}}</p>
-        {% for error in form.end_time.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p><label class="w3-left">{{form.day.label}}</label>{{form.day(class="w3-input w3-border")}}</p>
-        {% for error in form.day.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-
-        <p><label class="w3-left">{{form.number_of_tutors.label}}</label>{{form.number_of_tutors(class="w3-input w3-border")}}</p>
-        {% for error in form.number_of_tutors.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p><label class="w3-left">{{form.key.label}}</label>{{form.key(class="w3-input w3-border")}}</p>
-        {% for error in form.key.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-
-        <p>{{form.submit(class="w3-button w3-green w3-round")}}</p>
-    </form>
+<div class="row" style="font-family: monospace; color: white; margin-bottom: 3cm;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form method="POST" novalidate>
+            {{form.csrf_token}}
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label>{{form.course_code.label}}</label>
+                    {{form.course_code(id="course_code" , class="form-control" , placeholder="Your name")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.course_code.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>{{form.name.label}}</label>
+                    {{form.name(id="name" ,class="form-control", placeholder="Your surname")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.name.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-3">
+                    <label>{{form.venue.label}}</label>
+                    {{form.venue(id="venue" ,class="form-control", placeholder="Employee number here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.venue.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>{{form.day.label}}</label>
+                    {{form.day(id="day" ,class="form-control", placeholder="day")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.day.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>   
+                <div class="form-group col-md-3">
+                    <label>{{form.start_time.label}}</label>
+                    {{form.start_time(id="start_time" ,class="form-control", placeholder="start_time here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.start_time.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>{{form.end_time.label}}</label>
+                    {{form.end_time(id="end_time" ,class="form-control" , placeholder="end_time here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.end_time.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div> 
+            <div class="form-row mb-3">
+                <div class="form-group col-md-2">
+                    <label>{{form.number_of_tutors.label}}</label>
+                    {{form.number_of_tutors(id="number_of_tutors" ,class="form-control" , placeholder="Number of tutors here")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.number_of_tutors.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3"> 
+                <div class="form-group col-md-2">
+                    <label>{{form.key.label}}</label>
+                    {{form.key(id="key" ,class="form-control", placeholder="Enrollment key")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.key.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>  
+            </div>
+            <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Update course</button>
+        </form>
+    </div>
 </div>
+
+
+{% if form.course_code.errors %}
+<script>
+    $("#course_code").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.name.errors %}
+<script>
+    $("#name").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.venue.errors %}
+<script>
+    $("#venue").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.start_time.errors %}
+<script>
+    $("#start_time").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.end_time.errors %}
+<script>
+    $("#end_time").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.day.errors %}
+<script>
+    $("#day").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.key.errors %}
+<script>
+    $("#key").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.number_of_tutors.errors %}
+<script>
+    $("#number_of_tutors").addClass("is-invalid")
+</script>
+{%endif%}
+
 {%endblock%}
 
 {%block footer%}

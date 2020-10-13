@@ -1,31 +1,42 @@
 {%extends "base.html"%}
 
-{%block title%}{{title}}{%endblock%}
+{%include "profile_page.html"%}
 
 {%block content%}
-<p><div class="w3-card-4 w3-left w3-hover-shadow w3-round-xlarge" style="width:25%; height:50;">
-    <img src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/06/blank-profile-picture-973460_1280-1.png" style="width:100%; height:50;">
-    <div class="w3-container">
-      <p>{{current_user.firstname}} {{current_user.lastname}}</p>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: solid 3px white; margin-bottom: 2cm; padding-bottom: 1cm; color: white;">
+            <div style="border: solid 3px white; margin-bottom: 1cm; margin-top: 0.5cm;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">User details</h4>
+                <div style="padding-left: 1em;">
+                    <p><b>email</b></p>
+                    <p>{{current_user.email}}</p>
+                </div>
+                
+            </div>
+            <div class="row justify-content-around" style="padding-bottom: 1cm;">
+            
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Other</h4>
+                <p><b>Username</b></p>
+                <p>{{current_user.username}}</p>
+                <p><b>student Number</b></p>
+                <p>{{current_user.student.student_number}}</p>
+            </div>
+            <div class="col-md-5" style="border: solid 3px white;">
+                <h4 style="color: white; font-family: monospace; padding: 0.5em;">Miscellaneous</h4>
+                <p><b>Phone number</b></p>
+                <p>{{current_user.student.phone_number}}</p>
+                <p><b>Year of study</b></p>
+                <p>{{current_user.student.year_of_study}}</p>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-<div class="w3-container w3-auto w3-card w3-hover-shadow w3-round w3-right" style="width: 70%;" >
-    <ul class = "w3-ul">
-    <li><h2>Your information</h2></li>
-    <li><b>Name</b> <i class="w3-right" style = "text-transform:capitalize;">{{current_user.firstname}}</i></li>
-    <li><b>Surname</b> <i class="w3-right" style ="text-transform:capitalize;">{{current_user.lastname}}</i></li>
-    <li><b>Email</b> <i class="w3-right">{{current_user.email}}</i></li>
-    <li><b>Username</b> <i class="w3-right">{{current_user.username}}</i></li>
-    <li><b>Student number</b> <i class="w3-right">{{current_user.student.student_number}}</i></li>
-    <li><b>Phone number</b> <i class="w3-right">{{current_user.student.phone_number}}</i></li>
-    <li><b>Year of study</b> <i class="w3-right">{{current_user.student.year_of_study}}</i></li>
-    </ul>
-</div></p>
-
-
 {%endblock%}
 
 {%block footer%}
 {% include "footer.html"%}
 {%endblock%}
+
+

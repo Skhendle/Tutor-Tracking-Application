@@ -3,19 +3,35 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
+<style>
+    #div1 {
+        color: white;
+        border-style: solid;
+        border-width: 3px;
+        margin-bottom: 3em;
+        margin-left: 12em;
+        padding-bottom: 2em;
+    }    
+  </style>
+
 {%for course in current_user.lecture.course %}
-<div class="w3-card-4">
-    <header class="w3-container w3-light-grey">
-          <h3>{{course.course_code}}</h3>
-    </header>
-    <div class="w3-container">
-                <p>{{course.name}}</p>
+<div class="row" style="font-family: monospace;">
+    <div id="div1" class="col-md-4">
+          <header style="padding: 0.5em; font-size: 2em; border-bottom: solid 3px white;">
+                {{course.course_code}}
+          </header>  
+          <h5 style="padding: 0.5em; font-family: monospace;">{{course.name}}</h5>       
+          <a href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}" style="border: solid 3px white; color: white; padding: 5px; text-decoration: none;">course details</a>
+          
     </div>
-    <a href="{{url_for('courses.show_course_details' , course_code=course.course_code)}}"><button class="w3-button w3-block w3-grey">Course details</button></a>
+    
 </div>
-<br>
 {%endfor%}
-<a href="{{url_for('courses.create_course')}}"><i class="fa fa-plus fa-5x" style="color:steelblue;"></i> add a course</a> 
+<a href="{{url_for('courses.create_course')}}" style="color: white; font-family: monospace; text-decoration: none; font-size: 30px; border: solid 3px white; margin-left: 25cm; padding-right: 1em;">
+    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>add a course</a> 
+
 {%endblock%}
 
 {%block footer%}

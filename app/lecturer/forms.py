@@ -7,13 +7,13 @@ from app.auth.forms import validate_employee_student_number , validate_phone_num
 
 
 class LectureRegForm(FlaskForm):
-    firstname = StringField('Your Name', validators=[DataRequired()])
-    lastname = StringField('Your Surname', validators=[DataRequired()])
+    firstname = StringField('First name', validators=[DataRequired()])
+    lastname = StringField('Last name', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     employee_number = StringField('Employee Number',validators=[DataRequired(), validate_employee_student_number])
     password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password1',message='Passwords must match')])
+    password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password1',message='Passwords must match')])
     submit = SubmitField('Create account')
 
     def validate_username(self, username):

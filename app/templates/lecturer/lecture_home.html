@@ -1,20 +1,24 @@
 {%extends "base.html"%}
 {%block title%}{{title}}{%endblock%}
-
-      <!-- configuration for  pc  and tablets -->
+      
 {%block content%}
+<style>
+      
+</style>
+<div class="row" style="margin-bottom: 10cm; font-family: monospace;">
+      <div id="col1" class="col-md-4" >
+            <ul style="list-style-type: none;">
+                  <li style="margin-bottom: 3em; border-style: solid; border-width: 3px; border-color: white">
+                        <a style="font-size: 30px; text-decoration: none; color: white;" href="{{url_for('courses.my_courses')}}"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color: white;">
+                              <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                              <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg> My Courses</a></li>
 
-<div class="w3-card-4">
-      <header class="w3-container w3-light-grey">
-            <h3>My Courses</h3>
-      </header>
-      <div class="w3-container">
-                  <p>A list of all the courses that you are lecturing.</p>
+            </ul>
       </div>
-      <a href="{{url_for('courses.my_courses')}}" class="w3-button w3-block w3-flat-carrot">View courses</a>
-</div><br>
+</div>
 
-{%endblock%}  
+{%endblock%}     
 
 {%block footer%}
 {% include "footer.html"%}

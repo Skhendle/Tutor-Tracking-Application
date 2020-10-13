@@ -40,4 +40,4 @@ def attendance(course_code):# pragma: no cover
         if attendance_list.has_next else None
     prev_url = url_for('register.attendance',course_code=course_code, page=attendance_list.prev_num) \
         if attendance_list.has_prev else None
-    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url,page = page)
+    return render_template('register/attendence_list.html',title='Attendance',attendance_list=attendance_list.items, next_url=next_url,prev_url=prev_url,page = page, course=course_code)

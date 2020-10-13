@@ -31,7 +31,7 @@ class TutorRegForm(FlaskForm):
 
 
 class EditTutorProfileForm(FlaskForm):
-    account_type = SelectField('Year of study', choices=[('Tr', 'Transactional'), ('Db', 'Debit'), ('Sv', 'Savings')])
+    account_type = SelectField('Account type', choices=[('Tr', 'Transactional'), ('Db', 'Debit'), ('Sv', 'Savings')])
     account_number = StringField('Account number')
     bank_name = StringField('Bank name')
     branch_code = StringField('Branch code')

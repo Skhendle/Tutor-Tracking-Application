@@ -3,20 +3,60 @@
 {%block title%}{{title}}{%endblock%}     
 
 {%block content%}
-<div class= "w3-container w3-center" style="margin-top: 5%;">
-      <br>
-    <p class="w3-text-grey w3-center">Please specify the account type you are interested in</p>
+<style>
+  #main {
+    background-image: url('https://lh3.googleusercontent.com/5im_2AeuYSXCwdRDMMgzuf-dREKrAsWdc-7asRYY98u_WkI-uxlrDxjCuqqSpSnR9I2M-sHYXM7OmwR-kZKzag=s750');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+  }
 
-    <p>
-      <a class="w3-button w3-flat-carrot" href= "{{url_for('student.studentRegistration')}}" style="width: 30%;">Student</a>
-      <a class="w3-button w3-green w3-margin" href="{{url_for('tutor.tutorRegistration')}}" style="width: 30%;">Tutor</a>
-      <a class="w3-button w3-indigo" href= "{{url_for('lecturer.lectureRegistration')}}" style="width: 30%;">Lecturer</a>
-    </p>
-    <br>
-    <br>
-    <br>
-{%endblock%}
+  h1 {
+    
+    
+    margin-left: 150px;
+    margin-right: 150px;
+    font-family: monospace;
+    
+  }
+</style>
+<div id="main" style="padding-bottom: 10cm; padding-top: 1cm;" >
 
-{%block footer%}
-{% include "footer.html"%}
+<h1 class="text-center mb-5 mt-5" style="color: white;">Please specify the account type you are interested in.</h1>
+
+<div class="row ml-3 mr-3 mb-5" style="margin-bottom: 10cm;">
+  <div class="col-md-4">
+    <div class="card text-white bg-info">
+      <div class="card-body">
+        <h5 class="card-title">Lecturer Account</h5>
+        <p class="card-text">Create your very own courses with our easy to use templates, Set course tutoring time, review tutor application and more. Register now!</p>
+        <a href="{{url_for('lecturer.lectureRegistration')}}" class="btn btn-primary">Lecturer</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="text-white bg-info card">
+      <div class="card-body">
+        <h5 class="card-title">Tutor Account</h5>
+        <p class="card-text">Access loads of courses and apply to be a tutor. Interact with lectures and students, using course forums and more. Create your account now!</p>
+        <a href="{{url_for('tutor.tutorRegistration')}}" class="btn btn-primary">Tutor</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="text-white bg-info card">
+      <div class="card-body">
+        <h5 class="card-title">Student Account</h5>
+        <p class="card-text">Register as a student to get access to loads of courses that are on offer,So that you never get left behind.</p>
+        <a href="{{url_for('student.studentRegistration')}}" class="btn btn-primary">Student</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
 {%endblock%}

@@ -3,32 +3,134 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
-<br>
-<form class="w3-container w3-hover-shadow w3-auto w3-card  w3-light-grey" style="width: 50%;" method="POST">
-    {{form.csrf_token}}
-    <p><label class= "w3-left">{{form.account_type.label}}</label>{{form.account_type(class="w3-input w3-border",maxlength=60)}}</p>
-    {% for error in form.account_type.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    
-    <p><label class= "w3-left">{{form.account_number.label}}</label>{{form.account_number(class="w3-input w3-border",maxlength=60)}}</p>
-    {% for error in form.account_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    
-    <p><label class= "w3-left">{{form.bank_name.label}}</label>{{form.bank_name(class="w3-input w3-border",maxlength=60)}}</p>
-    {% for error in form.bank_name.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    
-    <p><label class= "w3-left">{{form.branch_code.label}}</label>{{form.branch_code(class="w3-input w3-border",maxlength=60)}}</p>
-    {% for error in form.branch_code.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-     
-    <p><label class= "w3-left">{{form.phone_number.label}}</label>{{form.phone_number(class="w3-input w3-border")}}</p>
-    {% for error in form.phone_number.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-    
-    <!-- Default checked -->
-    <p>{{form.status()}}</p>
-    {% for error in form.status.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+<style>
+    ul{
+        list-style-type: none;
+    }
 
-    <p>{{form.submit(class="w3-button w3-blue")}}</p>
-</form>
+    li:hover{
+        background-color: transparent;
+    }
+
+</style>
+<div class="w3-center w3-text-green">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</div>
+<h1 class="mb-5 ml-4" style="font-family: monospace; color: white;">Update Profile</h1>
+
+<div class="row" style="font-family: monospace; color: white; margin-bottom: 3cm;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form method="POST" novalidate>
+            {{form.csrf_token}}
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label>{{form.status.label}}</label>
+                    {{form.status(id="status")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.phone_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    <label>{{form.phone_number.label}}</label>
+                    {{form.phone_number(id="phone_number" ,class="form-control" , placeholder="Phone number")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.phone_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3"> 
+                <div class="form-group col-md-5">
+                    <label>{{form.account_type.label}}</label>
+                    {{form.account_type(id="account_type" ,class="form-control", placeholder="Account number")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.account_type.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-5">
+                    <label>{{form.account_number.label}}</label>
+                    {{form.account_number(id="account_number" ,class="form-control" , placeholder="Account number")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.account_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>  
+            </div>
+            <div class="form-row mb-3"> 
+                <div class="form-group col-md-5">
+                    <label>{{form.bank_name.label}}</label>
+                    {{form.bank_name(id="bank_name" ,class="form-control", placeholder="Bank name")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.bank_name.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="form-group col-md-5">
+                    <label>{{form.branch_code.label}}</label>
+                    {{form.branch_code(id="branch_code" ,class="form-control" , placeholder="Branch code")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.branch_code.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>  
+            </div>
+            <button type="submit" style="border: solid 3px white; padding: 1em; text-decoration: none; color: white; background-color: skyblue;">Update profile</button>
+        </form>
+    </div>
+</div>
+
+
+{% if form.account_type.errors %}
+<script>
+    $("#account_type").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.phone_number.errors %}
+<script>
+    $("#phone_number").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.account_number.errors %}
+<script>
+    $("#account_number").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.bank_name.errors %}
+<script>
+    $("#bank_name").addClass("is-invalid")
+</script>
+{%endif%}
+
+{% if form.branch_code.errors %}
+<script>
+    $("#branch_code").addClass("is-invalid")
+</script>
+{%endif%}
+
 {%endblock%}
-
 
 {%block footer%}
 {% include "footer.html"%}

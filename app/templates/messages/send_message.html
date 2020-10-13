@@ -5,7 +5,7 @@
 {%with messages = get_flashed_messages()%}
 {%if messages%}
     {%for message in messages%}
-        <p class="w3-green">{{message}}</p>
+        <p style="color: lime;">{{message}}</p>
     {%endfor%}
 {%endif%}
 {%endwith%}
