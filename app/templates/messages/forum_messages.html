@@ -2,6 +2,10 @@
 
 {% block content %}
 <style>
+    #message_attachment{
+      padding-bottom: 5px;
+    }
+
     .imgcls {
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -62,6 +66,11 @@
     background-color: #444;
     }
 
+    body{
+      background-image: none;
+ 
+    }
+
     #main {
     transition: margin-left .5s;
     padding: 16px;
@@ -73,12 +82,12 @@
   .sidebar a {font-size: 18px;}
 }
 </style>
-<div class="row justify-content-center" style="height: 50cm;">
+<div class="row justify-content-center">
     <div class="col-md-11">
 
         <div class="row">
         <div class="col" >
-            <h1 align="center" style="color: lightgray;"> {{course_code}} Forum {{current_user.last_message_read_time}} <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <h1 align="center" style="color: lightgray;"> {{course_code}} Forum <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
               </svg>
               <a onclick="openNav()"><svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -143,26 +152,30 @@
             {%endfor%}
     </div>
         </div>
-
-        <div class="row fixed-bottom justify-content-center">
-        <div class="col-md-10">
-            <form class="form-row" method="POST" enctype="multipart/form-data" novalidate>
-                {{form.csrf_token}}
-                <div class="col">
-                  <label for="inputPassword2" class="sr-only">Password</label>
-                {{form.message(class="form-control" , placeholder="Type a message")}}
-                </div>
-                <div class="vol">
-                    <button type=submit class="btn btn-primary">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                    {{form.message_attachment}}
-                </div>
-
-              </form>
-        </div>
-        </div>
-
     </div>
 </div>
+
+<div class="row fixed-bottom">
+  <div class="col-md-11">
+      <form method="POST" enctype="multipart/form-data" novalidate>
+          {{form.csrf_token}}
+          <div class="form-row">
+            <div class="form-group ml-5 col-md-6">
+              {{form.message(class="form-control" , placeholder="Type a message")}}
+            </div>
+            <div class="form-group col-md-1">
+                <button type=submit class="form-control btn btn-primary">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
+            <div class="form-group col-md-1">
+              {{form.message_attachment(id="message_attachment" ,class="form-control")}}
+            </div>
+          </div>
+          
+
+        </form>
+  </div>
+  </div>
+
 <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" onclick="closeNav()">×</a>
     <h1 style="color: lightgray; text-align: center;">Upvotes</h1>
@@ -194,6 +207,7 @@
   </div>
   
 <script>
+
     function openNav() {
       document.getElementById("mySidebar").style.width = "250px";
       document.getElementById("main").style.marginLeft = "250px";

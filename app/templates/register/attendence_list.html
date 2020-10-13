@@ -1,31 +1,42 @@
 {%extends "base.html"%}
 
 {%block content%}
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">ID number</th>
-      <th scope="col">Session {{page}}</th>
-      <th scope="col">Course</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for reg in attendance_list %}
-    <tr>
-      <td>{{ loop.index }}</td>
-      <td>{{ reg.tutor}}</td>
-      <td>{{ reg.session}}</td>
-      <td>{{ reg.course}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% if prev_url %}
-<a href="{{ prev_url }}">prev |</a>
-{% endif %}
-{% if next_url %}
-<a href="{{ next_url }}"> next</a>
-{% endif %}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8"> 
+      <h1 class="text-center" style="font-family: monospace; color: white; margin-bottom: 2em;">
+        Attandance list for {{course}}
+      </h1>
+      <table class="table table-bordered" style="color: white; font-family: monospace;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID number</th>
+            <th scope="col">Session {{page}}</th>
+            <th scope="col">Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reg in attendance_list %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ reg.tutor}}</td>
+            <td>{{ reg.session}}</td>
+            <td>{{ reg.course}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if prev_url %}
+      <a href="{{ prev_url }}">prev |</a>
+      {% endif %}
+      {% if next_url %}
+      <a href="{{ next_url }}"> next</a>
+      {% endif %}
+    </div>
+</div>
+
 
 {%endblock%}
+

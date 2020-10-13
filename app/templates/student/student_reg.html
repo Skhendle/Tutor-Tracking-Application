@@ -2,6 +2,11 @@
 
 {%block title %}{{title}}{%endblock%}
 {%block content%}
+<style>
+    small{
+        color: white;
+    }
+</style>
 <div class="p-4 mb-5 row" style="background-color:royalblue; font-family: monospace; color: white;">
     <div class="col-md-1"></div>
     <div class="col-md-7">
@@ -12,12 +17,12 @@
     </div>
 </div>
 
-<h1 class="text-center mb-5" style="font-family: monospace;">Create a new account</h1>
+<h1 class="text-center mb-5" style="font-family: monospace; color:white">Create a new account</h1>
 
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <form method="POST" novalidate>
+        <form method="POST" novalidate style="font-family:monospace; color: white; margin-bottom: 3em;">
             {{form.csrf_token}}
             <div class="form-row mb-3">
                 <div class="form-group col-md-6">
@@ -66,7 +71,7 @@
                         {{error}}
                         {%endfor%}
                     </div>
-                    <small class="form-text text-muted">
+                    <small class="form-text">
                         Your username must not contain spaces, special characters, or emoji.
                     </small>
                 </div>
@@ -91,7 +96,7 @@
                         {{error}}
                         {%endfor%}
                     </div>
-                    <small class="form-text text-muted">
+                    <small class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                     </small>
                 </div>
