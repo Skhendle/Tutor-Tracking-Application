@@ -36,6 +36,6 @@ def logout():
 
 @auth.route('/account_type')
 def account_type():
-    return render_template('auth/account_type.html',title='account type')
+    return render_template('auth/account_type.html',title='account type')# pragma: no cover
 
 
