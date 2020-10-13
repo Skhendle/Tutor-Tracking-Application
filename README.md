@@ -150,7 +150,7 @@ $ docker login
 
 Next we push our image:
 ```
-$ docker push <username/tutortracker>
+$ docker push tutortracker
 ```
 
 
