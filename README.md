@@ -107,4 +107,9 @@ $ flask run
 ```
 
 
+# Docker
+
+## Install Docker: https://docs.docker.com/get-docker/
+
+Docker is a platform for developers and sysadmins to build, run, and share applications with containers. The use of containers to deploy applications is called containerization. Containers are not new, but their use for easily deploying applications is.
 
