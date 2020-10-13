@@ -128,3 +128,14 @@ The build is run by the Docker daemon, not by the CLI. The first thing a build p
 
     Do not use your root directory, /, as the PATH as it causes the build to transfer the entire contents of your hard drive to the Docker daemon.
 
+'docker ps' is the essential command to list existing docker containers in running state. ps stands for “Process Status”. ps command is used to describe process status is Unix variants of operating systems and docker borrowed the naming convention from there.
+
+List Current Existing docker containers:
+```
+$ docker ps 
+```
+
+
+
+
+
