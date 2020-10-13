@@ -13,7 +13,7 @@ from app.tutor import tutor
 @tutor.route('/home')
 @login_required
 def tutor_home():
-    return render_template('tutor/tutor_home.html', title='Home')
+    return render_template('tutor/tutor_home.html', title='Home')# pragma: no cover
 
 
 @tutor.route('/profile')
