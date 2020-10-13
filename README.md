@@ -148,6 +148,10 @@ We need to login to Docker to be able to push / pull our images:
 $ docker login
 ```
 
+Next we push our image:
+```
+$ docker push <username/tutortracker>
+```
 
 
 
