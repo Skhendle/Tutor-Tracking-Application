@@ -121,3 +121,10 @@ Build the Application:
 ```
 $ docker build -t "tutortracker" 
 ```
+
+The build is run by the Docker daemon, not by the CLI. The first thing a build process does is send the entire context (recursively) to the daemon. In most cases, it’s best to start with an empty directory as context and keep your Dockerfile in that directory. Add only the files needed for building the Dockerfile.
+
+    Warning
+
+    Do not use your root directory, /, as the PATH as it causes the build to transfer the entire contents of your hard drive to the Docker daemon.
+
