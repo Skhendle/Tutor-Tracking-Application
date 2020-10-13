@@ -2,7 +2,8 @@ import pytest
 from flask import url_for
 
 
-"""So far: Testing if the course routes are working
+"""
+So far: Testing if the course routes are working
 create_course - is the course creation process working
 
 """
