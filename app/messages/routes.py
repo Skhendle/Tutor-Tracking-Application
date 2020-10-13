@@ -135,20 +135,20 @@ def highest_upvote(course_code):
 
 @messages.route('/')
 @login_required
-def messages():# pragma: no cover
-    current_user.last_message_read_time = datetime.now()
-    current_user.add_notification('unread_message_count', 0)
-    db.session.add(current_user)
-    db.session.commit()
-    page = request.args.get('page', 1, type=int)
+def messages():
+    current_user.last_message_read_time = datetime.now()# pragma: no cover
+    current_user.add_notification('unread_message_count', 0)# pragma: no cover
+    db.session.add(current_user)# pragma: no cover
+    db.session.commit()# pragma: no cover
+    page = request.args.get('page', 1, type=int)# pragma: no cover
     messages = current_user.messages_received.order_by(
         Message.timestamp.desc()).paginate(
-            page, current_app.config['POSTS_PER_PAGE'], False)
+            page, current_app.config['POSTS_PER_PAGE'], False)# pragma: no cover
     next_url = url_for('messages.messages', page=messages.next_num) \
-        if messages.has_next else None
+        if messages.has_next else None# pragma: no cover
     prev_url = url_for('messages.messages', page=messages.prev_num) \
-        if messages.has_prev else None
+        if messages.has_prev else None# pragma: no cover
     return render_template('messages/messages.html', title='messages', messages=messages.items,
-                           next_url=next_url, prev_url=prev_url)
+                           next_url=next_url, prev_url=prev_url)# pragma: no cover
 
 
