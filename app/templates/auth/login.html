@@ -3,11 +3,17 @@
 
 {%block content%}
 <style>
-    #main {
-        background-image: url('https://images.wallpaperscraft.com/image/book_apple_arms_91313_1280x960.jpg');
-        padding-bottom: 5cm;
+    body {
+        background-image: url('https://www.wits.ac.za/media/wits-university/students/sdlu/study-abroad/images/Wits-University-Great-Hall-1200x500.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
         
     }
+
+    #main{
+        padding-bottom: 5cm;
+    }
+
 
     #fp1 {
         border-style: solid;
@@ -30,11 +36,15 @@
     </div>
 
     
-    <div align="center" class="text-danger" style="color: red; font-family: monospace;">
+    <div align="center" style="color: green; font-family: monospace;">
         {%with messages = get_flashed_messages()%}
             {%if messages%}
                 {%for message in messages%}
-                    <p>{{message}}</p>
+                {%if message == 'Invalid username or password' %}
+                    <span style="color: red; font-family: monospace; background-color: white;">{{message}}</span>
+                {%else%}
+                    <span style="background-color:white;">{{message}}</span>
+                {%endif%}
                 {%endfor%}
             {%endif%}
         {%endwith%}

@@ -15,17 +15,28 @@ UPLOAD_FOLDER = os.path.join(basedir,'app\static\message_attachments')
 @login_required
 def send_message(recipient):
     user = User.query.filter_by(username=recipient).first_or_404()
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=user,
+                      body=form.message.data)
+        db.session.add(msg)
+        db.session.commit()
+        flash('Your message has been sent.')
+        return redirect(url_for('tutor.tutor_details', id_number=user.tutor.id_number))
+    return render_template('messages/send_message.html', title='Send Message',
+                           form=form, recipient=recipient)
 
 @messages.route('/notifications')
 @login_required
 def notifications():
     since = request.args.get('since', 0.0, type=float)
     notifications = current_user.notifications.filter(
-        Notification.timestamp > since).order_by(Notification.timestamp.asc())
+        Notification.timestamp > since).order_by(Notification.timestamp)
     return jsonify([{
         'name': n.name,
         'data': n.get_data(),
-        'timestamp': n.timestamp} for n in notifications])
+        'timestamp': n.timestamp
+    } for n in notifications])
 
 
 @messages.route('/add-forum/<course_code>')
@@ -74,6 +85,9 @@ def forum_messages(course_code):
         
     if form.validate_on_submit():
         myfile = request.files['message_attachment']
+        if form.message.data == '':
+            if myfile.filename =='':
+                return redirect(url_for('messages.forum_messages' ,course_code=course_code))
         if myfile.filename  == '':
             msg = Message(author=current_user,body=form.message.data , forum=forum, upvote_count = 0)
         else:
@@ -122,8 +136,9 @@ def highest_upvote(course_code):
 @messages.route('/')
 @login_required
 def messages():
-    current_user.last_message_read_time = datetime.utcnow()
+    current_user.last_message_read_time = datetime.now()
     current_user.add_notification('unread_message_count', 0)
+    db.session.add(current_user)
     db.session.commit()
     page = request.args.get('page', 1, type=int)
     messages = current_user.messages_received.order_by(

@@ -104,7 +104,7 @@
             {%for message in messages%}
             {%if message.author == current_user%}
             <div class="row justify-content-end"> 
-                    {{message.upvote_count}}<a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    {{message.upvote_count}}<a class="forum" href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                       </svg></a>
                 <div class="card bg-light mb-3" style="max-width: 70rem;">
@@ -112,7 +112,7 @@
                       <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
                       <p class="card-text">{{message.body}}</p> 
                       {%if message.attachment_name != None %}
-                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
                         {%if ".jpg" in message.attachment_name%}
                         <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
                         {%else%}
@@ -128,7 +128,7 @@
             
             {%else%}
             <div class="row justify-content-start">
-                {{message.upvote_count}} <a href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                {{message.upvote_count}} <a class="forum" href="{{url_for('messages.upvote_count' , message_id=message.message_id , course_code = course_code)}}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                   </svg></a>
             <div class="card text-white bg-primary mb-3" style="max-width: 70rem;">
@@ -136,7 +136,7 @@
                   <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
                   <p class="card-text">{{message.body}} </p>
                   {%if message.attachment_name != None %}
-                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}" style="color: white;">
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}" style="color: white;">
                         {%if ".jpg" in message.attachment_name%}
                         <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
                         {%else%}
@@ -177,7 +177,7 @@
   </div>
 
 <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" onclick="closeNav()">×</a>
+    <a class="forum" href="javascript:void(0)" onclick="closeNav()">×</a>
     <h1 style="color: lightgray; text-align: center;">Upvotes</h1>
 {%for message in ordered_messages%}
             <div class="row justify-content-start"> 
@@ -190,7 +190,7 @@
                       <h6 class="card-title" style="color:lightgray;">{{message.author.firstname}} <small>{{message.timestamp}}</small></h6>
                       <p class="card-text">{{message.body}}</p> 
                       {%if message.attachment_name != None %}
-                      <a target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
+                      <a class="forum" target="_blank" href="{{url_for('messages.message_attachment' , filename = message.attachment_name)}}">
                         {%if ".jpg" in message.attachment_name%}
                         <img class="imgcls" src="/static/message_attachments/{{message.attachment_name}}" alt="image"> {{message.attachment_name}}
                         {%else%}

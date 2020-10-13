@@ -3,6 +3,15 @@
 {%include "profile_page.html"%}
 
 {%block content%}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul style="color: limegreen;">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10" style="border: solid 3px white; margin-bottom: 2cm; padding-bottom: 1cm; color: white;">
@@ -11,6 +20,12 @@
                 <div style="padding-left: 1em;">
                     <p><b>email</b></p>
                     <p>{{current_user.email}}</p>
+                    <p><b>Status</b></p>
+                    <p>{%if current_user.tutor.status ==  True %} 
+                        Available 
+                        {%else%} 
+                        Busy 
+                        {%endif%}</p>
                 </div>
                 
             </div>

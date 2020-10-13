@@ -13,7 +13,8 @@
             background-color: skyblue;
     }
 
-    a:hover:not(.nav-link){
+
+    a:hover:not(.nav-link,.forum){
         background-color: skyblue;
     }
   </style>
@@ -44,15 +45,30 @@
 {%block footer%}
 {%endblock%}
 
-{%block scripts%}
-
+{% if current_user.is_authenticated %}
 <script>
-  // ...
   function set_message_count(n) {
       $('#message_count').text(n);
       $('#message_count').css('visibility', n ? 'visible' : 'hidden');
   }
+
+  $(function() {
+      var since = 0;
+      setInterval(function() {
+          $.ajax('{{ url_for("messages.notifications") }}?since=' + since).done(
+              function(notifications) {
+                  for (var i = 0; i < notifications.length; i++) {
+                      if (notifications[i].name == 'unread_message_count')
+                          set_message_count(notifications[i].data);
+                      since = notifications[i].timestamp;
+                  }
+              }
+          );
+      }, 10000);
+  });
+
 </script>
-{%endblock%}
+{% endif %}
+
 </body>
 </html> 

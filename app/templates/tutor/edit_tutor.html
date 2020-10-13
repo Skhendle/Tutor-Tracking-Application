@@ -3,6 +3,16 @@
 {%block title%}{{title}}{%endblock%}
 
 {%block content%}
+<style>
+    ul{
+        list-style-type: none;
+    }
+
+    li:hover{
+        background-color: transparent;
+    }
+
+</style>
 <div class="w3-center w3-text-green">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -24,8 +34,19 @@
             {{form.csrf_token}}
             <div class="form-row mb-3">
                 <div class="form-group col-md-6">
+                    <label>{{form.status.label}}</label>
+                    {{form.status(id="status")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.phone_number.errors%}
+                        {{error}}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
                     <label>{{form.phone_number.label}}</label>
-                    {{form.phone_number(id="phone_number" ,class="form-control" , placeholder="Office number")}}
+                    {{form.phone_number(id="phone_number" ,class="form-control" , placeholder="Phone number")}}
                     <div class="invalid-feedback">
                         {%for error in form.phone_number.errors%}
                         {{error}}
@@ -36,7 +57,7 @@
             <div class="form-row mb-3"> 
                 <div class="form-group col-md-5">
                     <label>{{form.account_type.label}}</label>
-                    {{form.account_type(id="account_type" ,class="form-control", placeholder="Telephone number")}}
+                    {{form.account_type(id="account_type" ,class="form-control", placeholder="Account number")}}
                     <div class="invalid-feedback">
                         {%for error in form.account_type.errors%}
                         {{error}}
@@ -45,7 +66,7 @@
                 </div>
                 <div class="form-group col-md-5">
                     <label>{{form.account_number.label}}</label>
-                    {{form.account_number(id="account_number" ,class="form-control" , placeholder="Office number")}}
+                    {{form.account_number(id="account_number" ,class="form-control" , placeholder="Account number")}}
                     <div class="invalid-feedback">
                         {%for error in form.account_number.errors%}
                         {{error}}
@@ -56,7 +77,7 @@
             <div class="form-row mb-3"> 
                 <div class="form-group col-md-5">
                     <label>{{form.bank_name.label}}</label>
-                    {{form.bank_name(id="bank_name" ,class="form-control", placeholder="Telephone number")}}
+                    {{form.bank_name(id="bank_name" ,class="form-control", placeholder="Bank name")}}
                     <div class="invalid-feedback">
                         {%for error in form.bank_name.errors%}
                         {{error}}
@@ -65,7 +86,7 @@
                 </div>
                 <div class="form-group col-md-5">
                     <label>{{form.branch_code.label}}</label>
-                    {{form.branch_code(id="branch_code" ,class="form-control" , placeholder="Office number")}}
+                    {{form.branch_code(id="branch_code" ,class="form-control" , placeholder="Branch code")}}
                     <div class="invalid-feedback">
                         {%for error in form.branch_code.errors%}
                         {{error}}
