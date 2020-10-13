@@ -113,3 +113,11 @@ $ flask run
 
 Docker is a platform for developers and sysadmins to build, run, and share applications with containers. The use of containers to deploy applications is called containerization. Containers are not new, but their use for easily deploying applications is.
 
+Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession.
+
+In the application file, we have created a Dockerfile
+
+Build the Application:
+```
+$ docker build -t "tutortracker" 
+```
