@@ -1,11 +1,25 @@
+
 {%extends "base.html"%}
 
 {%block title%} {{title}} {%endblock%}
 
 {%block content%}
-<h1 class="w3-center" style="color: darkslategray;">Welcome to TUTOR TRACKER</h1>
 
-<h3 class="w3-container w3-center" style="color: darkslategray;">
+<div class="parallax">
+      <br> <br> <br>
+      <h1 class="w3-center" style="color: white;">Welcome to TUTOR TRACKER</h1>
+      <br>
+      <img   src="/static/tutortrackerlogo.png" width="60" height="60" style = "position: relative;left: 50%;" alt="tutortrackerlogo">
+      
+      <br><br><br>
+    
+    </div>
+
+
+    <br><br>
+
+
+<h3 class="w3-container w3-center" style="color:white;">
       <p>Tutor Tracker is a website dedicated to helping tutors and lecturers work together in harmony.
       Through our platform, we aim to provide you with analysis tools that will help you as a tutor get ahead in extending a helping hand.
       As a lecturer, we aim to provide you with the best tool to get the most productivity out of tutorial sessions you host. </p>
@@ -14,6 +28,67 @@
 
 {%block footer%}
 {% include "footer.html"%}
+
+<style>
+
+      body {
+  
+            background-color: #eee;    
+      }
+      .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+      }
+      
+      .active, .accordion:hover {
+        background-color: #ccc;
+      }
+      
+      .accordion:after {
+        content: '\002B';
+        color: white;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+      }
+      
+      .active:after {
+        content: "\2212";
+      }
+      
+      .panel {
+        padding: 0 18px;
+        background-color: lightgrey;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+      }
+      </style>
+  
+  <style>
+      .parallax {
+        /* The image used */
+        background-image: url("/static/unnamed.jpg");
+      
+        /* Set a specific height */
+        height: 250px;
+      
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
+
 {%endblock%}
 
 
